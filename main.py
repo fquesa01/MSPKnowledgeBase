@@ -674,6 +674,97 @@ async def analyze_pleading(
         issues=analyzed_issues
     )
 
+@app.post("/api/analyze-pleading-upload", response_model=PleadingAnalysisResponse)
+async def analyze_pleading_upload(
+    file: UploadFile = File(...),
+    token: str = Depends(oauth2_scheme),
+    db: AsyncSession = Depends(get_db)
+):
+    """Analyze an uploaded pleading document temporarily (not saved to knowledge base)."""
+    await get_current_user(token)
+    
+    # Validate file type
+    allowed_extensions = {'.pdf', '.docx', '.doc', '.xlsx', '.xls', '.pptx', '.ppt'}
+    file_ext = os.path.splitext(file.filename)[1].lower()
+    if file_ext not in allowed_extensions:
+        raise HTTPException(status_code=400, detail="Unsupported file type")
+    
+    # Read file content
+    content = await file.read()
+    
+    # Extract text from the uploaded file
+    from document_processor import extract_text_from_file
+    try:
+        pleading_text = extract_text_from_file(content, file.filename)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Could not extract text from file: {str(e)}")
+    
+    if not pleading_text or len(pleading_text.strip()) < 100:
+        raise HTTPException(status_code=400, detail="Could not extract sufficient text from document")
+    
+    # Extract legal issues from pleading
+    issues_data = await extract_legal_issues(pleading_text, file.filename)
+    
+    # Load all documents from knowledge base for evidence search
+    result = await db.execute(select(Document).where(Document.status == "ready"))
+    all_docs = result.scalars().all()
+    
+    from document_processor import create_node_mapping
+    indexes = []
+    all_nodes = {}
+    for doc in all_docs:
+        if doc.index_path and os.path.exists(doc.index_path):
+            with open(doc.index_path) as f:
+                tree = json.load(f)
+                tree["_doc_id"] = doc.id
+                tree["_doc_name"] = doc.original_filename
+                indexes.append(tree)
+                
+                nodes = create_node_mapping(tree)
+                for node_id, node in nodes.items():
+                    all_nodes[f"{doc.id}:{node_id}"] = {
+                        **node,
+                        "_doc_name": doc.original_filename
+                    }
+    
+    # Analyze each issue
+    analyzed_issues = []
+    for issue in issues_data.get("issues", []):
+        evidence = await find_evidence_for_issue(issue, indexes, all_nodes)
+        
+        supporting = [
+            EvidenceItem(
+                doc_id=e.get("doc_id", 0),
+                doc_name=e.get("doc_name", "Unknown"),
+                excerpt=e.get("excerpt", ""),
+                page_numbers=e.get("page_numbers", []),
+                stance="supporting",
+                reasoning=e.get("reasoning", "")
+            ) for e in evidence.get("supporting", [])
+        ]
+        
+        contradicting = [
+            EvidenceItem(
+                doc_id=e.get("doc_id", 0),
+                doc_name=e.get("doc_name", "Unknown"),
+                excerpt=e.get("excerpt", ""),
+                page_numbers=e.get("page_numbers", []),
+                stance="contradicting",
+                reasoning=e.get("reasoning", "")
+            ) for e in evidence.get("contradicting", [])
+        ]
+        
+        analyzed_issues.append(IssueAnalysis(
+            issue=PleadingIssue(**issue),
+            supporting_evidence=supporting,
+            contradicting_evidence=contradicting
+        ))
+    
+    return PleadingAnalysisResponse(
+        pleading_summary=issues_data.get("pleading_summary", ""),
+        issues=analyzed_issues
+    )
+
 # ============ CHAT/SEARCH ROUTES ============
 
 @app.post("/api/chat", response_model=ChatResponse)

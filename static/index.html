@@ -166,14 +166,37 @@
                     <!-- Analyze Pleading Tab Content -->
                     <div id="analyzePleadingContent" class="flex-1 flex flex-col overflow-hidden hidden">
                         <div class="p-4 border-b dark:border-gray-700">
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Select a court pleading to analyze. The system will extract legal issues and find supporting or contradicting evidence from your knowledge base.</p>
-                            <div class="flex flex-col sm:flex-row gap-2">
-                                <select id="pleadingSelect" class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
-                                    <option value="">-- Select a document to analyze --</option>
-                                </select>
-                                <button onclick="analyzePleading()" id="analyzeBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50 whitespace-nowrap flex-shrink-0">
-                                    Analyze
-                                </button>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Upload a pleading or select one from your knowledge base. The system will extract legal issues and find supporting or contradicting evidence.</p>
+                            
+                            <!-- Upload new pleading option -->
+                            <div class="mb-3">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Upload pleading (temporary - not saved to knowledge base)</label>
+                                <div class="flex flex-col sm:flex-row gap-2">
+                                    <input type="file" id="pleadingFileInput" accept=".pdf,.docx,.doc,.xlsx,.xls,.pptx,.ppt" class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white text-sm file:mr-2 file:py-1 file:px-3 file:border-0 file:rounded file:bg-purple-100 file:text-purple-700 dark:file:bg-purple-900 dark:file:text-purple-300">
+                                    <button onclick="analyzeUploadedPleading()" id="analyzeUploadBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50 whitespace-nowrap flex-shrink-0">
+                                        Analyze Upload
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Divider -->
+                            <div class="flex items-center my-3">
+                                <div class="flex-1 border-t dark:border-gray-600"></div>
+                                <span class="px-3 text-sm text-gray-500 dark:text-gray-400">OR</span>
+                                <div class="flex-1 border-t dark:border-gray-600"></div>
+                            </div>
+                            
+                            <!-- Select from knowledge base -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select from knowledge base</label>
+                                <div class="flex flex-col sm:flex-row gap-2">
+                                    <select id="pleadingSelect" class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                                        <option value="">-- Select a document to analyze --</option>
+                                    </select>
+                                    <button onclick="analyzePleading()" id="analyzeBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50 whitespace-nowrap flex-shrink-0">
+                                        Analyze
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         
@@ -727,6 +750,57 @@
             } finally {
                 btn.disabled = false;
                 btn.textContent = 'Analyze';
+            }
+        }
+        
+        async function analyzeUploadedPleading() {
+            const fileInput = document.getElementById('pleadingFileInput');
+            if (!fileInput.files || !fileInput.files[0]) {
+                alert('Please select a file to upload and analyze');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const btn = document.getElementById('analyzeUploadBtn');
+            const results = document.getElementById('analysisResults');
+            btn.disabled = true;
+            btn.textContent = 'Analyzing...';
+            results.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                    <p class="text-gray-600 dark:text-gray-400">Uploading and analyzing "${file.name}"...</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">This document will not be saved to your knowledge base.</p>
+                </div>
+            `;
+            
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                const res = await fetch(`${API_BASE}/api/analyze-pleading-upload`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+                
+                if (!res.ok) {
+                    const errorData = await res.json().catch(() => ({ detail: 'Analysis failed' }));
+                    throw new Error(errorData.detail || 'Analysis failed');
+                }
+                
+                const data = await res.json();
+                renderAnalysisResults(data);
+                fileInput.value = '';
+            } catch (err) {
+                results.innerHTML = `
+                    <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                        <h4 class="font-medium text-red-800 dark:text-red-300">Analysis Error</h4>
+                        <p class="text-red-700 dark:text-red-400 mt-1">${err.message}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Try a different file or check the file format.</p>
+                    </div>`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Analyze Upload';
             }
         }
         

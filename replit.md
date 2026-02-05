@@ -37,7 +37,7 @@ A FastAPI-based document management system that allows users to upload documents
 4. **Document Processing**: Extracts text from PDF, Word, Excel, PowerPoint files
 5. **AI-Powered Search**: Uses OpenAI to answer questions about document content
 6. **Visual Source Citations**: Shows clickable page image thumbnails from source documents in Q&A responses (for PDFs and PowerPoints)
-7. **Pleading Analysis**: Analyze court pleadings to extract legal issues and find supporting/contradicting evidence from the knowledge base. Includes robust error handling and evidence validation.
+7. **Pleading Analysis**: Analyze court pleadings to extract legal issues and find supporting/contradicting evidence from the knowledge base. Supports both uploading temporary pleadings (not saved) or selecting from existing documents. Includes robust error handling and evidence validation.
 
 ## Environment Variables
 - `DATABASE_URL` - PostgreSQL connection string
