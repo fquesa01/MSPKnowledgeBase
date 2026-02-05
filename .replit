@@ -7,7 +7,8 @@ channel = "stable-25_05"
 packages = ["cargo", "freetype", "gumbo", "harfbuzz", "jbig2dec", "lcms2", "libiconv", "libimagequant", "libjpeg", "libjpeg_turbo", "libtiff", "libwebp", "libxcrypt", "libyaml", "mupdf", "openjpeg", "postgresql", "rustc", "swig", "tcl", "tk", "xcbuild", "zlib"]
 
 [deployment]
-run = ["sh", "-c", "pip install -r requirements.txt && python main.py"]
+run = ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
+deploymentTarget = "autoscale"
 
 [[ports]]
 localPort = 5000
