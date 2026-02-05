@@ -1,13 +1,12 @@
 """
-Document processing using PageIndex library.
-Properly integrates PageIndex for robust tree-based indexing.
+Document processing with tree-based indexing.
+Self-contained version using OpenAI directly (no external pageindex dependency).
+Optimized for large document collections (4000+).
 """
 import os
-import sys
 import json
 import asyncio
-import tempfile
-from typing import Optional, Dict, Any
+from typing import Dict, Any, List, Optional
 from pathlib import Path
 
 # Document extraction libraries
@@ -15,39 +14,26 @@ import fitz  # PyMuPDF
 from docx import Document as DocxDocument
 from openpyxl import load_workbook
 from pptx import Presentation
-
-# Add pageindex to path
-PAGEINDEX_PATH = Path(__file__).parent.parent / "pageindex-core"
-sys.path.insert(0, str(PAGEINDEX_PATH))
-
-from pageindex import page_index_main, md_to_tree
-from pageindex.utils import config, ConfigLoader
+import openai
 
 from config import get_settings
 
 settings = get_settings()
 
-# Set the API key for PageIndex (it uses CHATGPT_API_KEY env var)
-os.environ["CHATGPT_API_KEY"] = settings.openai_api_key
-
-
-def get_pageindex_config() -> config:
-    """Get PageIndex configuration optimized for our use case."""
-    return config(
-        model=settings.openai_model,
-        toc_check_page_num=20,
-        max_page_num_each_node=10,
-        max_token_num_each_node=20000,
-        if_add_node_id="yes",
-        if_add_node_summary="yes",
-        if_add_doc_description="yes",
-        if_add_node_text="yes"  # We need text for retrieval
-    )
-
 
 # ============ TEXT EXTRACTION ============
 
-def extract_text_from_docx(file_path: str) -> str:
+def extract_text_from_pdf(file_path: str) -> tuple[str, int]:
+    """Extract text from PDF, return (text, page_count)."""
+    doc = fitz.open(file_path)
+    pages = []
+    for page in doc:
+        pages.append(page.get_text())
+    doc.close()
+    return "\n\n---PAGE BREAK---\n\n".join(pages), len(pages)
+
+
+def extract_text_from_docx(file_path: str) -> tuple[str, int]:
     """Extract text from Word document as markdown-style text."""
     doc = DocxDocument(file_path)
     lines = []
@@ -56,8 +42,6 @@ def extract_text_from_docx(file_path: str) -> str:
         text = para.text.strip()
         if not text:
             continue
-            
-        # Try to detect headings by style
         style = para.style.name.lower() if para.style else ""
         if "heading 1" in style:
             lines.append(f"# {text}")
@@ -71,182 +55,204 @@ def extract_text_from_docx(file_path: str) -> str:
             lines.append(text)
         lines.append("")
     
-    return "\n".join(lines)
+    return "\n".join(lines), len(doc.paragraphs) // 20 + 1  # Estimate pages
 
 
-def extract_text_from_xlsx(file_path: str) -> str:
+def extract_text_from_xlsx(file_path: str) -> tuple[str, int]:
     """Extract text from Excel spreadsheet as markdown."""
     wb = load_workbook(file_path, data_only=True)
     lines = []
     
     for sheet_name in wb.sheetnames:
         ws = wb[sheet_name]
-        lines.append(f"# Sheet: {sheet_name}")
-        lines.append("")
-        
-        # Get all rows with data
+        lines.append(f"# Sheet: {sheet_name}\n")
         rows = list(ws.iter_rows(values_only=True))
-        if not rows:
-            continue
-            
-        # First row as header
-        header = rows[0] if rows else []
-        
         for i, row in enumerate(rows):
             row_values = [str(cell) if cell is not None else "" for cell in row]
             if any(v.strip() for v in row_values):
                 if i == 0:
-                    # Format as header
                     lines.append("| " + " | ".join(row_values) + " |")
                     lines.append("|" + "|".join(["---"] * len(row_values)) + "|")
                 else:
                     lines.append("| " + " | ".join(row_values) + " |")
-        
         lines.append("")
     
-    return "\n".join(lines)
+    return "\n".join(lines), len(wb.sheetnames)
 
 
-def extract_text_from_pptx(file_path: str) -> str:
+def extract_text_from_pptx(file_path: str) -> tuple[str, int]:
     """Extract text from PowerPoint as markdown."""
     prs = Presentation(file_path)
     lines = []
     
     for i, slide in enumerate(prs.slides, 1):
-        lines.append(f"# Slide {i}")
-        lines.append("")
-        
+        lines.append(f"# Slide {i}\n")
         for shape in slide.shapes:
             if hasattr(shape, "text") and shape.text.strip():
-                # Check if it's a title
-                if hasattr(shape, "is_placeholder") and shape.is_placeholder:
-                    if shape.placeholder_format.type == 1:  # Title
-                        lines.append(f"## {shape.text.strip()}")
-                    else:
-                        lines.append(shape.text.strip())
-                else:
-                    lines.append(shape.text.strip())
+                lines.append(shape.text.strip())
                 lines.append("")
-        
         lines.append("")
     
-    return "\n".join(lines)
+    return "\n".join(lines), len(prs.slides)
 
 
-# ============ PAGEINDEX INTEGRATION ============
+def extract_text(file_path: str, file_type: str) -> tuple[str, int]:
+    """Extract text from document based on type. Returns (text, page_count)."""
+    extractors = {
+        "pdf": extract_text_from_pdf,
+        "docx": extract_text_from_docx,
+        "xlsx": extract_text_from_xlsx,
+        "pptx": extract_text_from_pptx,
+    }
+    extractor = extractors.get(file_type)
+    if not extractor:
+        raise ValueError(f"Unsupported file type: {file_type}")
+    return extractor(file_path)
 
-def process_pdf_document(file_path: str, filename: str) -> Dict[str, Any]:
+
+# ============ TREE INDEXING ============
+
+async def generate_tree_structure(
+    text: str, 
+    filename: str, 
+    page_count: int
+) -> Dict[str, Any]:
     """
-    Process PDF using PageIndex's native page_index_main.
-    Returns the full tree structure with summaries.
+    Generate a hierarchical tree structure from document text.
+    Uses OpenAI to analyze structure and create summaries.
     """
-    opt = get_pageindex_config()
+    client = openai.AsyncOpenAI(api_key=settings.openai_api_key)
     
-    print(f"Processing PDF with PageIndex: {filename}")
-    result = page_index_main(file_path, opt)
+    # Truncate text if too long (keep first 100k chars for structure analysis)
+    analysis_text = text[:100000] if len(text) > 100000 else text
     
-    # Add metadata
-    result["_source_file"] = filename
-    result["_file_type"] = "pdf"
-    
-    return result
+    prompt = f"""Analyze this document and create a hierarchical tree structure.
 
+Document: {filename}
+Approximate pages: {page_count}
 
-async def process_markdown_document(text: str, filename: str) -> Dict[str, Any]:
-    """
-    Process markdown/text content using PageIndex's md_to_tree.
-    Used for Word, Excel, PowerPoint after text extraction.
-    """
-    opt = get_pageindex_config()
-    
-    # Write to temp file (md_to_tree expects a file path)
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as f:
-        f.write(text)
-        temp_path = f.name
-    
+For each section, provide:
+- node_id: Unique identifier (format: "0001", "0002", etc.)
+- title: Section title or topic
+- summary: 2-3 sentence summary of the section content
+- text: Key content from that section (up to 500 words)
+
+Return a JSON structure:
+{{
+    "doc_name": "{filename}",
+    "doc_description": "One paragraph describing what this document is about",
+    "structure": [
+        {{
+            "node_id": "0001",
+            "title": "Section Title",
+            "summary": "Brief summary...",
+            "text": "Key content...",
+            "nodes": [
+                // Nested subsections if applicable
+            ]
+        }}
+    ]
+}}
+
+Document content:
+{analysis_text}
+
+Return ONLY valid JSON, no markdown formatting or explanation."""
+
     try:
-        print(f"Processing document with PageIndex md_to_tree: {filename}")
-        result = await md_to_tree(
-            md_path=temp_path,
-            if_thinning=False,
-            min_token_threshold=5000,
-            if_add_node_summary=opt.if_add_node_summary == "yes",
-            summary_token_threshold=200,
-            model=opt.model,
-            if_add_doc_description=opt.if_add_doc_description == "yes",
-            if_add_node_text=opt.if_add_node_text == "yes",
-            if_add_node_id=opt.if_add_node_id == "yes"
+        response = await client.chat.completions.create(
+            model=settings.openai_model,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0,
+            response_format={"type": "json_object"}
         )
         
-        # Wrap in standard structure
-        tree = {
+        result = json.loads(response.choices[0].message.content)
+        
+        # Ensure required fields exist
+        if "structure" not in result:
+            result["structure"] = []
+        if "doc_name" not in result:
+            result["doc_name"] = filename
+            
+        return result
+        
+    except Exception as e:
+        # Fallback: create minimal structure
+        print(f"Error generating tree structure: {e}")
+        return {
             "doc_name": filename,
-            "_source_file": filename,
-            "_file_type": "markdown",
-            "structure": result if isinstance(result, list) else [result]
+            "doc_description": f"Document: {filename}",
+            "structure": [{
+                "node_id": "0001",
+                "title": filename,
+                "summary": "Full document content",
+                "text": text[:5000],
+                "nodes": []
+            }]
         }
-        
-        return tree
-        
-    finally:
-        os.unlink(temp_path)
 
 
-async def process_document(file_path: str, filename: str, file_type: str) -> Dict[str, Any]:
+async def process_document(
+    file_path: str, 
+    filename: str, 
+    file_type: str
+) -> Dict[str, Any]:
     """
     Main entry point for document processing.
-    Routes to appropriate processor based on file type.
+    Extracts text and generates tree structure.
     """
-    if file_type == "pdf":
-        # PageIndex handles PDFs natively
-        return process_pdf_document(file_path, filename)
+    print(f"Processing document: {filename}")
     
-    elif file_type == "docx":
-        text = extract_text_from_docx(file_path)
-        return await process_markdown_document(text, filename)
+    # Extract text
+    text, page_count = extract_text(file_path, file_type)
+    print(f"  Extracted {len(text)} chars, ~{page_count} pages")
     
-    elif file_type == "xlsx":
-        text = extract_text_from_xlsx(file_path)
-        return await process_markdown_document(text, filename)
+    # Generate tree structure
+    tree = await generate_tree_structure(text, filename, page_count)
     
-    elif file_type == "pptx":
-        text = extract_text_from_pptx(file_path)
-        return await process_markdown_document(text, filename)
+    # Add metadata
+    tree["_source_file"] = filename
+    tree["_file_type"] = file_type
+    tree["_char_count"] = len(text)
+    tree["_page_count"] = page_count
     
-    else:
-        raise ValueError(f"Unsupported file type: {file_type}")
+    print(f"  Generated tree with {len(tree.get('structure', []))} top-level nodes")
+    
+    return tree
 
 
 # ============ UTILITY FUNCTIONS ============
 
 def create_node_mapping(tree: Dict[str, Any], mapping: Dict = None) -> Dict[str, Any]:
-    """
-    Create a flat mapping of node_id -> node for quick lookup.
-    Handles both structure formats (direct tree or nested under 'structure' key).
-    """
+    """Create a flat mapping of node_id -> node for quick lookup."""
     if mapping is None:
         mapping = {}
     
-    # Handle PageIndex output format
     if "structure" in tree:
         nodes = tree["structure"]
         if isinstance(nodes, list):
             for node in nodes:
-                create_node_mapping(node, mapping)
-        else:
-            create_node_mapping(nodes, mapping)
+                _map_node(node, mapping)
+        elif isinstance(nodes, dict):
+            _map_node(nodes, mapping)
         return mapping
     
-    # Direct node processing
-    node_id = tree.get("node_id")
-    if node_id:
-        mapping[node_id] = tree
-    
-    # Recurse into children
-    for child in tree.get("nodes", []):
-        create_node_mapping(child, mapping)
-    
+    _map_node(tree, mapping)
     return mapping
+
+
+def _map_node(node: Dict[str, Any], mapping: Dict):
+    """Recursively map nodes."""
+    if not isinstance(node, dict):
+        return
+        
+    node_id = node.get("node_id")
+    if node_id:
+        mapping[node_id] = node
+    
+    for child in node.get("nodes", []):
+        _map_node(child, mapping)
 
 
 def get_all_text_from_tree(tree: Dict[str, Any]) -> str:
@@ -255,12 +261,9 @@ def get_all_text_from_tree(tree: Dict[str, Any]) -> str:
     
     def extract(node):
         if isinstance(node, dict):
-            if "text" in node:
-                texts.append(node["text"])
-            if "summary" in node:
-                texts.append(node["summary"])
-            if "title" in node:
-                texts.append(node["title"])
+            for key in ["text", "summary", "title"]:
+                if key in node and node[key]:
+                    texts.append(str(node[key]))
             for child in node.get("nodes", []):
                 extract(child)
         elif isinstance(node, list):
