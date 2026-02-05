@@ -298,9 +298,7 @@
             document.getElementById('previewContent').innerHTML = '<p class="text-center text-gray-500">Loading preview...</p>';
             
             try {
-                const res = await fetch(`${API_BASE}/api/documents/${docId}/preview`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
+                const res = await fetch(`${API_BASE}/api/documents/${docId}/preview?token=${token}`);
                 if (res.ok) {
                     const contentType = res.headers.get('content-type');
                     if (contentType && contentType.includes('application/pdf')) {
@@ -332,9 +330,7 @@
                         <iframe src="${API_BASE}/api/documents/${docId}/preview?token=${token}" 
                             class="w-full h-full min-h-[500px]" frameborder="0"></iframe>`;
                 } else {
-                    const res = await fetch(`${API_BASE}/api/documents/${docId}/preview`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
+                    const res = await fetch(`${API_BASE}/api/documents/${docId}/preview?token=${token}`);
                     if (res.ok) {
                         const data = await res.json();
                         document.getElementById('previewContent').innerHTML = `
