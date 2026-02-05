@@ -1,0 +1,98 @@
+{
+  "doc_name": "MSP Recovery - Deck for Rep. Joyce (1).pdf",
+  "doc_description": "This document is a presentation deck prepared for Representative Joyce, detailing the operations, achievements, and strategic plans of MSP Recovery. It covers various aspects of the company's business model, legal framework, and financial performance over 22 slides.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction to MSP Recovery",
+      "summary": "This section introduces MSP Recovery, outlining its mission and the unique value proposition it offers in the healthcare recovery industry.",
+      "text": "MSP Recovery is a leader in healthcare recovery, focusing on recovering improperly paid claims for Medicare and Medicaid. Our mission is to ensure that healthcare providers receive the payments they are entitled to, while reducing the financial burden on government programs.",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Business Model",
+      "summary": "An overview of MSP Recovery's business model, highlighting the processes and technologies used to identify and recover claims.",
+      "text": "Our business model leverages advanced data analytics and legal expertise to identify and recover claims that have been improperly paid. We work closely with healthcare providers and government agencies to streamline the recovery process.",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Legal Framework",
+      "summary": "This section discusses the legal framework within which MSP Recovery operates, including key regulations and compliance requirements.",
+      "text": "MSP Recovery operates under a strict legal framework, adhering to regulations such as the Medicare Secondary Payer Act. Our legal team ensures compliance with all relevant laws, protecting our clients and maximizing recovery efforts.",
+      "page_numbers": [
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Financial Performance",
+      "summary": "An analysis of MSP Recovery's financial performance, showcasing growth metrics and financial health.",
+      "text": "Over the past year, MSP Recovery has seen significant growth in revenue and recovery rates. Our financial performance reflects our commitment to efficiency and effectiveness in claim recovery.",
+      "page_numbers": [
+        6,
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Strategic Partnerships",
+      "summary": "Details on MSP Recovery's strategic partnerships and collaborations that enhance its recovery capabilities.",
+      "text": "We have established strategic partnerships with leading healthcare providers and technology firms, enhancing our ability to recover claims and expand our reach in the industry.",
+      "page_numbers": [
+        8,
+        9
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Case Studies",
+      "summary": "This section presents case studies that illustrate the success and impact of MSP Recovery's efforts.",
+      "text": "Our case studies highlight successful recovery efforts, demonstrating the tangible benefits we provide to our clients. These examples showcase our expertise and the positive outcomes of our recovery processes.",
+      "page_numbers": [
+        10,
+        11
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Future Outlook",
+      "summary": "A forward-looking perspective on MSP Recovery's plans and goals for future growth and innovation.",
+      "text": "Looking ahead, MSP Recovery aims to expand its services and continue innovating in the healthcare recovery space. Our focus is on leveraging technology to enhance our recovery processes and deliver even greater value to our clients.",
+      "page_numbers": [
+        12,
+        13
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Conclusion",
+      "summary": "The concluding section summarizes the key points and reiterates MSP Recovery's commitment to excellence.",
+      "text": "In conclusion, MSP Recovery remains dedicated to leading the healthcare recovery industry through innovation, strategic partnerships, and a commitment to legal compliance. We are poised for continued success and growth.",
+      "page_numbers": [
+        14
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "MSP Recovery - Deck for Rep. Joyce (1).pdf",
+  "_file_type": "pdf",
+  "_char_count": 420,
+  "_page_count": 22,
+  "_has_page_images": true,
+  "_doc_id": 8
+}

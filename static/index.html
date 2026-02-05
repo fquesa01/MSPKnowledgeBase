@@ -13,6 +13,38 @@
     <style>
         .chat-message { animation: fadeIn 0.3s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .resizer {
+            width: 8px;
+            cursor: col-resize;
+            background: transparent;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .resizer:hover, .resizer.resizing {
+            background: rgba(59, 130, 246, 0.3);
+        }
+        .resizer::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 40px;
+            background: #cbd5e1;
+            border-radius: 2px;
+        }
+        .resizer:hover::after, .resizer.resizing::after {
+            background: #3b82f6;
+        }
+        .resizable-container {
+            display: flex;
+            gap: 0;
+        }
+        @media (max-width: 1024px) {
+            .resizer { display: none; }
+            .resizable-container { flex-direction: column; gap: 2rem; }
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-200">
@@ -70,9 +102,9 @@
 
         <!-- Main Content -->
         <main class="max-w-7xl mx-auto px-4 py-8">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="resizable-container">
                 <!-- Documents Panel -->
-                <div class="lg:col-span-1 bg-white dark:bg-gray-800 rounded-lg shadow p-6 order-2 lg:order-1">
+                <div id="documentsPanel" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 order-2 lg:order-1 flex-shrink-0" style="width: 350px; min-width: 250px; max-width: 600px;">
                     <h2 class="text-lg font-semibold mb-4 dark:text-white">Documents</h2>
                     
                     <!-- Upload -->
@@ -92,8 +124,11 @@
                     </div>
                 </div>
 
+                <!-- Resizer Handle -->
+                <div id="resizer" class="resizer hidden lg:block" title="Drag to resize"></div>
+
                 <!-- Chat Panel -->
-                <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col order-1 lg:order-2" style="height: 600px;">
+                <div id="chatPanel" class="bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col order-1 lg:order-2 flex-1" style="height: 600px; min-width: 400px;">
                     <div class="p-4 border-b dark:border-gray-700">
                         <h2 class="text-lg font-semibold dark:text-white">Ask Questions</h2>
                     </div>
@@ -571,6 +606,42 @@
             if (e.target.files.length > 0) uploadFiles(e.target.files);
         });
         document.getElementById('chatForm').addEventListener('submit', handleChat);
+        
+        // Resizable panel functionality
+        const resizer = document.getElementById('resizer');
+        const documentsPanel = document.getElementById('documentsPanel');
+        let isResizing = false;
+        
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            resizer.classList.add('resizing');
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none';
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            const containerRect = documentsPanel.parentElement.getBoundingClientRect();
+            let newWidth = e.clientX - containerRect.left;
+            newWidth = Math.max(250, Math.min(600, newWidth));
+            documentsPanel.style.width = newWidth + 'px';
+            localStorage.setItem('documentsPanelWidth', newWidth);
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                resizer.classList.remove('resizing');
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+            }
+        });
+        
+        // Restore saved width
+        const savedWidth = localStorage.getItem('documentsPanelWidth');
+        if (savedWidth) {
+            documentsPanel.style.width = savedWidth + 'px';
+        }
 
         // Init
         if (token) {

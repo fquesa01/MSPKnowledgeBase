@@ -1,0 +1,69 @@
+{
+  "doc_name": "2025.05.24 - Attestor - MSP - Conclave Labes IP License Agreement (fully executed).pdf",
+  "doc_description": "This document is an Intellectual Property License Agreement (IPLA) between MSP Recovery, LLC, Hazel Holdings I LLC, and Conclave Labs LLC. It outlines the terms under which MSP grants Conclave Labs a license to use its proprietary technology for specific services related to claim recovery, as well as the responsibilities and rights of each party involved.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction",
+      "summary": "This section introduces the parties involved in the agreement and the effective date of the IPLA.",
+      "text": "This Intellectual Property License Agreement (this “IPLA”) is made effective as of May 24, 2025 by and among MSP RECOVERY, LLC, a Florida limited liability company (“MSP”) and HAZEL HOLDINGS I LLC, a Delaware limited liability company (“HHI”), and Conclave Labs LLC, a Delaware limited liability company (the “Company” and “Licensee”).",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Recitals",
+      "summary": "The recitals provide background information on the Investment Agreement and the proprietary technology developed by MSP, which is the subject of the license.",
+      "text": "Reference is hereby made to that certain Investment Agreement, dated as of March 29, 2023... MSP has developed, develops and maintains proprietary software and other technology...",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Grant of MSP Technology License and Representations and Warranties",
+      "summary": "This section details the terms of the license grant, including the rights and limitations of the Licensee, and the representations and warranties made by MSP regarding the technology.",
+      "text": "Subject to the terms and conditions of this IPLA, MSP conditionally grants to the Licensee... MSP represents and warrants to Licensee that the statements contained in this Section 2 are true, correct and complete as of the Effective Date...",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Miscellaneous Provisions",
+      "summary": "This section includes various legal provisions such as term and termination, notices, assignment, and governing law.",
+      "text": "Except as otherwise set forth herein, this IPLA shall continue until termination by written notice... All issues and questions concerning the application, construction, validity, interpretation and enforcement of this IPLA will be governed by and construed in accordance with the internal laws of the State of New York...",
+      "page_numbers": [
+        4,
+        5,
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Exhibit A - Services",
+      "summary": "Exhibit A outlines the specific services Conclave Labs will provide, focusing on P&C recoveries and data matching, along with timelines and resources required.",
+      "text": "Conclave Labs will initially narrowly focus on: 1. P&C recoveries only... We should be able to achieve most of these things within 4-6 months with the following resources...",
+      "page_numbers": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "2025.05.24 - Attestor - MSP - Conclave Labes IP License Agreement (fully executed).pdf",
+  "_file_type": "pdf",
+  "_char_count": 22481,
+  "_page_count": 11,
+  "_has_page_images": true,
+  "_doc_id": 11
+}

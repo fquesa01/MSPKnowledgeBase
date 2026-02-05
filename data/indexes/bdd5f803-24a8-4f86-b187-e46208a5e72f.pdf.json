@@ -1,0 +1,110 @@
+{
+  "doc_name": "07. Attestor-MSP - Amended and Restated Collateral Administration Agreement(204850126.1).pdf",
+  "doc_description": "This document is an amended and restated collateral administration agreement among Hazel Partners Holdings LLC, Subrogation Holdings, LLC, and MSP Recovery LLC. It outlines the terms and conditions for the management and administration of collateral related to certain credit facilities, including governance structures, settlement principles, and confidentiality obligations.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction",
+      "summary": "This section introduces the agreement, including the parties involved and the effective date. It also references the original agreement and the purpose of the amendment.",
+      "text": "This Amended and Restated Collateral Administration Agreement (this “Agreement”), dated as of March 29, 2023, is entered into among Hazel Partners Holdings LLC, Subrogation Holdings, LLC, and MSP Recovery LLC. The Parties acknowledge and agree that Article 1 and Article 2 of this Agreement shall be operative and in full force and effect as of the Effective Date.",
+      "page_numbers": [
+        1
+      ]
+    },
+    {
+      "node_id": "0002",
+      "title": "Recitals",
+      "summary": "The recitals provide background information on the agreement, including the reorganization of the Claims Vehicle and the entry into related credit agreements. It also mentions the original agreement and the rights provided to Hazel.",
+      "text": "WHEREAS, the Parties agree that the following collateral administration structure for the Company, and any decisions with respect to the claims owned or controlled by the Company or its Subsidiaries following the reorganization of the Claims Vehicle as the sole Subsidiary of the Company shall be governed in a manner consistent with this Agreement.",
+      "page_numbers": [
+        1,
+        2
+      ]
+    },
+    {
+      "node_id": "0003",
+      "title": "Definitions",
+      "summary": "This section defines key terms used throughout the agreement, such as 'Affiliate', 'Claims Vehicle', 'Effective Date', and 'Governmental Authority'. These definitions are crucial for understanding the specific language and provisions of the agreement.",
+      "text": "The following terms have the meanings specified or referred to in this Agreement: '2022 Credit Agreement', 'Affiliate', 'Claims Vehicle', 'Effective Date', 'Governmental Authority', etc.",
+      "page_numbers": [
+        2,
+        3
+      ]
+    },
+    {
+      "node_id": "0004",
+      "title": "Article 1: Collateral Management",
+      "summary": "This article outlines the management structure and operational guidelines for the Company, including the role of the Operating Committee and the use of credit facilities. It specifies the governance and decision-making processes for managing claims and collateral.",
+      "text": "The Company shall be operated with the sole aim of maximizing the expected proceeds of the Claims, after taking into account costs and achieving the majority of recoveries within three (3) years of the date hereof or as otherwise extended.",
+      "page_numbers": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "node_id": "0005",
+      "title": "Article 2: Agreed Settlement Principles",
+      "summary": "This article establishes the principles and milestones for settling claims, including the roles of the Operating Committee and Legal Committee. It details the agreed settlement process and criteria for evaluating settlement offers.",
+      "text": "The Parties acknowledge and agree that the principles set forth on Schedule B are the Agreed Settlement Principles and Data Matching Milestones which shall be used and followed by the Parties and the Operating Committee.",
+      "page_numbers": [
+        6
+      ]
+    },
+    {
+      "node_id": "0006",
+      "title": "Article 3: Miscellaneous",
+      "summary": "This section covers various legal and procedural aspects of the agreement, including interpretation, severability, entire agreement, successors and assigns, and confidentiality. It also addresses governing law and jurisdiction.",
+      "text": "Interpretation. For purposes of this Agreement, the words 'include,' 'includes' and 'including' shall be deemed to be followed by the words 'without limitation'.",
+      "page_numbers": [
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "node_id": "0007",
+      "title": "Signature Pages",
+      "summary": "The signature pages contain the signatures of the authorized representatives of the parties involved in the agreement, indicating their consent and commitment to the terms outlined in the document.",
+      "text": "IN WITNESS WHEREOF, the parties hereto have caused this Agreement to be executed as of the date hereof by their respective officers thereunto duly authorized.",
+      "page_numbers": [
+        9
+      ]
+    },
+    {
+      "node_id": "0008",
+      "title": "Schedule A: Reserved Matters",
+      "summary": "Schedule A lists specific matters that require the affirmative vote of the Operating Committee members appointed by MSP and Hazel. It outlines the governance structure and decision-making authority for critical actions.",
+      "text": "The following matters shall require the affirmative vote of the members of the Operating Committee appointed by each of MSP and Hazel pursuant to Article 1, Section 2(a).",
+      "page_numbers": [
+        10,
+        11
+      ]
+    },
+    {
+      "node_id": "0009",
+      "title": "Schedule B: Agreed Settlement Principles",
+      "summary": "Schedule B details the agreed settlement principles and milestones for claims, including specific parameters for settlement offers and the role of the Operating Committee in approving settlements.",
+      "text": "MSP and Hazel agree to follow the settlement process as currently in place in respect of the pending settlement discussions with respect to Claims for which Allstate Corporation or its affiliates is the Responsible Party.",
+      "page_numbers": [
+        12,
+        13
+      ]
+    },
+    {
+      "node_id": "0010",
+      "title": "Schedule C: Independent Member of the Operating Committee",
+      "summary": "Schedule C identifies the independent member of the Operating Committee, Nader Tavakoli from EagleRock Capital Management, who plays a role in the governance and decision-making processes.",
+      "text": "Independent Member of the Operating Committee: Nader Tavakoli; EagleRock Capital Management",
+      "page_numbers": [
+        14
+      ]
+    }
+  ],
+  "_source_file": "07. Attestor-MSP - Amended and Restated Collateral Administration Agreement(204850126.1).pdf",
+  "_file_type": "pdf",
+  "_char_count": 45982,
+  "_page_count": 18,
+  "_has_page_images": true,
+  "_doc_id": 12
+}
