@@ -315,6 +315,7 @@ async def search_and_answer(
                     if text:
                         context_parts.append(f"[{doc_name} - {node.get('title', 'Section')}]\n{text}")
                         sources.append({
+                            "doc_id": doc_id,
                             "doc_name": doc_name,
                             "node_id": node_id,
                             "title": node.get("title", "Section"),

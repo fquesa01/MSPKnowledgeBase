@@ -290,6 +290,36 @@
 
         let currentPreviewDocId = null;
         
+        async function previewDocumentById(docId, docName) {
+            event.preventDefault();
+            currentPreviewDocId = docId;
+            document.getElementById('previewTitle').textContent = docName;
+            document.getElementById('previewModal').classList.remove('hidden');
+            document.getElementById('previewContent').innerHTML = '<p class="text-center text-gray-500">Loading preview...</p>';
+            
+            try {
+                const res = await fetch(`${API_BASE}/api/documents/${docId}/preview`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const contentType = res.headers.get('content-type');
+                    if (contentType && contentType.includes('application/pdf')) {
+                        document.getElementById('previewContent').innerHTML = `
+                            <iframe src="${API_BASE}/api/documents/${docId}/preview?token=${token}" 
+                                class="w-full h-full min-h-[500px]" frameborder="0"></iframe>`;
+                    } else {
+                        const data = await res.json();
+                        document.getElementById('previewContent').innerHTML = `
+                            <pre class="whitespace-pre-wrap text-sm font-mono bg-gray-100 dark:bg-gray-700 p-4 rounded overflow-auto">${escapeHtml(data.content)}</pre>`;
+                    }
+                } else {
+                    document.getElementById('previewContent').innerHTML = '<p class="text-red-500">Preview not available for this document.</p>';
+                }
+            } catch (err) {
+                document.getElementById('previewContent').innerHTML = '<p class="text-red-500">Failed to load preview.</p>';
+            }
+        }
+        
         async function previewDocument(docId, filename, fileType) {
             currentPreviewDocId = docId;
             document.getElementById('previewTitle').textContent = filename;
@@ -374,15 +404,24 @@
             div.className = `chat-message ${isUser ? 'text-right' : ''}`;
             
             let html = `
-                <div class="inline-block max-w-[80%] ${isUser ? 'bg-blue-600 text-white' : 'bg-gray-100'} rounded-lg p-3">
+                <div class="inline-block max-w-[80%] ${isUser ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-700 dark:text-gray-200'} rounded-lg p-3">
                     <p class="whitespace-pre-wrap">${content}</p>
                 </div>
             `;
             
             if (sources.length > 0) {
+                const uniqueSources = sources.reduce((acc, s) => {
+                    if (!acc.find(x => x.doc_id === s.doc_id)) acc.push(s);
+                    return acc;
+                }, []);
+                
+                const sourceLinks = uniqueSources.map(s => 
+                    `<a href="#" onclick="previewDocumentById(${s.doc_id}, '${escape(s.doc_name || s.title)}')" class="text-blue-600 dark:text-blue-400 hover:underline">${escapeHtml(s.doc_name || s.title)}</a>`
+                ).join(', ');
+                
                 html += `
-                    <div class="mt-2 text-sm text-gray-500">
-                        Sources: ${sources.map(s => s.title).join(', ')}
+                    <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        Sources: ${sourceLinks}
                     </div>
                 `;
             }
