@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSP Knowledge Base</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .chat-message { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Auth Modal -->
+    <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <h2 id="authTitle" class="text-2xl font-bold mb-6">Login</h2>
+            <form id="authForm" class="space-y-4">
+                <input type="text" id="username" placeholder="Username" required
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="email" id="email" placeholder="Email" 
+                    class="hidden w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="password" id="password" placeholder="Password" required
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+                    Login
+                </button>
+            </form>
+            <p class="mt-4 text-center text-gray-600">
+                <span id="authToggleText">Don't have an account?</span>
+                <button id="authToggle" class="text-blue-600 hover:underline ml-1">Register</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+                <h1 class="text-xl font-bold text-gray-800">📚 MSP Knowledge Base</h1>
+                <div class="flex items-center gap-4">
+                    <span id="userDisplay" class="text-gray-600"></span>
+                    <button id="logoutBtn" class="text-red-600 hover:underline">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Documents Panel -->
+                <div class="lg:col-span-1 bg-white rounded-lg shadow p-6">
+                    <h2 class="text-lg font-semibold mb-4">Documents</h2>
+                    
+                    <!-- Upload -->
+                    <div class="mb-6">
+                        <label class="block w-full cursor-pointer">
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-500 transition">
+                                <p class="text-gray-500">Click to upload</p>
+                                <p class="text-sm text-gray-400">PDF, Word, Excel, PowerPoint</p>
+                            </div>
+                            <input type="file" id="fileInput" accept=".pdf,.docx,.xlsx,.pptx" class="hidden">
+                        </label>
+                    </div>
+                    
+                    <!-- Document List -->
+                    <div id="documentList" class="space-y-2 max-h-96 overflow-y-auto">
+                        <p class="text-gray-500 text-sm">No documents yet</p>
+                    </div>
+                </div>
+
+                <!-- Chat Panel -->
+                <div class="lg:col-span-2 bg-white rounded-lg shadow flex flex-col" style="height: 600px;">
+                    <div class="p-4 border-b">
+                        <h2 class="text-lg font-semibold">Ask Questions</h2>
+                    </div>
+                    
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-4">
+                        <div class="text-center text-gray-500 py-8">
+                            <p>Upload documents and ask questions about your knowledge base.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Input -->
+                    <div class="p-4 border-t">
+                        <form id="chatForm" class="flex gap-2">
+                            <input type="text" id="chatInput" placeholder="Ask a question..." 
+                                class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                                Send
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_BASE = '';
+        let token = localStorage.getItem('token');
+        let isRegister = false;
+
+        // Auth functions
+        function showAuth() {
+            document.getElementById('authModal').classList.remove('hidden');
+            document.getElementById('app').classList.add('hidden');
+        }
+
+        function hideAuth() {
+            document.getElementById('authModal').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+        }
+
+        function toggleAuthMode() {
+            isRegister = !isRegister;
+            document.getElementById('authTitle').textContent = isRegister ? 'Register' : 'Login';
+            document.getElementById('email').classList.toggle('hidden', !isRegister);
+            document.getElementById('authToggleText').textContent = isRegister ? 'Already have an account?' : "Don't have an account?";
+            document.getElementById('authToggle').textContent = isRegister ? 'Login' : 'Register';
+            document.querySelector('#authForm button').textContent = isRegister ? 'Register' : 'Login';
+        }
+
+        async function handleAuth(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value;
+
+            try {
+                if (isRegister) {
+                    await fetch(`${API_BASE}/api/auth/register`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, email, password })
+                    });
+                }
+
+                const formData = new URLSearchParams();
+                formData.append('username', username);
+                formData.append('password', password);
+
+                const res = await fetch(`${API_BASE}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: formData
+                });
+
+                if (!res.ok) throw new Error('Login failed');
+
+                const data = await res.json();
+                token = data.access_token;
+                localStorage.setItem('token', token);
+                localStorage.setItem('username', username);
+                
+                hideAuth();
+                document.getElementById('userDisplay').textContent = username;
+                loadDocuments();
+            } catch (err) {
+                alert(err.message);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            token = null;
+            showAuth();
+        }
+
+        // Document functions
+        async function loadDocuments() {
+            try {
+                const res = await fetch(`${API_BASE}/api/documents`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const docs = await res.json();
+                renderDocuments(docs);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function renderDocuments(docs) {
+            const list = document.getElementById('documentList');
+            if (docs.length === 0) {
+                list.innerHTML = '<p class="text-gray-500 text-sm">No documents yet</p>';
+                return;
+            }
+            list.innerHTML = docs.map(doc => `
+                <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium truncate">${doc.original_filename}</p>
+                        <p class="text-xs text-gray-500">${doc.status}</p>
+                    </div>
+                    <button onclick="deleteDocument(${doc.id})" class="text-red-500 hover:text-red-700 ml-2">×</button>
+                </div>
+            `).join('');
+        }
+
+        async function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch(`${API_BASE}/api/documents/upload`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+                if (res.ok) {
+                    loadDocuments();
+                    // Poll for processing status
+                    setTimeout(loadDocuments, 5000);
+                    setTimeout(loadDocuments, 15000);
+                }
+            } catch (err) {
+                alert('Upload failed: ' + err.message);
+            }
+        }
+
+        async function deleteDocument(id) {
+            if (!confirm('Delete this document?')) return;
+            try {
+                await fetch(`${API_BASE}/api/documents/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                loadDocuments();
+            } catch (err) {
+                alert('Delete failed');
+            }
+        }
+
+        // Chat functions
+        function addMessage(content, isUser, sources = []) {
+            const container = document.getElementById('chatMessages');
+            const welcome = container.querySelector('.text-center');
+            if (welcome) welcome.remove();
+
+            const div = document.createElement('div');
+            div.className = `chat-message ${isUser ? 'text-right' : ''}`;
+            
+            let html = `
+                <div class="inline-block max-w-[80%] ${isUser ? 'bg-blue-600 text-white' : 'bg-gray-100'} rounded-lg p-3">
+                    <p class="whitespace-pre-wrap">${content}</p>
+                </div>
+            `;
+            
+            if (sources.length > 0) {
+                html += `
+                    <div class="mt-2 text-sm text-gray-500">
+                        Sources: ${sources.map(s => s.title).join(', ')}
+                    </div>
+                `;
+            }
+            
+            div.innerHTML = html;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function handleChat(e) {
+            e.preventDefault();
+            const input = document.getElementById('chatInput');
+            const query = input.value.trim();
+            if (!query) return;
+
+            addMessage(query, true);
+            input.value = '';
+
+            try {
+                const res = await fetch(`${API_BASE}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query })
+                });
+                const data = await res.json();
+                addMessage(data.answer, false, data.sources);
+            } catch (err) {
+                addMessage('Error: ' + err.message, false);
+            }
+        }
+
+        // Event listeners
+        document.getElementById('authToggle').addEventListener('click', toggleAuthMode);
+        document.getElementById('authForm').addEventListener('submit', handleAuth);
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+        document.getElementById('fileInput').addEventListener('change', (e) => {
+            if (e.target.files[0]) uploadFile(e.target.files[0]);
+        });
+        document.getElementById('chatForm').addEventListener('submit', handleChat);
+
+        // Init
+        if (token) {
+            hideAuth();
+            document.getElementById('userDisplay').textContent = localStorage.getItem('username') || 'User';
+            loadDocuments();
+        } else {
+            showAuth();
+        }
+    </script>
+</body>
+</html>
