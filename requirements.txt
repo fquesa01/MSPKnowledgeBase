@@ -30,3 +30,6 @@ pydantic-settings==2.6.0
 pyyaml==6.0.2
 asyncpg
 psycopg2-binary
+docx
+jose
+Pillow

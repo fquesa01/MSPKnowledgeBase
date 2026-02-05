@@ -314,12 +314,15 @@ async def search_and_answer(
                     text = node.get("text", node.get("summary", ""))
                     if text:
                         context_parts.append(f"[{doc_name} - {node.get('title', 'Section')}]\n{text}")
+                        # Include page numbers for source references
+                        page_numbers = node.get("page_numbers", [])
                         sources.append({
                             "doc_id": doc_id,
                             "doc_name": doc_name,
                             "node_id": node_id,
                             "title": node.get("title", "Section"),
-                            "summary": node.get("summary", "")[:200]
+                            "summary": node.get("summary", "")[:200],
+                            "page_numbers": page_numbers
                         })
         
         context = "\n\n---\n\n".join(context_parts) if context_parts else "No specific content retrieved."

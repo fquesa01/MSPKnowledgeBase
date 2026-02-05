@@ -146,6 +146,7 @@ async def process_document_task(doc_id: int):
                 file_path=doc.file_path,
                 filename=doc.original_filename,
                 file_type=doc.file_type,
+                doc_id=doc.id,
                 progress_callback=progress_callback
             )
             
@@ -336,6 +337,30 @@ async def preview_document(doc_id: int, token: Optional[str] = None, db: AsyncSe
             }
     
     raise HTTPException(status_code=404, detail="Preview not available")
+
+@app.get("/api/documents/{doc_id}/page/{page_num}/image")
+async def get_page_image(doc_id: int, page_num: int, token: Optional[str] = None, db: AsyncSession = Depends(get_db)):
+    """Get a page image for a document. Consistent with download/preview access model."""
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    await get_current_user(token)
+    
+    # Check document exists
+    result = await db.execute(select(Document).where(Document.id == doc_id))
+    doc = result.scalar_one_or_none()
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+    
+    # Validate page number
+    if page_num < 1 or page_num > 1000:
+        raise HTTPException(status_code=400, detail="Invalid page number")
+    
+    # Look for page image
+    image_path = f"uploads/page_images/{doc_id}/page_{page_num}.png"
+    if os.path.exists(image_path):
+        return FileResponse(image_path, media_type="image/png")
+    
+    raise HTTPException(status_code=404, detail="Page image not found")
 
 # ============ CHAT/SEARCH ROUTES ============
 
