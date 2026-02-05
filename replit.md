@@ -1,4 +1,4 @@
-# MSP Knowledge Base Application
+# Legal Knowledge Base Application
 
 ## Overview
 A FastAPI-based document management system that allows users to upload documents (PDF, Word, Excel, PowerPoint), processes them to create searchable indexes using OpenAI, and enables users to ask questions about the document content.
