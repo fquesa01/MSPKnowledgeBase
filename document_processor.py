@@ -30,21 +30,35 @@ PAGE_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 
 # ============ PAGE IMAGE EXTRACTION ============
 
-def extract_page_images_from_pdf(file_path: str, doc_id: int) -> List[str]:
-    """Extract pages as images from PDF, return list of image paths."""
+def extract_page_images_from_pdf(file_path: str, doc_id: int, max_pages: int = 50) -> List[str]:
+    """Extract pages as images from PDF, return list of image paths.
+    
+    Args:
+        file_path: Path to PDF file
+        doc_id: Document ID for organizing images
+        max_pages: Maximum number of pages to extract (default 50 for performance)
+    """
     doc = pymupdf.open(file_path)
     image_paths = []
     
     doc_images_dir = PAGE_IMAGES_DIR / str(doc_id)
     doc_images_dir.mkdir(parents=True, exist_ok=True)
     
+    total_pages = min(len(doc), max_pages)
+    
     for page_num, page in enumerate(doc, 1):
-        # Render page to image (2x zoom for better quality)
-        mat = pymupdf.Matrix(2, 2)
-        pix = page.get_pixmap(matrix=mat)
-        img_path = doc_images_dir / f"page_{page_num}.png"
-        pix.save(str(img_path))
-        image_paths.append(str(img_path))
+        if page_num > max_pages:
+            break
+        try:
+            # Use 1.5x zoom for balance of quality and speed
+            mat = pymupdf.Matrix(1.5, 1.5)
+            pix = page.get_pixmap(matrix=mat)
+            img_path = doc_images_dir / f"page_{page_num}.png"
+            pix.save(str(img_path))
+            image_paths.append(str(img_path))
+        except Exception as e:
+            print(f"  Warning: Could not extract page {page_num}: {e}")
+            continue
     
     doc.close()
     return image_paths
