@@ -10,7 +10,7 @@ from typing import Dict, Any, List, Optional
 from pathlib import Path
 
 # Document extraction libraries
-import fitz  # PyMuPDF
+import pymupdf  # PyMuPDF (new API)
 from docx import Document as DocxDocument
 from openpyxl import load_workbook
 from pptx import Presentation
@@ -25,7 +25,7 @@ settings = get_settings()
 
 def extract_text_from_pdf(file_path: str) -> tuple[str, int]:
     """Extract text from PDF, return (text, page_count)."""
-    doc = fitz.open(file_path)
+    doc = pymupdf.open(file_path)
     pages = []
     for page in doc:
         pages.append(page.get_text())
