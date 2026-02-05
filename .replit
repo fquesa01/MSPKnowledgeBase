@@ -1,6 +1,6 @@
 run = "pip install -r requirements.txt && python main.py"
 entrypoint = "main.py"
-modules = ["python-3.12"]
+modules = ["python-3.11"]
 
 [nix]
 channel = "stable-25_05"
@@ -15,3 +15,4 @@ externalPort = 80
 
 [agent]
 expertMode = true
+integrations = ["python_openai:1.0.0"]
