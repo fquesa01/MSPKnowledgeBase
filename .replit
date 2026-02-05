@@ -1,6 +1,6 @@
 run = "pip install -r requirements.txt && python main.py"
 entrypoint = "main.py"
-modules = ["python-3.11"]
+modules = ["python-3.11", "postgresql-16"]
 
 [nix]
 channel = "stable-25_05"
