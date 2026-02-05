@@ -5,16 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MSP Knowledge Base</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
     <style>
         .chat-message { animation: fadeIn 0.3s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-200">
+    <!-- Preview Modal -->
+    <div id="previewModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full mx-4 max-h-[90vh] flex flex-col">
+            <div class="p-4 border-b dark:border-gray-700 flex justify-between items-center">
+                <h3 id="previewTitle" class="text-lg font-semibold dark:text-white truncate"></h3>
+                <div class="flex gap-2">
+                    <button id="downloadBtn" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">Download</button>
+                    <button onclick="closePreview()" class="px-3 py-1 bg-gray-300 dark:bg-gray-600 rounded hover:bg-gray-400 text-sm dark:text-white">Close</button>
+                </div>
+            </div>
+            <div id="previewContent" class="p-4 overflow-auto flex-1 dark:text-gray-200"></div>
+        </div>
+    </div>
+
     <!-- Auth Modal -->
     <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
-            <h2 id="authTitle" class="text-2xl font-bold mb-6">Login</h2>
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md w-full mx-4">
+            <h2 id="authTitle" class="text-2xl font-bold mb-6 dark:text-white">Login</h2>
             <form id="authForm" class="space-y-4">
                 <input type="text" id="username" placeholder="Username" required
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -36,11 +55,14 @@
     <!-- Main App -->
     <div id="app" class="hidden">
         <!-- Header -->
-        <header class="bg-white shadow">
+        <header class="bg-white dark:bg-gray-800 shadow">
             <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                <h1 class="text-xl font-bold text-gray-800">📚 MSP Knowledge Base</h1>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">📚 MSP Knowledge Base</h1>
                 <div class="flex items-center gap-4">
-                    <span id="userDisplay" class="text-gray-600"></span>
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" title="Toggle dark mode">
+                        <span id="darkModeIcon" class="text-lg">🌙</span>
+                    </button>
+                    <span id="userDisplay" class="text-gray-600 dark:text-gray-300"></span>
                     <button id="logoutBtn" class="text-red-600 hover:underline">Logout</button>
                 </div>
             </div>
@@ -50,15 +72,15 @@
         <main class="max-w-7xl mx-auto px-4 py-8">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Documents Panel -->
-                <div class="lg:col-span-1 bg-white rounded-lg shadow p-6 order-2 lg:order-1">
-                    <h2 class="text-lg font-semibold mb-4">Documents</h2>
+                <div class="lg:col-span-1 bg-white dark:bg-gray-800 rounded-lg shadow p-6 order-2 lg:order-1">
+                    <h2 class="text-lg font-semibold mb-4 dark:text-white">Documents</h2>
                     
                     <!-- Upload -->
                     <div class="mb-6">
                         <label class="block w-full cursor-pointer">
-                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-500 transition">
-                                <p class="text-gray-500">Click to upload (up to 100 files)</p>
-                                <p class="text-sm text-gray-400">PDF, Word, Excel, PowerPoint (max 1GB each)</p>
+                            <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center hover:border-blue-500 transition">
+                                <p class="text-gray-500 dark:text-gray-400">Click to upload (up to 100 files)</p>
+                                <p class="text-sm text-gray-400 dark:text-gray-500">PDF, Word, Excel, PowerPoint (max 1GB each)</p>
                             </div>
                             <input type="file" id="fileInput" accept=".pdf,.docx,.xlsx,.pptx" class="hidden" multiple>
                         </label>
@@ -66,28 +88,28 @@
                     
                     <!-- Document List -->
                     <div id="documentList" class="space-y-2 max-h-96 overflow-y-auto">
-                        <p class="text-gray-500 text-sm">No documents yet</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">No documents yet</p>
                     </div>
                 </div>
 
                 <!-- Chat Panel -->
-                <div class="lg:col-span-2 bg-white rounded-lg shadow flex flex-col order-1 lg:order-2" style="height: 600px;">
-                    <div class="p-4 border-b">
-                        <h2 class="text-lg font-semibold">Ask Questions</h2>
+                <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col order-1 lg:order-2" style="height: 600px;">
+                    <div class="p-4 border-b dark:border-gray-700">
+                        <h2 class="text-lg font-semibold dark:text-white">Ask Questions</h2>
                     </div>
                     
                     <!-- Chat Messages -->
                     <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-4">
-                        <div class="text-center text-gray-500 py-8">
+                        <div class="text-center text-gray-500 dark:text-gray-400 py-8">
                             <p>Upload documents and ask questions about your knowledge base.</p>
                         </div>
                     </div>
                     
                     <!-- Chat Input -->
-                    <div class="p-4 border-t">
+                    <div class="p-4 border-t dark:border-gray-700">
                         <form id="chatForm" class="flex gap-2">
                             <input type="text" id="chatInput" placeholder="Ask a question..." 
-                                class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                class="flex-1 px-4 py-2 border dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
                             <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
                                 Send
                             </button>
@@ -197,27 +219,30 @@
             
             list.innerHTML = docs.map(doc => {
                 const statusDisplay = doc.status === 'processing' 
-                    ? `<div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                    ? `<div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 mt-1">
                          <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: ${doc.progress}%"></div>
                        </div>
                        <p class="text-xs text-blue-600">${doc.progress}% processing...</p>`
                     : doc.status === 'pending'
                     ? '<p class="text-xs text-yellow-600">Waiting to process...</p>'
                     : doc.status === 'ready'
-                    ? '<p class="text-xs text-green-600">Ready</p>'
+                    ? '<p class="text-xs text-green-600">Ready - click to preview</p>'
                     : doc.status === 'error'
-                    ? `<p class="text-xs text-red-600 cursor-pointer" onclick="showError('${escape(doc.error_message || 'Unknown error')}')">
+                    ? `<p class="text-xs text-red-600 cursor-pointer" onclick="event.stopPropagation(); showError('${escape(doc.error_message || 'Unknown error')}')">
                          Error - click for details
                        </p>`
-                    : `<p class="text-xs text-gray-500">${doc.status}</p>`;
+                    : `<p class="text-xs text-gray-500 dark:text-gray-400">${doc.status}</p>`;
+                
+                const clickable = doc.status === 'ready' ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600' : '';
+                const clickHandler = doc.status === 'ready' ? `onclick="previewDocument(${doc.id}, '${escape(doc.original_filename)}', '${doc.file_type}')"` : '';
                 
                 return `
-                <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
+                <div class="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded ${clickable}" ${clickHandler}>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium truncate">${doc.original_filename}</p>
+                        <p class="text-sm font-medium truncate dark:text-white">${doc.original_filename}</p>
                         ${statusDisplay}
                     </div>
-                    <button onclick="deleteDocument(${doc.id})" class="text-red-500 hover:text-red-700 ml-2 text-lg">×</button>
+                    <button onclick="event.stopPropagation(); deleteDocument(${doc.id})" class="text-red-500 hover:text-red-700 ml-2 text-lg">×</button>
                 </div>`;
             }).join('');
         }
@@ -262,6 +287,69 @@
             const decoded = message.replace(/\\'/g, "'").replace(/\\"/g, '"');
             alert('Processing Error:\n\n' + decoded);
         }
+
+        let currentPreviewDocId = null;
+        
+        async function previewDocument(docId, filename, fileType) {
+            currentPreviewDocId = docId;
+            document.getElementById('previewTitle').textContent = filename;
+            document.getElementById('previewModal').classList.remove('hidden');
+            document.getElementById('previewContent').innerHTML = '<p class="text-center text-gray-500">Loading preview...</p>';
+            
+            try {
+                if (fileType === 'pdf') {
+                    document.getElementById('previewContent').innerHTML = `
+                        <iframe src="${API_BASE}/api/documents/${docId}/preview?token=${token}" 
+                            class="w-full h-full min-h-[500px]" frameborder="0"></iframe>`;
+                } else {
+                    const res = await fetch(`${API_BASE}/api/documents/${docId}/preview`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        document.getElementById('previewContent').innerHTML = `
+                            <pre class="whitespace-pre-wrap text-sm font-mono bg-gray-100 dark:bg-gray-700 p-4 rounded overflow-auto">${escapeHtml(data.content)}</pre>`;
+                    } else {
+                        document.getElementById('previewContent').innerHTML = '<p class="text-red-500">Preview not available for this file type.</p>';
+                    }
+                }
+            } catch (err) {
+                document.getElementById('previewContent').innerHTML = '<p class="text-red-500">Failed to load preview.</p>';
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        function closePreview() {
+            document.getElementById('previewModal').classList.add('hidden');
+            currentPreviewDocId = null;
+        }
+
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            if (currentPreviewDocId) {
+                window.open(`${API_BASE}/api/documents/${currentPreviewDocId}/download?token=${token}`, '_blank');
+            }
+        });
+
+        function initDarkMode() {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            if (darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkModeIcon').textContent = '☀️';
+            }
+        }
+
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDark);
+            document.getElementById('darkModeIcon').textContent = isDark ? '☀️' : '🌙';
+        });
+
+        initDarkMode();
 
         async function deleteDocument(id) {
             if (!confirm('Delete this document?')) return;

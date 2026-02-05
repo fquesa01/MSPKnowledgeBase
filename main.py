@@ -271,6 +271,68 @@ async def delete_document(doc_id: int, token: str = Depends(oauth2_scheme), db: 
     await db.commit()
     return {"status": "deleted"}
 
+@app.get("/api/documents/{doc_id}/download")
+async def download_document(doc_id: int, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    """Download a document file."""
+    await get_current_user(token)
+    result = await db.execute(select(Document).where(Document.id == doc_id))
+    doc = result.scalar_one_or_none()
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+    
+    if not os.path.exists(doc.file_path):
+        raise HTTPException(status_code=404, detail="File not found on disk")
+    
+    return FileResponse(
+        path=doc.file_path,
+        filename=doc.original_filename,
+        media_type="application/octet-stream"
+    )
+
+@app.get("/api/documents/{doc_id}/preview")
+async def preview_document(doc_id: int, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    """Get document content for preview."""
+    await get_current_user(token)
+    result = await db.execute(select(Document).where(Document.id == doc_id))
+    doc = result.scalar_one_or_none()
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+    
+    # For PDFs, we can serve them directly for browser preview
+    if doc.file_type == "pdf" and os.path.exists(doc.file_path):
+        return FileResponse(
+            path=doc.file_path,
+            filename=doc.original_filename,
+            media_type="application/pdf"
+        )
+    
+    # For other types, return the extracted text from the index
+    if doc.index_path and os.path.exists(doc.index_path):
+        with open(doc.index_path) as f:
+            tree = json.load(f)
+            # Extract text content from the tree
+            text_parts = []
+            def extract_text(node):
+                if isinstance(node, dict):
+                    if "text" in node:
+                        text_parts.append(node["text"])
+                    if "nodes" in node:
+                        for child in node["nodes"]:
+                            extract_text(child)
+                elif isinstance(node, list):
+                    for item in node:
+                        extract_text(item)
+            
+            extract_text(tree.get("structure", []))
+            return {
+                "filename": doc.original_filename,
+                "file_type": doc.file_type,
+                "content": "\n\n".join(text_parts[:10]),  # First 10 sections
+                "preview_type": "text"
+            }
+    
+    raise HTTPException(status_code=404, detail="Preview not available")
+
 # ============ CHAT/SEARCH ROUTES ============
 
 @app.post("/api/chat", response_model=ChatResponse)

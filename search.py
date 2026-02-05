@@ -271,66 +271,75 @@ async def search_and_answer(
             "thinking": "No documents available"
         }
     
-    # Use two-stage search for efficiency
-    if len(document_indexes) > 5:
-        search_results = await two_stage_search(query, document_indexes)
-    else:
-        # For small collections, search all
-        client = openai.AsyncOpenAI(api_key=settings.openai_api_key)
-        tasks = [search_single_document(query, tree, client) for tree in document_indexes]
-        all_results = await asyncio.gather(*tasks)
-        search_results = [r for r in all_results if r.get("is_relevant") and r.get("node_ids")]
-    
-    if not search_results:
-        return {
-            "answer": "I couldn't find relevant information in the knowledge base for your question. Try rephrasing or asking about a different topic.",
-            "sources": [],
-            "thinking": "No relevant documents found"
-        }
-    
-    # Extract context from relevant nodes
-    all_nodes = {}
-    for tree in document_indexes:
-        nodes = create_node_mapping(tree)
-        for node_id, node in nodes.items():
-            all_nodes[f"{tree.get('_doc_id')}:{node_id}"] = {
-                **node,
-                "_doc_name": tree.get("doc_name", "Unknown")
-            }
-    
-    # Gather context from search results
-    context_parts = []
-    sources = []
-    
-    for result in search_results:
-        doc_id = result.get("doc_id")
-        doc_name = result.get("doc_name")
+    try:
+        # Use two-stage search for efficiency
+        if len(document_indexes) > 5:
+            search_results = await two_stage_search(query, document_indexes)
+        else:
+            # For small collections, search all
+            client = openai.AsyncOpenAI(api_key=settings.openai_api_key)
+            tasks = [search_single_document(query, tree, client) for tree in document_indexes]
+            all_results = await asyncio.gather(*tasks)
+            search_results = [r for r in all_results if r.get("is_relevant") and r.get("node_ids")]
         
-        for node_id in result.get("node_ids", []):
-            key = f"{doc_id}:{node_id}"
-            if key in all_nodes:
-                node = all_nodes[key]
-                text = node.get("text", node.get("summary", ""))
-                if text:
-                    context_parts.append(f"[{doc_name} - {node.get('title', 'Section')}]\n{text}")
-                    sources.append({
-                        "doc_name": doc_name,
-                        "node_id": node_id,
-                        "title": node.get("title", "Section"),
-                        "summary": node.get("summary", "")[:200]
-                    })
-    
-    context = "\n\n---\n\n".join(context_parts) if context_parts else "No specific content retrieved."
-    
-    # Generate answer
-    answer = await generate_answer(query, context, sources)
-    
-    # Compile thinking/reasoning
-    thinking_parts = [r.get("reasoning", "") for r in search_results if r.get("reasoning")]
-    thinking = " | ".join(thinking_parts)
-    
-    return {
-        "answer": answer,
-        "sources": sources[:20],  # Limit sources in response
-        "thinking": thinking
-    }
+        if not search_results:
+            return {
+                "answer": "I couldn't find relevant information in the knowledge base for your question. Try rephrasing or asking about a different topic.",
+                "sources": [],
+                "thinking": "No relevant documents found"
+            }
+        
+        # Extract context from relevant nodes
+        all_nodes = {}
+        for tree in document_indexes:
+            nodes = create_node_mapping(tree)
+            for node_id, node in nodes.items():
+                all_nodes[f"{tree.get('_doc_id')}:{node_id}"] = {
+                    **node,
+                    "_doc_name": tree.get("doc_name", "Unknown")
+                }
+        
+        # Gather context from search results
+        context_parts = []
+        sources = []
+        
+        for result in search_results:
+            doc_id = result.get("doc_id")
+            doc_name = result.get("doc_name")
+            
+            for node_id in result.get("node_ids", []):
+                key = f"{doc_id}:{node_id}"
+                if key in all_nodes:
+                    node = all_nodes[key]
+                    text = node.get("text", node.get("summary", ""))
+                    if text:
+                        context_parts.append(f"[{doc_name} - {node.get('title', 'Section')}]\n{text}")
+                        sources.append({
+                            "doc_name": doc_name,
+                            "node_id": node_id,
+                            "title": node.get("title", "Section"),
+                            "summary": node.get("summary", "")[:200]
+                        })
+        
+        context = "\n\n---\n\n".join(context_parts) if context_parts else "No specific content retrieved."
+        
+        # Generate answer
+        answer = await generate_answer(query, context, sources)
+        
+        # Compile thinking/reasoning
+        thinking_parts = [r.get("reasoning", "") for r in search_results if r.get("reasoning")]
+        thinking = " | ".join(thinking_parts)
+        
+        return {
+            "answer": answer,
+            "sources": sources[:20],  # Limit sources in response
+            "thinking": thinking
+        }
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return {
+            "answer": f"Sorry, I encountered an error while searching: {str(e)}. Please try again.",
+            "sources": [],
+            "thinking": f"Error: {str(e)}"
+        }
