@@ -158,10 +158,10 @@ async def process_document_task(doc_id: int):
             traceback.print_exc()
             await db.commit()
 
-@app.post("/api/documents/upload", response_model=DocumentResponse)
-async def upload_document(
+@app.post("/api/documents/upload", response_model=List[DocumentResponse])
+async def upload_documents(
     background_tasks: BackgroundTasks,
-    file: UploadFile = File(...),
+    files: List[UploadFile] = File(...),
     token: str = Depends(oauth2_scheme),
     db: AsyncSession = Depends(get_db)
 ):
@@ -171,42 +171,50 @@ async def upload_document(
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
     
-    # Validate file type
-    ext = file.filename.split(".")[-1].lower()
-    if ext not in ["pdf", "docx", "xlsx", "pptx"]:
-        raise HTTPException(status_code=400, detail="Unsupported file type")
+    if len(files) > 100:
+        raise HTTPException(status_code=400, detail="Maximum 100 files allowed per upload")
     
-    # Save file
-    filename = f"{uuid.uuid4()}.{ext}"
-    file_path = os.path.join(settings.upload_dir, filename)
+    uploaded_docs = []
     
-    content = await file.read()
-    with open(file_path, "wb") as f:
-        f.write(content)
+    for file in files:
+        # Validate file type
+        ext = file.filename.split(".")[-1].lower()
+        if ext not in ["pdf", "docx", "xlsx", "pptx"]:
+            continue
+        
+        # Save file with streaming for large files
+        filename = f"{uuid.uuid4()}.{ext}"
+        file_path = os.path.join(settings.upload_dir, filename)
+        
+        with open(file_path, "wb") as f:
+            while chunk := await file.read(1024 * 1024):
+                f.write(chunk)
+        
+        # Create document record
+        doc = Document(
+            filename=filename,
+            original_filename=file.filename,
+            file_type=ext,
+            file_path=file_path,
+            uploaded_by_id=user.id
+        )
+        db.add(doc)
+        await db.commit()
+        await db.refresh(doc)
+        
+        # Process in background
+        background_tasks.add_task(process_document_task, doc.id)
+        
+        uploaded_docs.append(DocumentResponse(
+            id=doc.id,
+            filename=doc.filename,
+            original_filename=doc.original_filename,
+            file_type=doc.file_type,
+            status=doc.status,
+            created_at=doc.created_at.isoformat()
+        ))
     
-    # Create document record
-    doc = Document(
-        filename=filename,
-        original_filename=file.filename,
-        file_type=ext,
-        file_path=file_path,
-        uploaded_by_id=user.id
-    )
-    db.add(doc)
-    await db.commit()
-    await db.refresh(doc)
-    
-    # Process in background
-    background_tasks.add_task(process_document_task, doc.id)
-    
-    return DocumentResponse(
-        id=doc.id,
-        filename=doc.filename,
-        original_filename=doc.original_filename,
-        file_type=doc.file_type,
-        status=doc.status,
-        created_at=doc.created_at.isoformat()
-    )
+    return uploaded_docs
 
 @app.get("/api/documents", response_model=List[DocumentResponse])
 async def list_documents(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):

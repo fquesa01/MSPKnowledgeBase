@@ -57,10 +57,10 @@
                     <div class="mb-6">
                         <label class="block w-full cursor-pointer">
                             <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-500 transition">
-                                <p class="text-gray-500">Click to upload</p>
-                                <p class="text-sm text-gray-400">PDF, Word, Excel, PowerPoint</p>
+                                <p class="text-gray-500">Click to upload (up to 100 files)</p>
+                                <p class="text-sm text-gray-400">PDF, Word, Excel, PowerPoint (max 1GB each)</p>
                             </div>
-                            <input type="file" id="fileInput" accept=".pdf,.docx,.xlsx,.pptx" class="hidden">
+                            <input type="file" id="fileInput" accept=".pdf,.docx,.xlsx,.pptx" class="hidden" multiple>
                         </label>
                     </div>
                     
@@ -200,9 +200,16 @@
             `).join('');
         }
 
-        async function uploadFile(file) {
+        async function uploadFiles(files) {
+            if (files.length > 100) {
+                alert('Maximum 100 files allowed per upload');
+                return;
+            }
+            
             const formData = new FormData();
-            formData.append('file', file);
+            for (const file of files) {
+                formData.append('files', file);
+            }
 
             try {
                 const res = await fetch(`${API_BASE}/api/documents/upload`, {
@@ -212,9 +219,12 @@
                 });
                 if (res.ok) {
                     loadDocuments();
-                    // Poll for processing status
                     setTimeout(loadDocuments, 5000);
                     setTimeout(loadDocuments, 15000);
+                    setTimeout(loadDocuments, 30000);
+                } else {
+                    const error = await res.json();
+                    alert('Upload failed: ' + (error.detail || 'Unknown error'));
                 }
             } catch (err) {
                 alert('Upload failed: ' + err.message);
@@ -292,7 +302,7 @@
         document.getElementById('authForm').addEventListener('submit', handleAuth);
         document.getElementById('logoutBtn').addEventListener('click', logout);
         document.getElementById('fileInput').addEventListener('change', (e) => {
-            if (e.target.files[0]) uploadFile(e.target.files[0]);
+            if (e.target.files.length > 0) uploadFiles(e.target.files);
         });
         document.getElementById('chatForm').addEventListener('submit', handleChat);
 
