@@ -189,12 +189,12 @@
                             <!-- Select from knowledge base -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select from knowledge base</label>
-                                <div class="flex flex-col sm:flex-row gap-2">
-                                    <select id="pleadingSelect" class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                                <div class="flex flex-col gap-2">
+                                    <select id="pleadingSelect" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
                                         <option value="">-- Select a document to analyze --</option>
                                     </select>
-                                    <button onclick="analyzePleading()" id="analyzeBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50 whitespace-nowrap flex-shrink-0">
-                                        Analyze
+                                    <button onclick="analyzePleading()" id="analyzeBtn" class="w-full sm:w-auto bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50">
+                                        Analyze Selected Document
                                     </button>
                                 </div>
                             </div>
