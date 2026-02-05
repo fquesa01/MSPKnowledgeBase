@@ -65,6 +65,7 @@ class DocumentResponse(BaseModel):
     original_filename: str
     file_type: str
     status: str
+    progress: int
     created_at: str
 
 # Database dependency
@@ -117,6 +118,11 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSessi
 
 # ============ DOCUMENT ROUTES ============
 
+async def update_progress(db, doc, progress: int):
+    """Helper to update document progress."""
+    doc.progress = progress
+    await db.commit()
+
 async def process_document_task(doc_id: int):
     """Background task to process uploaded document using PageIndex."""
     async with async_session() as db:
@@ -127,17 +133,25 @@ async def process_document_task(doc_id: int):
         
         try:
             doc.status = "processing"
+            doc.progress = 5
             await db.commit()
             
-            # Process document using PageIndex
+            # Create progress callback
+            async def progress_callback(pct: int):
+                await update_progress(db, doc, pct)
+            
+            # Process document using PageIndex with progress tracking
             tree = await process_document(
                 file_path=doc.file_path,
                 filename=doc.original_filename,
-                file_type=doc.file_type
+                file_type=doc.file_type,
+                progress_callback=progress_callback
             )
             
             # Add document ID for tracking
             tree["_doc_id"] = doc.id
+            doc.progress = 90
+            await db.commit()
             
             # Save index
             index_path = os.path.join(settings.index_dir, f"{doc.filename}.json")
@@ -146,6 +160,7 @@ async def process_document_task(doc_id: int):
             
             doc.index_path = index_path
             doc.status = "ready"
+            doc.progress = 100
             await db.commit()
             
             print(f"Document processed successfully: {doc.original_filename}")
@@ -154,6 +169,7 @@ async def process_document_task(doc_id: int):
             import traceback
             doc.status = "error"
             doc.error_message = str(e)
+            doc.progress = 0
             print(f"Error processing document: {e}")
             traceback.print_exc()
             await db.commit()
@@ -211,6 +227,7 @@ async def upload_documents(
             original_filename=doc.original_filename,
             file_type=doc.file_type,
             status=doc.status,
+            progress=doc.progress or 0,
             created_at=doc.created_at.isoformat()
         ))
     
@@ -228,6 +245,7 @@ async def list_documents(token: str = Depends(oauth2_scheme), db: AsyncSession =
             original_filename=d.original_filename,
             file_type=d.file_type,
             status=d.status,
+            progress=d.progress or 0,
             created_at=d.created_at.isoformat()
         ) for d in docs
     ]

@@ -28,6 +28,7 @@ class Document(Base):
     file_path = Column(String(500), nullable=False)
     index_path = Column(String(500), nullable=True)  # PageIndex tree JSON
     status = Column(String(50), default="pending")  # pending, processing, ready, error
+    progress = Column(Integer, default=0)  # 0-100 percentage
     error_message = Column(Text, nullable=True)
     uploaded_by_id = Column(Integer, ForeignKey("users.id"))
     created_at = Column(DateTime, default=datetime.utcnow)

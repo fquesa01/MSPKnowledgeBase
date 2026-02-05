@@ -189,15 +189,35 @@
                 list.innerHTML = '<p class="text-gray-500 text-sm">No documents yet</p>';
                 return;
             }
-            list.innerHTML = docs.map(doc => `
+            
+            const hasProcessing = docs.some(d => d.status === 'processing' || d.status === 'pending');
+            if (hasProcessing) {
+                setTimeout(loadDocuments, 2000);
+            }
+            
+            list.innerHTML = docs.map(doc => {
+                const statusDisplay = doc.status === 'processing' 
+                    ? `<div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                         <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: ${doc.progress}%"></div>
+                       </div>
+                       <p class="text-xs text-blue-600">${doc.progress}% processing...</p>`
+                    : doc.status === 'pending'
+                    ? '<p class="text-xs text-yellow-600">Waiting to process...</p>'
+                    : doc.status === 'ready'
+                    ? '<p class="text-xs text-green-600">Ready</p>'
+                    : doc.status === 'error'
+                    ? '<p class="text-xs text-red-600">Error</p>'
+                    : `<p class="text-xs text-gray-500">${doc.status}</p>`;
+                
+                return `
                 <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium truncate">${doc.original_filename}</p>
-                        <p class="text-xs text-gray-500">${doc.status}</p>
+                        ${statusDisplay}
                     </div>
-                    <button onclick="deleteDocument(${doc.id})" class="text-red-500 hover:text-red-700 ml-2">×</button>
-                </div>
-            `).join('');
+                    <button onclick="deleteDocument(${doc.id})" class="text-red-500 hover:text-red-700 ml-2 text-lg">×</button>
+                </div>`;
+            }).join('');
         }
 
         async function uploadFiles(files) {

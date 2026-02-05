@@ -196,20 +196,31 @@ Return ONLY valid JSON, no markdown formatting or explanation."""
 async def process_document(
     file_path: str, 
     filename: str, 
-    file_type: str
+    file_type: str,
+    progress_callback = None
 ) -> Dict[str, Any]:
     """
     Main entry point for document processing.
     Extracts text and generates tree structure.
+    progress_callback: Optional async function that takes an int (0-100) for progress updates.
     """
     print(f"Processing document: {filename}")
+    
+    if progress_callback:
+        await progress_callback(10)
     
     # Extract text
     text, page_count = extract_text(file_path, file_type)
     print(f"  Extracted {len(text)} chars, ~{page_count} pages")
     
+    if progress_callback:
+        await progress_callback(30)
+    
     # Generate tree structure
     tree = await generate_tree_structure(text, filename, page_count)
+    
+    if progress_callback:
+        await progress_callback(80)
     
     # Add metadata
     tree["_source_file"] = filename
