@@ -272,8 +272,10 @@ async def delete_document(doc_id: int, token: str = Depends(oauth2_scheme), db: 
     return {"status": "deleted"}
 
 @app.get("/api/documents/{doc_id}/download")
-async def download_document(doc_id: int, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
-    """Download a document file."""
+async def download_document(doc_id: int, token: Optional[str] = None, db: AsyncSession = Depends(get_db)):
+    """Download a document file. Accepts token as query param for direct downloads."""
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
     await get_current_user(token)
     result = await db.execute(select(Document).where(Document.id == doc_id))
     doc = result.scalar_one_or_none()
@@ -290,8 +292,10 @@ async def download_document(doc_id: int, token: str = Depends(oauth2_scheme), db
     )
 
 @app.get("/api/documents/{doc_id}/preview")
-async def preview_document(doc_id: int, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
-    """Get document content for preview."""
+async def preview_document(doc_id: int, token: Optional[str] = None, db: AsyncSession = Depends(get_db)):
+    """Get document content for preview. Accepts token as query param for iframe embeds."""
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
     await get_current_user(token)
     result = await db.execute(select(Document).where(Document.id == doc_id))
     doc = result.scalar_one_or_none()
