@@ -167,11 +167,11 @@
                     <div id="analyzePleadingContent" class="flex-1 flex flex-col overflow-hidden hidden">
                         <div class="p-4 border-b dark:border-gray-700">
                             <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Select a court pleading to analyze. The system will extract legal issues and find supporting or contradicting evidence from your knowledge base.</p>
-                            <div class="flex gap-2">
+                            <div class="flex flex-col sm:flex-row gap-2">
                                 <select id="pleadingSelect" class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
                                     <option value="">-- Select a document to analyze --</option>
                                 </select>
-                                <button onclick="analyzePleading()" id="analyzeBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50">
+                                <button onclick="analyzePleading()" id="analyzeBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50 whitespace-nowrap flex-shrink-0">
                                     Analyze
                                 </button>
                             </div>
