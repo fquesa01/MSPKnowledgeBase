@@ -74,10 +74,34 @@ async def get_db():
     async with async_session() as session:
         yield session
 
+async def process_pending_documents():
+    """Background worker to process pending documents."""
+    while True:
+        try:
+            async with async_session() as db:
+                # Find one pending document
+                result = await db.execute(
+                    select(Document).where(Document.status == "pending").limit(1)
+                )
+                doc = result.scalar_one_or_none()
+                
+                if doc:
+                    print(f"Processing pending document: {doc.original_filename}")
+                    await process_document_task(doc.id)
+                else:
+                    # No pending docs, wait before checking again
+                    await asyncio.sleep(5)
+        except Exception as e:
+            print(f"Error in pending document worker: {e}")
+            await asyncio.sleep(10)
+
 @app.on_event("startup")
 async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+    
+    # Start background worker for pending documents
+    asyncio.create_task(process_pending_documents())
 
 # ============ AUTH ROUTES ============
 
