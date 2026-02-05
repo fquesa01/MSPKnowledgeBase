@@ -206,7 +206,9 @@
                     : doc.status === 'ready'
                     ? '<p class="text-xs text-green-600">Ready</p>'
                     : doc.status === 'error'
-                    ? '<p class="text-xs text-red-600">Error</p>'
+                    ? `<p class="text-xs text-red-600 cursor-pointer" onclick="showError('${escape(doc.error_message || 'Unknown error')}')">
+                         Error - click for details
+                       </p>`
                     : `<p class="text-xs text-gray-500">${doc.status}</p>`;
                 
                 return `
@@ -249,6 +251,16 @@
             } catch (err) {
                 alert('Upload failed: ' + err.message);
             }
+        }
+
+        function escape(str) {
+            if (!str) return '';
+            return str.replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, ' ');
+        }
+
+        function showError(message) {
+            const decoded = message.replace(/\\'/g, "'").replace(/\\"/g, '"');
+            alert('Processing Error:\n\n' + decoded);
         }
 
         async function deleteDocument(id) {

@@ -66,6 +66,7 @@ class DocumentResponse(BaseModel):
     file_type: str
     status: str
     progress: int
+    error_message: Optional[str] = None
     created_at: str
 
 # Database dependency
@@ -228,6 +229,7 @@ async def upload_documents(
             file_type=doc.file_type,
             status=doc.status,
             progress=doc.progress or 0,
+            error_message=doc.error_message,
             created_at=doc.created_at.isoformat()
         ))
     
@@ -246,6 +248,7 @@ async def list_documents(token: str = Depends(oauth2_scheme), db: AsyncSession =
             file_type=d.file_type,
             status=d.status,
             progress=d.progress or 0,
+            error_message=d.error_message,
             created_at=d.created_at.isoformat()
         ) for d in docs
     ]
