@@ -3,7 +3,8 @@ entrypoint = "main.py"
 modules = ["python-3.12"]
 
 [nix]
-channel = "stable-24_05"
+channel = "stable-25_05"
+packages = ["cargo", "freetype", "gumbo", "harfbuzz", "jbig2dec", "libiconv", "libjpeg_turbo", "libxcrypt", "libyaml", "mupdf", "openjpeg", "rustc", "swig", "xcbuild"]
 
 [deployment]
 run = ["sh", "-c", "pip install -r requirements.txt && python main.py"]
