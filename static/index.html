@@ -392,6 +392,32 @@
             container.scrollTop = container.scrollHeight;
         }
 
+        function showThinkingIndicator() {
+            const container = document.getElementById('chatMessages');
+            const thinkingDiv = document.createElement('div');
+            thinkingDiv.id = 'thinkingIndicator';
+            thinkingDiv.className = 'chat-message flex justify-start';
+            thinkingDiv.innerHTML = `
+                <div class="max-w-[80%] p-3 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                    <div class="flex items-center gap-2">
+                        <div class="flex gap-1">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0ms;"></span>
+                            <span class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 150ms;"></span>
+                            <span class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 300ms;"></span>
+                        </div>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Searching knowledge base...</span>
+                    </div>
+                </div>
+            `;
+            container.appendChild(thinkingDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function hideThinkingIndicator() {
+            const indicator = document.getElementById('thinkingIndicator');
+            if (indicator) indicator.remove();
+        }
+
         async function handleChat(e) {
             e.preventDefault();
             const input = document.getElementById('chatInput');
@@ -400,6 +426,9 @@
 
             addMessage(query, true);
             input.value = '';
+            
+            showThinkingIndicator();
+            document.getElementById('chatInput').disabled = true;
 
             try {
                 const res = await fetch(`${API_BASE}/api/chat`, {
@@ -410,10 +439,15 @@
                     },
                     body: JSON.stringify({ query })
                 });
+                hideThinkingIndicator();
                 const data = await res.json();
                 addMessage(data.answer, false, data.sources);
             } catch (err) {
+                hideThinkingIndicator();
                 addMessage('Error: ' + err.message, false);
+            } finally {
+                document.getElementById('chatInput').disabled = false;
+                document.getElementById('chatInput').focus();
             }
         }
 
