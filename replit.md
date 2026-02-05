@@ -4,6 +4,9 @@
 A FastAPI-based document management system that allows users to upload documents (PDF, Word, Excel, PowerPoint), processes them to create searchable indexes using OpenAI, and enables users to ask questions about the document content.
 
 ## Recent Changes
+- **Feb 5, 2026**: Added Pleading Analysis feature - analyze court pleadings to extract legal issues and find supporting/contradicting evidence from knowledge base
+- **Feb 5, 2026**: Added background worker to automatically process pending documents on server restart
+- **Feb 5, 2026**: Added resizable panel divider between Documents and Ask Questions sections
 - **Feb 5, 2026**: Added page image screenshots in Q&A responses - shows visual thumbnails from source documents
 - **Feb 5, 2026**: Added progress tracking for document processing (0-100%) with real-time updates
 - **Feb 5, 2026**: Implemented batch upload support for up to 100 documents at once (1GB max per file)

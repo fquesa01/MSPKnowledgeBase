@@ -132,26 +132,57 @@
 
                 <!-- Chat Panel -->
                 <div id="chatPanel" class="bg-white dark:bg-gray-800 rounded-lg shadow flex flex-col order-1 lg:order-2 flex-1" style="height: 600px; min-width: 400px;">
-                    <div class="p-4 border-b dark:border-gray-700">
-                        <h2 class="text-lg font-semibold dark:text-white">Ask Questions</h2>
+                    <!-- Tab Headers -->
+                    <div class="flex border-b dark:border-gray-700">
+                        <button id="tabAskQuestions" onclick="switchTab('ask')" class="flex-1 px-4 py-3 text-sm font-medium border-b-2 border-blue-600 text-blue-600 dark:text-blue-400">
+                            Ask Questions
+                        </button>
+                        <button id="tabAnalyzePleading" onclick="switchTab('analyze')" class="flex-1 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400">
+                            Analyze Pleading
+                        </button>
                     </div>
                     
-                    <!-- Chat Messages -->
-                    <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-4">
-                        <div class="text-center text-gray-500 dark:text-gray-400 py-8">
-                            <p>Upload documents and ask questions about your knowledge base.</p>
+                    <!-- Ask Questions Tab Content -->
+                    <div id="askQuestionsContent" class="flex-1 flex flex-col overflow-hidden">
+                        <!-- Chat Messages -->
+                        <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-4">
+                            <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                                <p>Upload documents and ask questions about your knowledge base.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Chat Input -->
+                        <div class="p-4 border-t dark:border-gray-700">
+                            <form id="chatForm" class="flex gap-2">
+                                <input type="text" id="chatInput" placeholder="Ask a question..." 
+                                    class="flex-1 px-4 py-2 border dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                                    Send
+                                </button>
+                            </form>
                         </div>
                     </div>
                     
-                    <!-- Chat Input -->
-                    <div class="p-4 border-t dark:border-gray-700">
-                        <form id="chatForm" class="flex gap-2">
-                            <input type="text" id="chatInput" placeholder="Ask a question..." 
-                                class="flex-1 px-4 py-2 border dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
-                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                                Send
-                            </button>
-                        </form>
+                    <!-- Analyze Pleading Tab Content -->
+                    <div id="analyzePleadingContent" class="flex-1 flex flex-col overflow-hidden hidden">
+                        <div class="p-4 border-b dark:border-gray-700">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Select a court pleading to analyze. The system will extract legal issues and find supporting or contradicting evidence from your knowledge base.</p>
+                            <div class="flex gap-2">
+                                <select id="pleadingSelect" class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                                    <option value="">-- Select a document to analyze --</option>
+                                </select>
+                                <button onclick="analyzePleading()" id="analyzeBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50">
+                                    Analyze
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Analysis Results -->
+                        <div id="analysisResults" class="flex-1 overflow-y-auto p-4">
+                            <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                                <p>Select a pleading document to analyze its legal issues.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -599,6 +630,173 @@
                 document.getElementById('chatInput').disabled = false;
                 document.getElementById('chatInput').focus();
             }
+        }
+
+        // Tab switching
+        function switchTab(tab) {
+            const askTab = document.getElementById('tabAskQuestions');
+            const analyzeTab = document.getElementById('tabAnalyzePleading');
+            const askContent = document.getElementById('askQuestionsContent');
+            const analyzeContent = document.getElementById('analyzePleadingContent');
+            
+            if (tab === 'ask') {
+                askTab.classList.add('border-blue-600', 'text-blue-600', 'dark:text-blue-400');
+                askTab.classList.remove('border-transparent', 'text-gray-500');
+                analyzeTab.classList.remove('border-blue-600', 'text-blue-600', 'dark:text-blue-400');
+                analyzeTab.classList.add('border-transparent', 'text-gray-500');
+                askContent.classList.remove('hidden');
+                analyzeContent.classList.add('hidden');
+            } else {
+                analyzeTab.classList.add('border-blue-600', 'text-blue-600', 'dark:text-blue-400');
+                analyzeTab.classList.remove('border-transparent', 'text-gray-500');
+                askTab.classList.remove('border-blue-600', 'text-blue-600', 'dark:text-blue-400');
+                askTab.classList.add('border-transparent', 'text-gray-500');
+                analyzeContent.classList.remove('hidden');
+                askContent.classList.add('hidden');
+                updatePleadingSelect();
+            }
+        }
+        
+        function updatePleadingSelect() {
+            const select = document.getElementById('pleadingSelect');
+            const currentValue = select.value;
+            fetch(`${API_BASE}/api/documents`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Failed to load documents');
+                return res.json();
+            })
+            .then(docs => {
+                const readyDocs = docs.filter(d => d.status === 'ready');
+                select.innerHTML = '<option value="">-- Select a document to analyze --</option>' +
+                    readyDocs.map(d => `<option value="${d.id}">${d.original_filename}</option>`).join('');
+                if (currentValue && readyDocs.some(d => d.id == currentValue)) {
+                    select.value = currentValue;
+                }
+            })
+            .catch(err => {
+                console.error('Error loading documents for analysis:', err);
+                select.innerHTML = '<option value="">Error loading documents - try refreshing</option>';
+            });
+        }
+        
+        async function analyzePleading() {
+            const docId = document.getElementById('pleadingSelect').value;
+            if (!docId) {
+                alert('Please select a document to analyze');
+                return;
+            }
+            
+            const btn = document.getElementById('analyzeBtn');
+            const results = document.getElementById('analysisResults');
+            btn.disabled = true;
+            btn.textContent = 'Analyzing...';
+            results.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                    <p class="text-gray-600 dark:text-gray-400">Analyzing legal issues and searching for evidence...</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">This may take a minute...</p>
+                </div>
+            `;
+            
+            try {
+                const formData = new FormData();
+                formData.append('doc_id', docId);
+                
+                const res = await fetch(`${API_BASE}/api/analyze-pleading`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+                
+                if (!res.ok) {
+                    const errorData = await res.json().catch(() => ({ detail: 'Analysis failed' }));
+                    throw new Error(errorData.detail || 'Analysis failed');
+                }
+                
+                const data = await res.json();
+                renderAnalysisResults(data);
+            } catch (err) {
+                results.innerHTML = `
+                    <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                        <h4 class="font-medium text-red-800 dark:text-red-300">Analysis Error</h4>
+                        <p class="text-red-700 dark:text-red-400 mt-1">${err.message}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Try selecting a different document or refreshing the page.</p>
+                    </div>`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Analyze';
+            }
+        }
+        
+        function renderAnalysisResults(data) {
+            const results = document.getElementById('analysisResults');
+            
+            let html = `
+                <div class="mb-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                    <h3 class="font-semibold text-purple-800 dark:text-purple-300 mb-2">Pleading Summary</h3>
+                    <p class="text-gray-700 dark:text-gray-300">${data.pleading_summary}</p>
+                </div>
+            `;
+            
+            if (data.issues.length === 0) {
+                html += '<p class="text-gray-500">No legal issues extracted from this document.</p>';
+            } else {
+                html += '<h3 class="font-semibold text-lg mb-4 dark:text-white">Legal Issues</h3>';
+                
+                data.issues.forEach((item, idx) => {
+                    const issue = item.issue;
+                    const supporting = item.supporting_evidence || [];
+                    const contradicting = item.contradicting_evidence || [];
+                    
+                    html += `
+                        <div class="mb-6 border dark:border-gray-700 rounded-lg overflow-hidden">
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4">
+                                <h4 class="font-semibold dark:text-white">Issue ${issue.issue_number}: ${issue.issue_title}</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">${issue.summary}</p>
+                                <div class="mt-2">
+                                    ${issue.key_claims.map(c => `<span class="inline-block bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded mr-1 mb-1">${c}</span>`).join('')}
+                                </div>
+                            </div>
+                            <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <h5 class="font-medium text-green-700 dark:text-green-400 mb-2 flex items-center">
+                                        <span class="mr-1">&#10003;</span> Supporting Evidence (${supporting.length})
+                                    </h5>
+                                    ${supporting.length === 0 ? '<p class="text-sm text-gray-500">No supporting evidence found</p>' :
+                                        supporting.map(e => `
+                                            <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded mb-2 text-sm">
+                                                <p class="font-medium text-green-800 dark:text-green-300">${e.doc_name}</p>
+                                                <p class="text-gray-700 dark:text-gray-300 mt-1">"${e.excerpt}"</p>
+                                                <p class="text-xs text-green-600 dark:text-green-400 mt-1">${e.reasoning}</p>
+                                                ${e.page_numbers.length ? `<p class="text-xs text-gray-500 mt-1">Pages: ${e.page_numbers.join(', ')}</p>` : ''}
+                                            </div>
+                                        `).join('')
+                                    }
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-red-700 dark:text-red-400 mb-2 flex items-center">
+                                        <span class="mr-1">&#10007;</span> Contradicting Evidence (${contradicting.length})
+                                    </h5>
+                                    ${contradicting.length === 0 ? '<p class="text-sm text-gray-500">No contradicting evidence found</p>' :
+                                        contradicting.map(e => `
+                                            <div class="bg-red-50 dark:bg-red-900/20 p-3 rounded mb-2 text-sm">
+                                                <p class="font-medium text-red-800 dark:text-red-300">${e.doc_name}</p>
+                                                <p class="text-gray-700 dark:text-gray-300 mt-1">"${e.excerpt}"</p>
+                                                <p class="text-xs text-red-600 dark:text-red-400 mt-1">${e.reasoning}</p>
+                                                ${e.page_numbers.length ? `<p class="text-xs text-gray-500 mt-1">Pages: ${e.page_numbers.join(', ')}</p>` : ''}
+                                            </div>
+                                        `).join('')
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            results.innerHTML = html;
         }
 
         // Event listeners

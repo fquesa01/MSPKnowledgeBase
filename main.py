@@ -3,8 +3,9 @@ import os
 import json
 import uuid
 import asyncio
+import openai
 from datetime import timedelta
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, File, Form, BackgroundTasks
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.staticfiles import StaticFiles
@@ -385,6 +386,293 @@ async def get_page_image(doc_id: int, page_num: int, token: Optional[str] = None
         return FileResponse(image_path, media_type="image/png")
     
     raise HTTPException(status_code=404, detail="Page image not found")
+
+# ============ PLEADING ANALYSIS ============
+
+class PleadingIssue(BaseModel):
+    issue_number: int
+    issue_title: str
+    summary: str
+    key_claims: List[str]
+
+class EvidenceItem(BaseModel):
+    doc_id: int
+    doc_name: str
+    excerpt: str
+    page_numbers: List[int] = []
+    stance: str  # "supporting" or "contradicting"
+    reasoning: str
+
+class IssueAnalysis(BaseModel):
+    issue: PleadingIssue
+    supporting_evidence: List[EvidenceItem]
+    contradicting_evidence: List[EvidenceItem]
+
+class PleadingAnalysisResponse(BaseModel):
+    pleading_summary: str
+    issues: List[IssueAnalysis]
+
+async def extract_legal_issues(text: str, filename: str) -> Dict[str, Any]:
+    """Extract legal issues from a court pleading using OpenAI."""
+    client = openai.AsyncOpenAI(api_key=settings.openai_api_key)
+    
+    # Truncate text more aggressively to prevent context overflow
+    truncated_text = text[:20000]
+    
+    prompt = f"""Analyze this court pleading and extract all legal issues, claims, and arguments.
+
+Document: {filename}
+
+Text:
+{truncated_text}
+
+Extract each distinct legal issue or claim. For each issue, provide:
+1. A clear title
+2. A brief summary
+3. Key claims or arguments made
+
+Reply in JSON format:
+{{
+    "pleading_summary": "Brief overview of what this pleading is about",
+    "issues": [
+        {{
+            "issue_number": 1,
+            "issue_title": "Title of the legal issue",
+            "summary": "Summary of the issue",
+            "key_claims": ["claim 1", "claim 2"]
+        }}
+    ]
+}}
+
+Return ONLY valid JSON."""
+
+    try:
+        response = await client.chat.completions.create(
+            model=settings.openai_model,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0,
+            response_format={"type": "json_object"}
+        )
+        
+        result = json.loads(response.choices[0].message.content)
+        # Validate required fields
+        if "pleading_summary" not in result:
+            result["pleading_summary"] = "Unable to generate summary"
+        if "issues" not in result or not isinstance(result["issues"], list):
+            result["issues"] = []
+        return result
+    except Exception as e:
+        print(f"Error extracting legal issues: {e}")
+        return {
+            "pleading_summary": f"Error analyzing document: {str(e)}",
+            "issues": []
+        }
+
+async def find_evidence_for_issue(
+    issue: Dict[str, Any], 
+    document_indexes: List[Dict[str, Any]],
+    all_nodes: Dict[str, Any]
+) -> Dict[str, Any]:
+    """Search knowledge base for supporting/contradicting evidence for a legal issue."""
+    client = openai.AsyncOpenAI(api_key=settings.openai_api_key)
+    
+    # Create search query from issue
+    search_query = f"{issue['issue_title']}: {issue['summary']}. Claims: {', '.join(issue['key_claims'][:3])}"
+    
+    # Get relevant documents using existing two-stage search
+    from search import two_stage_search, search_single_document
+    
+    if len(document_indexes) > 5:
+        search_results = await two_stage_search(search_query, document_indexes)
+    else:
+        tasks = [search_single_document(search_query, tree, client) for tree in document_indexes]
+        all_results = await asyncio.gather(*tasks)
+        search_results = [r for r in all_results if r.get("is_relevant") and r.get("node_ids")]
+    
+    # Gather relevant context
+    context_items = []
+    for result in search_results[:5]:  # Limit to top 5 docs
+        doc_id = result.get("doc_id")
+        doc_name = result.get("doc_name")
+        
+        for node_id in result.get("node_ids", [])[:3]:  # Limit nodes per doc
+            key = f"{doc_id}:{node_id}"
+            if key in all_nodes:
+                node = all_nodes[key]
+                text = node.get("text", node.get("summary", ""))
+                if text:
+                    context_items.append({
+                        "doc_id": doc_id,
+                        "doc_name": doc_name,
+                        "node_id": node_id,
+                        "title": node.get("title", "Section"),
+                        "text": text[:2000],
+                        "page_numbers": node.get("page_numbers", [])
+                    })
+    
+    if not context_items:
+        return {"supporting": [], "contradicting": []}
+    
+    # Use AI to classify evidence as supporting or contradicting
+    evidence_prompt = f"""Analyze if the following evidence supports or contradicts this legal issue.
+
+Legal Issue: {issue['issue_title']}
+Summary: {issue['summary']}
+Key Claims: {json.dumps(issue['key_claims'])}
+
+Evidence from knowledge base:
+{json.dumps(context_items, indent=2)}
+
+For each piece of evidence, determine if it SUPPORTS or CONTRADICTS the claims in the legal issue.
+Consider: Does the evidence strengthen the argument? Weaken it? Provide counter-examples?
+
+Reply in JSON format:
+{{
+    "supporting": [
+        {{
+            "doc_id": <id>,
+            "doc_name": "name",
+            "excerpt": "relevant text excerpt (max 500 chars)",
+            "page_numbers": [1, 2],
+            "reasoning": "why this supports the issue"
+        }}
+    ],
+    "contradicting": [
+        {{
+            "doc_id": <id>,
+            "doc_name": "name", 
+            "excerpt": "relevant text excerpt (max 500 chars)",
+            "page_numbers": [1, 2],
+            "reasoning": "why this contradicts or weakens the issue"
+        }}
+    ]
+}}
+
+Return ONLY valid JSON."""
+
+    try:
+        response = await client.chat.completions.create(
+            model=settings.openai_model,
+            messages=[{"role": "user", "content": evidence_prompt}],
+            temperature=0,
+            response_format={"type": "json_object"}
+        )
+        
+        result = json.loads(response.choices[0].message.content)
+        # Validate and filter evidence to ensure doc_ids exist
+        valid_doc_ids = {item["doc_id"] for item in context_items}
+        if "supporting" in result:
+            result["supporting"] = [e for e in result.get("supporting", []) if e.get("doc_id") in valid_doc_ids]
+        else:
+            result["supporting"] = []
+        if "contradicting" in result:
+            result["contradicting"] = [e for e in result.get("contradicting", []) if e.get("doc_id") in valid_doc_ids]
+        else:
+            result["contradicting"] = []
+        return result
+    except Exception as e:
+        print(f"Error classifying evidence: {e}")
+        return {"supporting": [], "contradicting": []}
+
+@app.post("/api/analyze-pleading", response_model=PleadingAnalysisResponse)
+async def analyze_pleading(
+    doc_id: int = Form(...),
+    token: str = Depends(oauth2_scheme),
+    db: AsyncSession = Depends(get_db)
+):
+    """Analyze a court pleading document and find supporting/contradicting evidence."""
+    await get_current_user(token)
+    
+    # Get the pleading document
+    result = await db.execute(select(Document).where(Document.id == doc_id))
+    pleading_doc = result.scalar_one_or_none()
+    if not pleading_doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+    
+    if pleading_doc.status != "ready":
+        raise HTTPException(status_code=400, detail="Document is not ready for analysis")
+    
+    # Load pleading text from index
+    if not pleading_doc.index_path or not os.path.exists(pleading_doc.index_path):
+        raise HTTPException(status_code=400, detail="Document index not found")
+    
+    with open(pleading_doc.index_path) as f:
+        pleading_tree = json.load(f)
+    
+    # Extract full text from pleading
+    from document_processor import create_node_mapping
+    pleading_nodes = create_node_mapping(pleading_tree)
+    pleading_text = "\n\n".join([
+        node.get("text", "") for node in pleading_nodes.values() if node.get("text")
+    ])
+    
+    # Extract legal issues from pleading
+    issues_data = await extract_legal_issues(pleading_text, pleading_doc.original_filename)
+    
+    # Load all OTHER documents for evidence search (exclude the pleading itself)
+    result = await db.execute(
+        select(Document).where(
+            Document.status == "ready",
+            Document.id != doc_id
+        )
+    )
+    other_docs = result.scalars().all()
+    
+    indexes = []
+    all_nodes = {}
+    for doc in other_docs:
+        if doc.index_path and os.path.exists(doc.index_path):
+            with open(doc.index_path) as f:
+                tree = json.load(f)
+                tree["_doc_id"] = doc.id
+                tree["_doc_name"] = doc.original_filename
+                indexes.append(tree)
+                
+                # Build node mapping
+                nodes = create_node_mapping(tree)
+                for node_id, node in nodes.items():
+                    all_nodes[f"{doc.id}:{node_id}"] = {
+                        **node,
+                        "_doc_name": doc.original_filename
+                    }
+    
+    # Analyze each issue
+    analyzed_issues = []
+    for issue in issues_data.get("issues", []):
+        evidence = await find_evidence_for_issue(issue, indexes, all_nodes)
+        
+        supporting = [
+            EvidenceItem(
+                doc_id=e.get("doc_id", 0),
+                doc_name=e.get("doc_name", "Unknown"),
+                excerpt=e.get("excerpt", ""),
+                page_numbers=e.get("page_numbers", []),
+                stance="supporting",
+                reasoning=e.get("reasoning", "")
+            ) for e in evidence.get("supporting", [])
+        ]
+        
+        contradicting = [
+            EvidenceItem(
+                doc_id=e.get("doc_id", 0),
+                doc_name=e.get("doc_name", "Unknown"),
+                excerpt=e.get("excerpt", ""),
+                page_numbers=e.get("page_numbers", []),
+                stance="contradicting",
+                reasoning=e.get("reasoning", "")
+            ) for e in evidence.get("contradicting", [])
+        ]
+        
+        analyzed_issues.append(IssueAnalysis(
+            issue=PleadingIssue(**issue),
+            supporting_evidence=supporting,
+            contradicting_evidence=contradicting
+        ))
+    
+    return PleadingAnalysisResponse(
+        pleading_summary=issues_data.get("pleading_summary", ""),
+        issues=analyzed_issues
+    )
 
 # ============ CHAT/SEARCH ROUTES ============
 
