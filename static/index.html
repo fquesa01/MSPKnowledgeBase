@@ -253,6 +253,21 @@
                 return;
             }
             
+            // Show immediate feedback - display files as "Uploading..."
+            const list = document.getElementById('documentList');
+            const uploadingHtml = Array.from(files).map(file => `
+                <div class="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium truncate dark:text-white">${escapeHtml(file.name)}</p>
+                        <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 mt-1">
+                            <div class="bg-yellow-500 h-2 rounded-full animate-pulse" style="width: 100%"></div>
+                        </div>
+                        <p class="text-xs text-yellow-600">Uploading...</p>
+                    </div>
+                </div>
+            `).join('');
+            list.innerHTML = uploadingHtml + list.innerHTML;
+            
             const formData = new FormData();
             for (const file of files) {
                 formData.append('files', file);
@@ -265,16 +280,21 @@
                     body: formData
                 });
                 if (res.ok) {
-                    loadDocuments();
+                    // Immediately load documents to show real status
+                    await loadDocuments();
+                    // Continue polling for processing updates
+                    setTimeout(loadDocuments, 2000);
                     setTimeout(loadDocuments, 5000);
-                    setTimeout(loadDocuments, 15000);
-                    setTimeout(loadDocuments, 30000);
+                    setTimeout(loadDocuments, 10000);
+                    setTimeout(loadDocuments, 20000);
                 } else {
                     const error = await res.json();
                     alert('Upload failed: ' + (error.detail || 'Unknown error'));
+                    loadDocuments();
                 }
             } catch (err) {
                 alert('Upload failed: ' + err.message);
+                loadDocuments();
             }
         }
 
