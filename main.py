@@ -26,7 +26,7 @@ settings = get_settings()
 os.environ["CHATGPT_API_KEY"] = settings.openai_api_key
 
 # Database setup
-engine = create_async_engine(settings.database_url, echo=settings.debug)
+engine = create_async_engine(settings.async_database_url, echo=settings.debug)
 async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 # Create directories

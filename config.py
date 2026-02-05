@@ -15,6 +15,17 @@ class Settings(BaseSettings):
     # Database
     database_url: str = "sqlite+aiosqlite:///./data/msp_kb.db"
     
+    @property
+    def async_database_url(self) -> str:
+        url = self.database_url
+        if url.startswith("postgresql://"):
+            url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+            if "sslmode=" in url:
+                url = url.replace("sslmode=require", "ssl=require")
+                url = url.replace("sslmode=disable", "ssl=disable")
+                url = url.replace("sslmode=prefer", "ssl=prefer")
+        return url
+    
     # OpenAI
     openai_api_key: str = ""
     openai_model: str = "gpt-4o"

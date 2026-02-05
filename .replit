@@ -4,10 +4,14 @@ modules = ["python-3.11"]
 
 [nix]
 channel = "stable-25_05"
-packages = ["cargo", "freetype", "gumbo", "harfbuzz", "jbig2dec", "libiconv", "libjpeg_turbo", "libxcrypt", "libyaml", "mupdf", "openjpeg", "rustc", "swig", "xcbuild"]
+packages = ["cargo", "freetype", "gumbo", "harfbuzz", "jbig2dec", "libiconv", "libjpeg_turbo", "libxcrypt", "libyaml", "mupdf", "openjpeg", "postgresql", "rustc", "swig", "xcbuild"]
 
 [deployment]
 run = ["sh", "-c", "pip install -r requirements.txt && python main.py"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
 
 [[ports]]
 localPort = 8000
@@ -16,3 +20,27 @@ externalPort = 80
 [agent]
 expertMode = true
 integrations = ["python_openai:1.0.0"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python -m uvicorn main:app --host 0.0.0.0 --port 5000 --reload"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
