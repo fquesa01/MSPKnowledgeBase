@@ -4,6 +4,7 @@
 A FastAPI-based document management system that allows users to upload documents (PDF, Word, Excel, PowerPoint), processes them to create searchable indexes using OpenAI, and enables users to ask questions about the document content.
 
 ## Recent Changes
+- **Feb 5, 2026**: Added page image screenshots in Q&A responses - shows visual thumbnails from source documents
 - **Feb 5, 2026**: Added progress tracking for document processing (0-100%) with real-time updates
 - **Feb 5, 2026**: Implemented batch upload support for up to 100 documents at once (1GB max per file)
 - **Feb 5, 2026**: Fixed bcrypt compatibility with passlib (using bcrypt 4.3.0)
@@ -32,6 +33,7 @@ A FastAPI-based document management system that allows users to upload documents
 3. **Progress Tracking**: Real-time progress updates (5% start, 10% file read, 30% text extracted, 80% tree generated, 90% saving, 100% complete)
 4. **Document Processing**: Extracts text from PDF, Word, Excel, PowerPoint files
 5. **AI-Powered Search**: Uses OpenAI to answer questions about document content
+6. **Visual Source Citations**: Shows clickable page image thumbnails from source documents in Q&A responses (for PDFs and PowerPoints)
 
 ## Environment Variables
 - `DATABASE_URL` - PostgreSQL connection string
