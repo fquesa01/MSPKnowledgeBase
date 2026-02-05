@@ -20,6 +20,8 @@
             position: relative;
             flex-shrink: 0;
             margin: 0 4px;
+            align-self: stretch;
+            z-index: 10;
         }
         .resizer:hover, .resizer.resizing {
             background: linear-gradient(to right, transparent 6px, #3b82f6 6px, #3b82f6 10px, transparent 10px);
@@ -40,6 +42,7 @@
         .resizable-container {
             display: flex;
             gap: 0;
+            align-items: stretch;
         }
         @media (max-width: 1024px) {
             .resizer { display: none; }
