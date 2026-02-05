@@ -1,0 +1,122 @@
+{
+  "doc_name": "4. Attestor-MSP - Simply Lien Security Agreement.pdf",
+  "doc_description": "This document is a security agreement executed between MSP Recovery, LLC and Claims RR, LLC, collectively referred to as the Debtor, for the benefit of Hazel Partners Holdings LLC, acting as the Administrative Agent for the Secured Party. The agreement outlines the terms and conditions under which the Debtor provides a lien on certain assets as security for obligations under a credit agreement.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Recitals",
+      "summary": "This section introduces the parties involved in the agreement, including MSP Recovery, LLC, Claims RR, LLC, and Hazel Partners Holdings LLC. It outlines the background and purpose of the agreement, which is to provide additional security for obligations under an existing credit agreement.",
+      "text": "THIS SIMPLY LIEN SECURITY AGREEMENT (this 'Agreement') is executed as of November 10, 2023, by MSP RECOVERY, LLC, a Florida limited liability company ('MSP') and CLAIMS RR, LLC, a Florida limited liability company ('Claims Vehicle' and collectively with MSP, the 'Debtor'), for the benefit of HAZEL PARTNERS HOLDINGS LLC, a Delaware limited liability company, acting in its capacity as agent for the Secured Party.",
+      "page_numbers": [
+        1,
+        2
+      ]
+    },
+    {
+      "node_id": "0002",
+      "title": "Definitions and Reaffirmation",
+      "summary": "This section provides definitions for key terms used throughout the agreement, such as 'Administrative Agent', 'Collateral', and 'Secured Obligations'. It also reaffirms the Debtor's obligations under a previous security agreement.",
+      "text": "Each capitalized term used but not defined in this Agreement has the meaning given that term in the Credit Agreement. The following terms shall have the meanings assigned to them in the UCC: 'Accounts'; 'Bank'; 'Chattel Paper'; 'Deposit Account'; 'Documents' 'Entitlement Order'; 'Equipment'; 'Financial Asset'; 'General Intangibles'; 'Goods'; 'Inventory'; 'Investment Property'; 'Letter-of-Credit Rights'; 'Money'; 'Payment Intangibles'; 'Proceeds'; 'Records'; 'Securities Account'; 'Securities Intermediary'; 'Security Entitlement' and 'Supporting Obligations'.",
+      "page_numbers": [
+        2,
+        3
+      ]
+    },
+    {
+      "node_id": "0003",
+      "title": "Grant of Lien",
+      "summary": "The Debtor grants a lien on specified property to the Administrative Agent as security for the Secured Obligations. The section details the types of property included as collateral.",
+      "text": "To secure the prompt, unconditional and complete payment and performance when due of the Secured Obligations, the Debtor hereby grants to the Administrative Agent (on behalf of and for the benefit of the Secured Party), a lien on and continuing security interest in, all of the following property of the Debtor, wherever located and whether now or hereafter existing, whether now owned or hereafter acquired, whether tangible or intangible, of every kind and description (the 'Collateral').",
+      "page_numbers": [
+        4,
+        5
+      ]
+    },
+    {
+      "node_id": "0004",
+      "title": "Collateral Security and Further Assurances",
+      "summary": "This section outlines the Debtor's responsibilities to maintain and protect the security interest in the collateral. It includes obligations to execute additional documents and take actions necessary to perfect the security interest.",
+      "text": "The Debtor shall at its sole expense take such further actions, and execute and/or deliver to the Administrative Agent such financing statements, amendments, assignments, agreements, notices, supplements, powers and instruments, lists, schedules, descriptions and designations of Collateral, confirmatory assignments, additional security agreements, conveyances, transfer endorsements, certificates, reports and other assurances, documents or instruments as the Administrative Agent may in its commercially reasonable judgment deem necessary or desirable.",
+      "page_numbers": [
+        5,
+        6
+      ]
+    },
+    {
+      "node_id": "0005",
+      "title": "Representations and Warranties",
+      "summary": "The Debtor makes several representations and warranties regarding the accuracy of information, the absence of legal impediments, and the validity of the security interest. These assurances are made to the Administrative Agent for the benefit of the Secured Party.",
+      "text": "The Debtor represents and warrants to the Administrative Agent (on behalf of and for the benefit of the Secured Party) that: Each of the representations and warranties made by the Debtor in the Credit Agreement are true and correct in all material respects.",
+      "page_numbers": [
+        6,
+        7
+      ]
+    },
+    {
+      "node_id": "0006",
+      "title": "Covenants",
+      "summary": "The Debtor agrees to certain covenants, including maintaining records of the collateral, defending the title to the collateral, and providing information to the Administrative Agent. These covenants are intended to protect the security interest.",
+      "text": "The Debtor covenants and agrees with the Administrative Agent (on behalf of and for the benefit of the Secured Party) that so long as the Credit Agreement is in effect and until all Secured Obligations are indefeasibly paid in full in cash, the Debtor shall: Maintain at its place of business a current record of the location of all Collateral.",
+      "page_numbers": [
+        7,
+        8
+      ]
+    },
+    {
+      "node_id": "0007",
+      "title": "Authorization to File Financing Statements",
+      "summary": "The Debtor authorizes the Administrative Agent to file financing statements and amendments to perfect and maintain the security interest in the collateral. This section ensures the legal enforceability of the lien.",
+      "text": "The Debtor hereby irrevocably authorizes the Administrative Agent (on behalf of and for the benefit of the Secured Party) at any time and from time to time to file in any relevant jurisdiction any financing statements and amendments thereto that contain the information required by Article 9 of the Uniform Commercial Code.",
+      "page_numbers": [
+        8,
+        9
+      ]
+    },
+    {
+      "node_id": "0008",
+      "title": "Event of Default and Remedies",
+      "summary": "This section outlines the rights and remedies available to the Administrative Agent upon the occurrence of an event of default. It includes the ability to take possession of the collateral and apply proceeds to the Secured Obligations.",
+      "text": "Upon the occurrence and during the continuance of an Event of Default, upon sending a Courtesy Notice, the Administrative Agent may from time to time exercise in respect of the Collateral, in addition to the other rights and remedies provided for herein or otherwise available to it.",
+      "page_numbers": [
+        9,
+        10
+      ]
+    },
+    {
+      "node_id": "0009",
+      "title": "Power of Attorney",
+      "summary": "The Debtor grants the Administrative Agent a power of attorney to take actions necessary to protect and enforce the security interest in the collateral. This power is exercisable upon an event of default.",
+      "text": "Without limiting any other power of attorney granted pursuant to the Credit Agreement or the other Credit Documents, upon the occurrence and during the continuance of an Event of Default, the Debtor irrevocably and unconditionally appoints the Administrative Agent (on behalf of and for the benefit of the Secured Party) as the attorney-in-fact of the Debtor.",
+      "page_numbers": [
+        12,
+        13
+      ]
+    },
+    {
+      "node_id": "0010",
+      "title": "Miscellaneous Provisions",
+      "summary": "This section includes various legal provisions, such as the governing law, jurisdiction, waiver of jury trial, and severability. It also addresses the termination of the agreement upon full payment of the Secured Obligations.",
+      "text": "THIS AGREEMENT AND THE RIGHTS AND OBLIGATIONS OF THE PARTIES HEREUNDER SHALL BE GOVERNED BY, AND SHALL BE CONSTRUED AND ENFORCED IN ACCORDANCE WITH, THE LAWS OF THE STATE OF NEW YORK.",
+      "page_numbers": [
+        14,
+        15
+      ]
+    },
+    {
+      "node_id": "0011",
+      "title": "Signatures",
+      "summary": "The agreement is executed by authorized representatives of the Debtor and the Administrative Agent, indicating their consent to the terms and conditions outlined in the document.",
+      "text": "IN WITNESS WHEREOF, the parties hereto have caused this Agreement to be duly executed and delivered by their respective officers thereunto duly authorized as of the date first written above.",
+      "page_numbers": [
+        19,
+        20
+      ]
+    }
+  ],
+  "_source_file": "4.  Attestor-MSP - Simply Lien Security Agreement.pdf",
+  "_file_type": "pdf",
+  "_char_count": 61005,
+  "_page_count": 20,
+  "_has_page_images": true,
+  "_doc_id": 31
+}

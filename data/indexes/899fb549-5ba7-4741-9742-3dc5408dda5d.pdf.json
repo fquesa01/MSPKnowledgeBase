@@ -1,0 +1,52 @@
+{
+  "doc_name": "18.  Attestor-MSP HHI - Waiver of Going Concern Report 2024.pdf",
+  "doc_description": "This document is a formal communication from Hazel Holdings I LLC to MSP Recovery, LLC, regarding a one-time waiver of the requirement for a Going Concern Report as stipulated in a Credit Agreement. The waiver applies to the calendar year ending December 31, 2024, and outlines the conditions and limitations of this waiver.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Reference to Credit Agreement",
+      "summary": "The document begins with a reference to the Credit Agreement dated March 29, 2023, involving several parties including Hazel Holdings I LLC and MSP Recovery, LLC. It outlines the requirement for the Borrower to deliver annual financial statements and a Going Concern Report.",
+      "text": "Reference is made to that certain Credit Agreement dated as of March 29, 2023 (the “Credit Agreement”) by and among SUBROGATION HOLDINGS, LLC, a Delaware limited liability company (the “Borrower”), MSP RECOVERY, LLC, a Florida limited liability company (the “Owner Pledgor”), MSP RECOVERY CLAIMS, SERIES LLC – SERIES 15-09-321, a registered series of MSP Recovery Claims, Series LLC, a Delaware limited liability company, and a Subsidiary of the Borrower (the “Assignee”), Hazel Holdings I LLC, a Delaware limited liability company (“HHI Agent”) and Hazel Holdings I LLC, a Delaware limited liability company (“HHI Lender”).",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Waiver of Going Concern Report",
+      "summary": "The Borrower has requested a waiver for the Going Concern Report requirement for the year ending December 31, 2024. Hazel Holdings I LLC agrees to this one-time waiver, specifying that it does not affect their rights under the Credit Agreement.",
+      "text": "The Borrower has requested that Administrative Agent and Lender waive compliance with Section 7.2(c) of the Credit Agreement solely with respect to the Going Concern Report for the calendar year ending December 31, 2024, and any resulting Default or Event of Default therefrom. The forgoing waiver is a one-time waiver and applies only to the Going Concern Report for the calendar year ending December 31, 2024.",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Signatures",
+      "summary": "The document is signed by Christopher Guth, an authorized person for Hazel Holdings I LLC, both as administrative agent and lender, confirming the waiver agreement.",
+      "text": "HAZEL HOLDINGS I LLC, as administrative agent By: __________________________ Name: Christopher Guth Title: Authorized Person HAZEL HOLDINGS I LLC, as lender By: __________________________ Name: Christopher Guth Title: Authorized Person",
+      "page_numbers": [
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Audit Trail",
+      "summary": "The audit trail provides details of the document's signing process, including timestamps and IP addresses, confirming the document's completion and signature by Christopher Guth.",
+      "text": "Audit trail Title File name Document ID Audit trail date format Status Powered by Sign Sign HHI - Waiver of Going Concern Report(511180693) HHI_-_Waiver_of_G...rt_511180693_.pdf 9f36c3f3c872cf2521f83e48ab2c33b5ce52a2e8 DD / MM / YYYY Signed 11 / 11 / 2024 14:51:34 UTC Sent for signature to Christopher Guth (christopher.guth@attestorcapital.com) from admin@attestorcapital.com IP: 82.150.96.12 11 / 11 / 2024 15:21:25 UTC Viewed by Christopher Guth (christopher.guth@attestorcapital.com) IP: 89.40.209.200 11 / 11 / 2024 15:21:38 UTC Signed by Christopher Guth (christopher.guth@attestorcapital.com) IP: 82.150.96.12 The document has been completed. 11 / 11 / 2024 15:21:38 UTC",
+      "page_numbers": [
+        3
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "18.  Attestor-MSP HHI - Waiver of Going Concern Report 2024.pdf",
+  "_file_type": "pdf",
+  "_char_count": 3838,
+  "_page_count": 3,
+  "_has_page_images": true,
+  "_doc_id": 40
+}

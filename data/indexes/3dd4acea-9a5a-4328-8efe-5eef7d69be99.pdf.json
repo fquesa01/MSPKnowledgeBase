@@ -1,0 +1,159 @@
+{
+  "doc_name": "20. Attestor-MSP - HHI Credit Agreement (2nd Lien)(204902019.1).pdf",
+  "doc_description": "This document is a credit agreement dated March 29, 2023, between Subrogation Holdings, LLC as Borrower, MSP Recovery, LLC as Owner Pledgor and Guarantor, Hazel Holdings I LLC as Lender and Administrative Agent, and MSP Recovery Claims, Series LLC – Series 15-09-321 as Assignee. It outlines the terms and conditions of a term loan facility, including definitions, loan terms, yield protection, guaranty, conditions precedent, representations and warranties, covenants, events of default, and miscellaneous provisions.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Definitions and Interpretation",
+      "summary": "This section provides definitions for terms used throughout the credit agreement and outlines the rules for interpreting the document.",
+      "text": "The following terms used herein, including in the introductory paragraph, recitals, exhibits and schedules hereto, shall have the following meanings: '2022 Borrower' means La Ley con John H. Ruiz P.A., d/b/a MSP Recovery Law Firm, a Florida corporation, and MSP Law Firm, PLLC, a Florida professional limited liability company, jointly and severally. '2022 Credit Agreement' means the Credit Agreement dated as of June 16, 2022, among La Ley Con John H. Ruiz PA., d/b/a MSP Recovery Law Firm, and MSP Law Firm, PLLC, jointly and severally, as Borrower, MSP1 Funding 2022, LLC, as Lender and as Administrative Agent and Deer Finance, LLC, as Servicer.",
+      "page_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "The Loan",
+      "summary": "This section details the terms of the term loan, including the amount, interest rates, repayment schedule, and conditions for prepayment.",
+      "text": "Section 2.1 Term Loan. Section 2.2 Pro Rata Shares; Availability of Funds. Section 2.3 Evidence of Debt; Register; Lenders’ Books and Records; Notes. Section 2.4 Scheduled Principal Payments. Section 2.5 Interest on Loan.",
+      "page_numbers": [
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Yield Protection",
+      "summary": "This section outlines the provisions for protecting the lender's yield, including increased costs and taxes.",
+      "text": "Section 3.2 Increased Costs. Section 3.3 Taxes. Section 3.4 Mitigation Obligations; Designation of a Different Lending Office.",
+      "page_numbers": [
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "The Guaranty",
+      "summary": "This section describes the guaranty obligations of the Owner Pledgor and the conditions under which the guaranty is enforceable.",
+      "text": "Section 4.1 The Guaranty. Section 4.2 Obligations Unconditional. Section 4.3 Reinstatement. Section 4.4 Certain Additional Waivers.",
+      "page_numbers": [
+        40,
+        41,
+        42
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Conditions Precedent",
+      "summary": "This section lists the conditions that must be met before the loan can be disbursed.",
+      "text": "Section 5.1 Conditions Precedent to Loan.",
+      "page_numbers": [
+        43,
+        44,
+        45,
+        46
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Representations and Warranties",
+      "summary": "This section contains the representations and warranties made by the Borrower and other parties to the agreement.",
+      "text": "Section 6.1 Organization; Requisite Power and Authority; Qualification. Section 6.2 Equity Interests and Ownership. Section 6.3 Due Authorization.",
+      "page_numbers": [
+        47,
+        48,
+        49,
+        50
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Affirmative Covenants",
+      "summary": "This section outlines the affirmative covenants that the Borrower must adhere to, including reporting requirements and compliance with laws.",
+      "text": "Section 7.1 Reports. Section 7.2 Financial Statements and Other Reports. Section 7.3 Existence.",
+      "page_numbers": [
+        56,
+        57,
+        58,
+        59,
+        60
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Negative Covenants",
+      "summary": "This section details the negative covenants, which restrict certain actions by the Borrower, such as incurring additional debt or making certain investments.",
+      "text": "Section 8.1 Indebtedness. Section 8.2 Liens. Section 8.3 No Further Negative Pledges.",
+      "page_numbers": [
+        68,
+        69,
+        70,
+        71
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0009",
+      "title": "Events of Default; Remedies; Application of Funds",
+      "summary": "This section describes the events that constitute a default under the agreement and the remedies available to the lender.",
+      "text": "Section 9.1 Events of Default. Section 9.2 Remedies. Section 9.3 Application of Funds.",
+      "page_numbers": [
+        72,
+        73,
+        74,
+        75
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0010",
+      "title": "Agency",
+      "summary": "This section outlines the roles and responsibilities of the Administrative Agent and the rights of the Lenders.",
+      "text": "Section 10.1 Appointment and Authority. Section 10.2 Rights as a Lender. Section 10.3 Exculpatory Provisions.",
+      "page_numbers": [
+        75,
+        76,
+        77,
+        78
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0011",
+      "title": "Miscellaneous",
+      "summary": "This section includes various miscellaneous provisions, such as notices, expenses, amendments, and confidentiality.",
+      "text": "Section 11.1 Notices; Effectiveness; Electronic Communications. Section 11.2 Expenses; Indemnity; Damage Waiver. Section 11.3 Set-Off.",
+      "page_numbers": [
+        83,
+        84,
+        85,
+        86,
+        87
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "20. Attestor-MSP - HHI Credit Agreement (2nd Lien)(204902019.1).pdf",
+  "_file_type": "pdf",
+  "_char_count": 454452,
+  "_page_count": 150,
+  "_has_page_images": true,
+  "_doc_id": 44
+}

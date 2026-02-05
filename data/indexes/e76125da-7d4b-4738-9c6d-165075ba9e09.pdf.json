@@ -1,0 +1,60 @@
+{
+  "doc_name": "2025.05.02 - Attestor - Letter to MSP - Bridge Funding 750k 05-01-25 (fully executed).pdf",
+  "doc_description": "This document is a formal letter from Hazel Partners Holdings LLC to MSP Recovery, LLC, detailing the terms and conditions of bridge funding amounting to $750,000. It outlines the agreements and amendments related to the funding, including the roles of various parties involved and the conditions under which the funding is provided.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Reference",
+      "summary": "The letter begins with a reference to previous agreements and amendments between Hazel Partners Holdings LLC and MSP Recovery, LLC, among other parties. It sets the context for the bridge funding by mentioning the Term Sheet and Credit Agreement.",
+      "text": "Reference is made to: (i) that certain Term Sheet, dated as of April 4, 2025, by and among Hazel Partners Holdings, LLC, MSP Recovery, LLC, and other parties; and (ii) that Second Amended and Restated Credit Agreement, dated as of November 10, 2023, as amended.",
+      "page_numbers": [
+        1
+      ]
+    },
+    {
+      "node_id": "0002",
+      "title": "Bridge Funding Details",
+      "summary": "This section outlines the specifics of the bridge funding, including the amount of $2,000,000 available under the existing HPH Loan, with $500,000 made available upon execution of the Term Sheet. It also details a request for $550,000 for legal expenses, which was funded on April 11, 2025.",
+      "text": "In accordance with the section labeled 'Bridge Funding' of the Term Sheet, Hazel shall make available to MSP Recovery up to $2,000,000. MSP Recovery has requested funding in the amount of $550,000 by April 10, 2025.",
+      "page_numbers": [
+        1,
+        2
+      ]
+    },
+    {
+      "node_id": "0003",
+      "title": "Operational Collection Floor Increase",
+      "summary": "The letter discusses the potential increase of the Operational Collection Floor by $6,000,000, with specific amounts already funded on March 3, 2025, and April 4, 2025. It confirms the conditions under which the $750,000 increase will be made by May 2, 2025.",
+      "text": "The Administrative Agent may, at its sole discretion, increase the Increased Term Loan B Commitment by an additional $6,000,000. The Administrative Agent confirms that on March 3, 2025, it funded $1,750,000 and on April 4, 2025, it funded $1,500,000.",
+      "page_numbers": [
+        2,
+        3
+      ]
+    },
+    {
+      "node_id": "0004",
+      "title": "Conditions and Discretion",
+      "summary": "This section emphasizes the conditions under which the funding is provided, stating that the payment of $750,000 is at the sole discretion of the Administrative Agent and Lender. It also reserves the rights of the Administrative Agent under the Credit Agreement.",
+      "text": "The payment of the Operational Collection Floor Increase in the amount of $750,000 is made at the sole discretion of the Administrative Agent and Lender. The Administrative Agent reserves all of its rights under the Credit Agreement.",
+      "page_numbers": [
+        3
+      ]
+    },
+    {
+      "node_id": "0005",
+      "title": "Signatures",
+      "summary": "The document concludes with the signatures of the authorized representatives from Hazel Partners Holdings LLC and MSP Recovery, LLC, confirming the agreement.",
+      "text": "HAZEL PARTNERS HOLDINGS LLC By: Name: Christopher Guth Title: Authorised Attorney. MSP RECOVERY, LLC By: Name: John H. Ruiz Title: Authorized Representative.",
+      "page_numbers": [
+        4,
+        5
+      ]
+    }
+  ],
+  "_source_file": "2025.05.02 - Attestor - Letter to MSP - Bridge Funding 750k 05-01-25 (fully executed).pdf",
+  "_file_type": "pdf",
+  "_char_count": 7702,
+  "_page_count": 5,
+  "_has_page_images": true,
+  "_doc_id": 17
+}

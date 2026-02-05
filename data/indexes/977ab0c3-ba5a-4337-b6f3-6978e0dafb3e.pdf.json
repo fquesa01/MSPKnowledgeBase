@@ -1,0 +1,82 @@
+{
+  "doc_name": "MSP - Order on Hanover MSJ - Double Damages Ruling.pdf",
+  "doc_description": "This document is a legal memorandum and order from the United States District Court for the District of Massachusetts regarding cross-motions for summary judgment and a motion for leave to file a third-party complaint in a case involving the Medicare Secondary Payer Act. The case concerns reimbursement of medical expenses and involves multiple insurance companies and a series of claims assignments.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction",
+      "summary": "The document introduces the case, which involves a dispute over reimbursement of medical expenses under the Medicare Secondary Payer Act. The plaintiff, MSP Recovery Claims, Series LLC, is the assignee of Blue Cross Blue Shield of Massachusetts, and the defendants are insurance companies.",
+      "text": "This is a dispute concerning reimbursement of certain medical expenses pursuant to the Medicare Secondary Payer Act of 1980, 42 U.S.C. § 1395y(b) et seq. (“MSP Act”). Plaintiff MSP Recovery Claims, Series LLC (“MSPRC”) is the assignee of Blue Cross Blue Shield of Massachusetts (“BCBSMA”), a health insurer.",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Background",
+      "summary": "The background section provides details about the parties involved, the statutory framework of the MSP Act, and the factual background of the claims. It explains the assignment of claims and the specific claims related to A.D. and P.R.",
+      "text": "The following facts are undisputed unless otherwise noted. MSPRC is a Delaware series limited liability company. It is the assignee of Blue Cross Blue Shield of Massachusetts (“BCBSMA”) as to the claims asserted in this lawsuit.",
+      "page_numbers": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Cross-Motions for Summary Judgment",
+      "summary": "This section discusses the legal standard for summary judgment and analyzes the cross-motions for summary judgment filed by the parties. It addresses the claims against Massachusetts Bay and Citizens, and the breach-of-contract claim.",
+      "text": "The role of summary judgment is “to pierce the pleadings and to assess the proof in order to see whether there is a genuine need for trial.” Summary judgment shall be granted when “there is no genuine dispute as to any material fact and the movant is entitled to judgment as a matter of law.”",
+      "page_numbers": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Motion for Leave to File Third-Party Complaint",
+      "summary": "Citizens Insurance Company of America filed a motion for leave to file a third-party complaint seeking indemnification from P.R. The court denies the motion due to the late stage of the litigation and minimal prejudice to Citizens.",
+      "text": "Citizens has moved for leave to file a third-party complaint seeking indemnification from P.R. pursuant to its settlement agreement. Given the late stage of the litigation—the claims currently before the Court will be resolved upon issuance of this order—and the minimal resulting prejudice that Citizens might suffer in being required to pursue indemnification in a separate action, the motion will be denied.",
+      "page_numbers": [
+        23,
+        24
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Conclusion",
+      "summary": "The court grants summary judgment in favor of the defendants on Counts 1 and 2, and in favor of the plaintiff on Count 3. The motion for leave to file a third-party complaint is denied, and damages are awarded to the plaintiff.",
+      "text": "For the foregoing reasons, plaintiff’s motion for summary judgment is DENIED as to Count 1 and GRANTED as to Count 3; defendants’ motion for summary judgment is GRANTED as to Counts 1 and 2, and DENIED as to Count 3; and defendant Citizens Insurance Company of America’s motion for leave to file a third-party complaint is DENIED.",
+      "page_numbers": [
+        25
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "MSP - Order on Hanover MSJ - Double Damages Ruling.pdf",
+  "_file_type": "pdf",
+  "_char_count": 55739,
+  "_page_count": 25,
+  "_has_page_images": true,
+  "_doc_id": 45
+}

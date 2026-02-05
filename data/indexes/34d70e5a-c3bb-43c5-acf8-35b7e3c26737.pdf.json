@@ -1,0 +1,85 @@
+{
+  "doc_name": "10. Attestor-MSP Hazel Side Letter Agreement for Emblem Funding HPH.pdf",
+  "doc_description": "This document is a side letter agreement between Hazel Partners Holdings LLC and MSP Recovery, LLC, detailing the terms and conditions for a $2,000,000 funding to purchase Emblem Claims. It outlines the relationship to the existing credit agreement and amendments, the conditions for the funding, and the legal framework governing the agreement.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Parties Involved",
+      "summary": "The document begins with an introduction of the parties involved in the agreement, including Hazel Partners Holdings LLC as the lender and MSP Recovery, LLC as the borrower. It references the existing credit agreement and its amendments.",
+      "text": "Reference is hereby made to that certain Second Amended and Restated Credit Agreement, dated as of November 10, 2023, among SUBROGATION HOLDINGS, LLC, MSP RECOVERY, LLC, JRFQ HOLDINGS, LLC, 4601 CORAL GABLES PROPERTY, LLC, MSP RECOVERY CLAIMS, SERIES LLC – SERIES 15-09-321, and HAZEL PARTNERS HOLDINGS LLC.",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Terms of Emblem Funding",
+      "summary": "This section outlines the terms under which the lender agrees to provide $2,000,000 for the purchase of Emblem Claims. It specifies the conditions for borrowing and the relationship to the Operational Collection Floor.",
+      "text": "On the terms set forth herein, the Lender has agreed to make available to the Borrower a funding in the amount of $2,000,000 solely for the purpose of enabling Owner Pledgor to purchase the Emblem Claims.",
+      "page_numbers": [
+        1,
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Conditions and Legal Provisions",
+      "summary": "This section details the conditions that must be met for the funding to proceed, including the assignment of Emblem Claims to a new subsidiary. It also covers the legal rights and remedies reserved by the lender.",
+      "text": "Withing 15 days following the Emblem Funding, Borrower and Owner Pledgor shall provide evidence satisfactory to Administrative Agent that the Emblem Claims have been assigned to the New Claims Subsidiary.",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Governing Law and Execution",
+      "summary": "The agreement is governed by the laws of the State of New York. It allows for electronic signatures and states that the document constitutes the entire agreement among the parties.",
+      "text": "This letter agreement shall be governed by and construed in accordance with the laws of the State of New York. Electronic signatures shall be of the same legal effect, validity or enforceability as a manually executed signature.",
+      "page_numbers": [
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Signatures",
+      "summary": "The document includes signature lines for the authorized representatives of the involved parties, confirming their agreement to the terms outlined.",
+      "text": "ADMINISTRATIVE AGENT AND LENDER: HAZEL PARTNERS HOLDINGS LLC By: Name: Christopher Guth Title: Authorized Attorney",
+      "page_numbers": [
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Exhibit A - August 2nd Letter Agreement",
+      "summary": "This section references an attached exhibit, the August 2nd Letter Agreement, which is part of the overall agreement structure.",
+      "text": "Exhibit A August 2nd Letter Agreement [attached]",
+      "page_numbers": [
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Audit Trail",
+      "summary": "The document concludes with an audit trail, detailing the signing process, including timestamps and IP addresses of the signatories.",
+      "text": "Audit trail Title File name Document ID Audit trail date format Status Powered by Sign",
+      "page_numbers": [
+        7
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "10. Attestor-MSP Hazel Side Letter Agreement for Emblem Funding HPH.pdf",
+  "_file_type": "pdf",
+  "_char_count": 8717,
+  "_page_count": 7,
+  "_has_page_images": true,
+  "_doc_id": 26
+}

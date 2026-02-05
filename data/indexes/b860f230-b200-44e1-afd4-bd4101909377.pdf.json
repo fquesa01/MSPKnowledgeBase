@@ -1,0 +1,119 @@
+{
+  "doc_name": "1. Attestor-MSP - 2nd Amended and Restated Credit Agreement.pdf",
+  "doc_description": "This document is a legal agreement outlining the terms and conditions of a credit facility provided to Subrogation Holdings, LLC by Hazel Partners Holdings LLC, with various parties involved as guarantors, mortgagors, and assignees. It includes detailed provisions on loans, covenants, representations, and warranties, as well as conditions precedent and events of default.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Definitions and Interpretation; Amendment and Restatement; Reaffirmation",
+      "summary": "This section provides definitions for terms used throughout the agreement, outlines the rules for interpreting the document, and details the amendment and restatement of the existing credit agreement. It also reaffirms the obligations under the credit documents.",
+      "text": "The following terms used herein, including in the introductory paragraph, recitals, exhibits and schedules hereto, shall have the following meanings: '2022 Borrower' means La Ley con John H. Ruiz P.A., d/b/a MSP Recovery Law Firm, a Florida corporation, and MSP Law Firm, PLLC, a Florida professional limited liability company, jointly and severally.",
+      "page_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "The Loans",
+      "summary": "This section describes the terms of the loans provided under the agreement, including the types of loans, interest rates, payment schedules, and conditions for prepayment. It also outlines the responsibilities of the borrower and the lender regarding the management of loan funds.",
+      "text": "Term Loan A and Term Loan B. The Lenders agree to make available to the Borrower term loan facilities in an aggregate principal amount not to exceed $250,000,000.",
+      "page_numbers": [
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Yield Protection",
+      "summary": "This section provides provisions for protecting the lender's yield in the event of changes in law or market conditions that affect the cost of maintaining the loans. It includes clauses on increased costs, taxes, and mitigation obligations.",
+      "text": "Making or Maintaining Interest Rates. If any Change in Law shall: (a) impose, modify or deem applicable any reserve, special deposit, compulsory loan, insurance charge or similar requirement against assets of, deposits with or for the account of, or credit extended or participated in by, any Lender...",
+      "page_numbers": [
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "The Guaranty",
+      "summary": "This section outlines the guaranty obligations of the guarantors, including the unconditional nature of the obligations, rights of contribution, and remedies available to the lender in the event of default.",
+      "text": "The Guaranty. Each Guarantor hereby jointly and severally guarantees to the Administrative Agent, for the benefit of the holders of the Obligations, as primary obligor and not as surety, the prompt payment when due, whether at stated maturity, by acceleration or otherwise, of all Guaranteed Obligations.",
+      "page_numbers": [
+        53,
+        54,
+        55
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Conditions Precedent",
+      "summary": "This section lists the conditions that must be met before the initial credit extensions and each subsequent credit installment can be made. It includes requirements for legal opinions, financial statements, and other documentation.",
+      "text": "Conditions Precedent to Initial Credit Extensions. The obligation of each Lender to make its initial Credit Extension hereunder is subject to the satisfaction of the following conditions precedent: (a) Credit Documents. The Administrative Agent shall have received each of the following, each of which shall be originals or telecopies or other electronic image scan transmission (e.g., 'pdf' or 'tif' via e-mail) (followed promptly by originals) unless otherwise specified, each properly executed by a Responsible Officer of the signing Credit Party, each dated the Closing Date (or, in the case of certificates of governmental officials, a recent date before the Closing Date) and each in form and substance satisfactory to the Administrative Agent...",
+      "page_numbers": [
+        55,
+        56,
+        57,
+        58,
+        59,
+        60
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "1.  Attestor-MSP - 2nd Amended and Restated Credit Agreement.pdf",
+  "_file_type": "pdf",
+  "_char_count": 558237,
+  "_page_count": 178,
+  "_has_page_images": true,
+  "_doc_id": 33
+}

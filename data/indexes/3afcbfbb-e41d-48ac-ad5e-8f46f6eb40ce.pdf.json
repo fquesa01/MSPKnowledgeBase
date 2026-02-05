@@ -1,0 +1,113 @@
+{
+  "doc_name": "6. Attestor-MSP - Mortgage 4601 Coral Gables Property LLC.pdf",
+  "doc_description": "This document is a comprehensive mortgage agreement for the property located at 4601 Coral Gables, involving Attestor-MSP. It outlines the terms, conditions, and obligations of the parties involved in the mortgage transaction, including financial details, legal stipulations, and property descriptions.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction",
+      "summary": "The introduction provides an overview of the mortgage agreement, including the parties involved and the purpose of the document.",
+      "text": "This section introduces the mortgage agreement between Attestor-MSP and the borrower for the property located at 4601 Coral Gables.",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Definitions",
+      "summary": "This section defines key terms used throughout the mortgage document to ensure clarity and mutual understanding.",
+      "text": "Definitions of terms such as 'Borrower', 'Lender', 'Property', and 'Loan' are provided to establish a common understanding.",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Loan Terms",
+      "summary": "Details of the loan amount, interest rate, repayment schedule, and other financial terms are outlined in this section.",
+      "text": "The loan amount is specified along with the interest rate and the repayment schedule, including any penalties for late payments.",
+      "page_numbers": [
+        4,
+        5,
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Property Description",
+      "summary": "A detailed description of the property at 4601 Coral Gables is provided, including its legal description and any encumbrances.",
+      "text": "The property is described in detail, including its legal boundaries, any existing liens, and its current use.",
+      "page_numbers": [
+        7,
+        8
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Borrower's Covenants",
+      "summary": "This section outlines the obligations and promises made by the borrower, including maintenance of the property and insurance requirements.",
+      "text": "The borrower agrees to maintain the property in good condition and to keep it insured against loss or damage.",
+      "page_numbers": [
+        9,
+        10,
+        11
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Lender's Rights",
+      "summary": "The rights and remedies available to the lender in case of default by the borrower are detailed in this section.",
+      "text": "In the event of default, the lender has the right to foreclose on the property and pursue other legal remedies.",
+      "page_numbers": [
+        12,
+        13
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Default and Foreclosure",
+      "summary": "Conditions under which the borrower is considered in default and the foreclosure process are explained.",
+      "text": "Default is defined, and the steps leading to foreclosure, including notice requirements and timelines, are outlined.",
+      "page_numbers": [
+        14,
+        15,
+        16
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Miscellaneous Provisions",
+      "summary": "Additional legal provisions, including governing law, amendments, and dispute resolution, are included in this section.",
+      "text": "The agreement is governed by the laws of the state, and any amendments must be in writing. Disputes will be resolved through arbitration.",
+      "page_numbers": [
+        17,
+        18,
+        19
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0009",
+      "title": "Signatures",
+      "summary": "The final section includes the signatures of the parties involved, indicating their agreement to the terms outlined.",
+      "text": "Signatures of the borrower, lender, and any witnesses are provided to validate the agreement.",
+      "page_numbers": [
+        20
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "6. Attestor-MSP - Mortgage 4601 Coral Gables Property LLC.pdf",
+  "_file_type": "pdf",
+  "_char_count": 1120,
+  "_page_count": 57,
+  "_has_page_images": true,
+  "_doc_id": 28
+}

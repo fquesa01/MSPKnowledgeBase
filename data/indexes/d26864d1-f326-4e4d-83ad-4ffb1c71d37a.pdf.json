@@ -1,0 +1,88 @@
+{
+  "doc_name": "14. Attestor-MSP - Amendment No. 3 to 2nd A&R First Lien Credit Agreement (Executed).pdf",
+  "doc_description": "This document is the third amendment to the Second Amended and Restated Credit Agreement, involving multiple parties including Subrogation Holdings, LLC, MSP Recovery, LLC, and Hazel Partners Holdings LLC. It outlines modifications to the existing credit agreement, including changes to definitions, distribution and contribution of claims, recovery proceeds payments, and conditions for third-party sales of claims. The document also includes amendments to security agreements and provides a limited waiver for certain financial reporting requirements.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Amendment to Existing Credit Agreement",
+      "summary": "This section outlines the amendments to the existing credit agreement, including the incorporation of definitions and principles from the original agreement, and the restatement of the agreement with specific textual changes.",
+      "text": "The definitions and principles of construction and interpretation set forth in Section 1 of the Existing Credit Agreement shall apply to, and are hereby incorporated by reference in, this Amendment. Effective as of the Effective Date, the Existing Credit Agreement is hereby amended and restated in its entirety to delete the red or green stricken text and to add the blue or green double-underlined text, as set forth in the marked copy of the Existing Credit Agreement, attached hereto as Exhibit 1.",
+      "page_numbers": [
+        1,
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Distribution and Contribution of Emblem Claims",
+      "summary": "This section details the process for distributing and contributing Emblem Claims, including the necessary actions to be taken by the Owner Pledgor and its affiliates, and the restrictions on transferring these claims.",
+      "text": "As promptly as practicable after the Effective Date, Owner Pledgor shall, and shall cause its Affiliates to, take all necessary actions to distribute the Emblem Claims free and clear of any Liens from Series 16-08-483 to Borrower, and then contribute them to the Emblem Claims Subsidiary. Restrictions are placed on the sale or transfer of these claims without the Lender's consent.",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Recovery Proceeds Payments",
+      "summary": "This section defines the terms related to recovery proceeds from Emblem Claims, including the distribution of proceeds between the Emblem Claims Subsidiary and the Lender.",
+      "text": "Recovery Proceeds means the full gross proceeds received by the Emblem Claims Subsidiary in respect of Emblem Claims, less the Law Firm Contingency Fee. The Emblem Claims Subsidiary shall pay fifty percent of such Recovery Proceeds to the Lender until $8,000,000 is received, after which twenty-five percent of proceeds will be paid.",
+      "page_numbers": [
+        3,
+        4
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Third Party Sale of Emblem Claims",
+      "summary": "This section outlines the conditions and procedures for the sale of Emblem Claims to third parties, including the notification process and the determination of the Hazel Floor Price.",
+      "text": "In the event of a proposed sale of all Emblem Claims to a third party, the Owner Pledgor or Emblem Claims Subsidiary must notify the Lender with details of the sale. The sale must not be consummated unless the aggregate consideration is greater than the Hazel Floor Price, determined by the Lender's Operating Committee.",
+      "page_numbers": [
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Amendments to Security Agreements",
+      "summary": "This section describes the conditions under which the Mortgage and Guaranty Agreement will be released, contingent upon the repayment of the Operational Collection Floor.",
+      "text": "Subject to the terms of this Amendment, the Administrative Agent shall release the Mortgage and Guaranty Agreement after the Borrower has fully repaid the principal amount of the Operational Collection Floor by December 31, 2024. If any repayment is declared void, the obligations under the Mortgage and Guaranty Agreement will be reinstated.",
+      "page_numbers": [
+        5,
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Limited Waiver",
+      "summary": "This section provides a limited waiver for the Borrower's obligation to deliver a Going Concern Report for the calendar year ending December 31, 2024, contingent upon receiving a waiver from Virage Recovery Master LP.",
+      "text": "The Administrative Agent and Lender agree to waive compliance with the requirement to deliver a Going Concern Report for the year ending December 31, 2024, conditioned upon receiving a satisfactory waiver from Virage Recovery Master LP.",
+      "page_numbers": [
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Miscellaneous",
+      "summary": "This section includes miscellaneous provisions such as the non-novation of obligations, execution in counterparts, and governing law.",
+      "text": "Nothing herein shall be construed as a substitution or novation of any obligations under the Existing Credit Agreement. This Amendment may be executed in counterparts and is governed by the law of the State of New York.",
+      "page_numbers": [
+        6,
+        7
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "14. Attestor-MSP - Amendment No. 3 to 2nd A&R First Lien Credit Agreement (Executed).pdf",
+  "_file_type": "pdf",
+  "_char_count": 496179,
+  "_page_count": 150,
+  "_has_page_images": true,
+  "_doc_id": 20
+}

@@ -1,0 +1,147 @@
+{
+  "doc_name": "16. Attestor-MSP - Emblem Pledge Agreement (Executed).pdf",
+  "doc_description": "This document is a legal agreement executed on October 1, 2024, between MSP Recovery, LLC and Hazel Partners Holdings LLC, outlining the terms of a pledge agreement related to securing obligations under a credit agreement. It details the rights, obligations, and security interests of the parties involved, including definitions, representations, warranties, and remedies in the event of default.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Parties",
+      "summary": "This section introduces the parties involved in the agreement, including MSP Recovery, LLC as the Debtor and Hazel Partners Holdings LLC as the Administrative Agent. It outlines the purpose of the agreement, which is to provide additional security for obligations under a credit agreement.",
+      "text": "THIS EMBLEM PLEDGE (this 'Agreement') is executed as of October 1, 2024, by MSP RECOVERY, LLC, a Florida limited liability company (the 'Debtor'), for the benefit of HAZEL PARTNERS HOLDINGS LLC, a Delaware limited liability company, acting in its capacity as agent for the Secured Party.",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Recitals",
+      "summary": "The recitals provide background information on the existing credit agreement and security agreements. It explains the relationships between the various parties, including the Borrower, Debtor, Mortgagor, and Lender, and the amendments made to the credit agreement.",
+      "text": "WHEREAS, SUBROGATION HOLDINGS, LLC, a Delaware limited liability company ('Borrower'), the Debtor, JRFQ HOLDINGS, LLC, a Delaware limited liability company ('Mortgagor Parent'), 4601 CORAL GABLES PROPERTY, LLC, a Florida limited liability company ('Mortgagor'), MSP RECOVERY CLAIMS, SERIES LLC – SERIES 15-09-321, a registered series of MSP Recovery Claims, Series LLC, a Delaware limited liability company, and a Subsidiary of the Borrower (the 'Assignee') and HAZEL PARTNERS HOLDINGS LLC, a Delaware limited liability company, as lender (together with its successors and assigns in such capacity, the 'Lender' and, together with the Administrative Agent, collectively the 'Secured Party') and Administrative Agent have entered into that certain Second Amended and Restated Credit Agreement.",
+      "page_numbers": [
+        1,
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Definitions and Reaffirmation",
+      "summary": "This section defines key terms used throughout the agreement, such as 'Collateral,' 'Pledged Equity,' and 'Secured Party.' It also reaffirms the Debtor's obligations under existing security agreements and the continuation of liens on the collateral.",
+      "text": "SECTION 1. CERTAIN DEFINITIONS; REAFFIRMATION. (a) Each capitalized term used but not defined in this Agreement has the meaning given that term in the Credit Agreement. The following terms shall have the meanings assigned to them in the UCC: 'Accounts'; 'Bank'; 'Chattel Paper'; 'Deposit Account'; 'Documents' 'Entitlement Order'; 'Equipment'; 'Financial Asset'; 'General Intangibles'; 'Goods'; 'Inventory'; 'Investment Property'; 'Letter-of-Credit Rights'; 'Money'; 'Payment Intangibles'; 'Proceeds'; 'Records'; 'Securities Account'; 'Securities Intermediary'; 'Security Entitlement' and 'Supporting Obligations'.",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Lien and Collateral",
+      "summary": "The section outlines the lien granted to the Administrative Agent on behalf of the Secured Party over the Debtor's property as collateral. It specifies the types of property included as collateral and the rights associated with it.",
+      "text": "SECTION 2. LIEN. To secure the prompt, unconditional and complete payment and performance when due of the Obligations, the Debtor hereby grants to the Administrative Agent (on behalf of and for the benefit of the Secured Party), a lien on and continuing security interest in, all of the following property of the Debtor, wherever located and whether now or hereafter existing, whether now owned or hereafter acquired, whether tangible or intangible, of every kind and description (the 'Collateral').",
+      "page_numbers": [
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Collateral Security and No Assumption",
+      "summary": "This section clarifies that the Administrative Agent and Secured Party do not assume liabilities or obligations related to the collateral. It emphasizes that the agreement does not modify the Debtor's obligations concerning the collateral.",
+      "text": "SECTION 3. COLLATERAL SECURITY; NO ASSUMPTION OR MODIFICATION. Neither the Administrative Agent nor the Secured Party assumes, nor shall the Administrative Agent or the Secured Party be liable for, the liabilities of the Debtor, duties or obligations under, or in connection with, the Collateral.",
+      "page_numbers": [
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Supplements and Further Assurances",
+      "summary": "The Debtor is required to take further actions and provide documents necessary to perfect and protect the security interest in the collateral. This includes filing financing statements and other documents as deemed necessary by the Administrative Agent.",
+      "text": "SECTION 4. SUPPLEMENTS; FURTHER ASSURANCES. (a) The Debtor shall at its sole expense take such further actions, and execute and/or deliver to the Administrative Agent such financing statements, amendments, assignments, agreements, notices, supplements, powers and instruments, lists, schedules, descriptions and designations of Collateral, confirmatory assignments, additional security agreements, conveyances, transfer endorsements, certificates, reports and other assurances, documents or instruments as the Administrative Agent may in its commercially reasonable judgment deem necessary or desirable.",
+      "page_numbers": [
+        5,
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Representations and Warranties",
+      "summary": "The Debtor makes several representations and warranties to the Administrative Agent, including the accuracy of representations in the credit agreement, the authority to execute the agreement, and the absence of conflicts with other agreements.",
+      "text": "SECTION 5. REPRESENTATIONS AND WARRANTIES. The Debtor represents and warrants to the Administrative Agent (on behalf of and for the benefit of the Secured Party) that: (a) Each of the representations and warranties made by the Debtor in the Credit Agreement are true and correct in all material respects.",
+      "page_numbers": [
+        6,
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Covenants",
+      "summary": "The Debtor agrees to maintain records of the collateral, ensure the security interest remains perfected, and defend against claims. It also agrees not to sell or modify the collateral without permission.",
+      "text": "SECTION 6. COVENANTS. The Debtor covenants and agrees with the Administrative Agent (on behalf of and for the benefit of the Secured Party) that so long as the Credit Agreement is in effect and thereafter until all Obligations are indefeasibly paid in full in cash, the Debtor shall: (a) Record of Collateral. Maintain at its place of business a current record of the location of all Collateral.",
+      "page_numbers": [
+        7,
+        8
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0009",
+      "title": "Authorization to File Financing Statements",
+      "summary": "The Debtor authorizes the Administrative Agent to file financing statements and amendments to perfect the security interest in the collateral. The Debtor agrees to provide necessary information for such filings.",
+      "text": "SECTION 7. AUTHORIZATION TO FILE FINANCING STATEMENTS. The Debtor hereby irrevocably authorizes the Administrative Agent (on behalf of and for the benefit of the Secured Party) at any time and from time to time to file in any relevant jurisdiction any financing statements and amendments thereto that contain the information required by Article 9 of the Uniform Commercial Code.",
+      "page_numbers": [
+        8
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0010",
+      "title": "Event of Default and Remedies",
+      "summary": "This section outlines the remedies available to the Administrative Agent in the event of a default, including taking possession of the collateral, selling it, and applying proceeds to the obligations. It also details the process for sales and the rights of the parties involved.",
+      "text": "SECTION 8. EVENT OF DEFAULT; REMEDIES. (a) General Remedies. Upon the occurrence and during the continuance of an Event of Default, upon sending a Courtesy Notice, the Administrative Agent may from time to time exercise in respect of the Collateral, in addition to the other rights and remedies provided for herein or otherwise available to it.",
+      "page_numbers": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0011",
+      "title": "Power of Attorney",
+      "summary": "The Debtor grants the Administrative Agent a power of attorney to take actions on behalf of the Debtor in relation to the collateral, especially in the event of default. This includes filing documents and collecting proceeds.",
+      "text": "SECTION 9. POWER OF ATTORNEY. (a) Without limiting any other power of attorney granted pursuant to the Credit Agreement or the other Credit Documents, upon the occurrence and during the continuance of an Event of Default, the Debtor irrevocably and unconditionally appoints the Administrative Agent (on behalf of and for the benefit of the Secured Party) as the attorney-in-fact of the Debtor.",
+      "page_numbers": [
+        13,
+        14
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0012",
+      "title": "Miscellaneous",
+      "summary": "This section includes various legal provisions such as termination of the agreement, waiver of notice and claims, binding effect, and governing law. It also addresses the severability of provisions and the interpretation of the agreement.",
+      "text": "SECTION 10. MISCELLANEOUS. (a) Term. This Agreement shall terminate upon the full and final payment in cash of the Obligations owing to the Secured Party. (b) Waiver of Notice and Claims. The Debtor hereby waives, to the fullest extent permitted by applicable laws, notice of judicial hearing in connection with the Administrative Agent's taking possession or disposition of the Collateral.",
+      "page_numbers": [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "16. Attestor-MSP - Emblem Pledge Agreement (Executed).pdf",
+  "_file_type": "pdf",
+  "_char_count": 62809,
+  "_page_count": 21,
+  "_has_page_images": true,
+  "_doc_id": 18
+}

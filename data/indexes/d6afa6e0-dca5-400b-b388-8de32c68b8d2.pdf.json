@@ -1,0 +1,91 @@
+{
+  "doc_name": "06. Attestor-MSP - HHI Transaction Agreement(204850119.1).pdf",
+  "doc_description": "This document is a comprehensive transaction agreement among Hazel Partners Holdings LLC, Hazel Holdings I LLC, Subrogation Holdings, LLC, and MSP Recovery LLC, detailing the terms and conditions of a transaction involving the sale and purchase of equity interests, the assignment of claims, and the establishment of credit facilities. It includes definitions, representations, warranties, covenants, and indemnification clauses, as well as the responsibilities and obligations of each party involved.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Parties",
+      "summary": "This section introduces the parties involved in the transaction agreement, including Hazel Partners Holdings LLC, Hazel Holdings I LLC, Subrogation Holdings, LLC, and MSP Recovery LLC. It also provides the date of the agreement and the purpose of the document.",
+      "text": "HHI TRANSACTION AGREEMENT among HAZEL PARTNERS HOLDINGS LLC, HAZEL HOLDINGS I LLC, SUBROGATION HOLDINGS, LLC and MSP RECOVERY LLC dated as of March 29, 2023",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Recitals",
+      "summary": "The recitals outline the background and context of the agreement, including the business activities of MSP Recovery, the investment agreement, and the transactions contemplated by the parties. It sets the stage for the detailed terms and conditions that follow.",
+      "text": "WHEREAS, MSP Recovery, in coordination with its Affiliates, is in the business of identifying Responsible Parties and recovering costs or claims paid by or on behalf of Assignors that contract with governmental healthcare programs...",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Definitions",
+      "summary": "This section provides definitions for key terms used throughout the agreement, such as 'Action', 'Affiliate', 'Assigned Claims', 'Assignor', and 'Business'. These definitions are crucial for understanding the specific meanings of terms as they apply to the agreement.",
+      "text": "The following terms have the meanings specified or referred to in this Article I: 'Action' means any claim, action, cause of action, demand, lawsuit, arbitration, inquiry, audit, notice of violation, proceeding, litigation, citation, summons, subpoena or investigation of any nature...",
+      "page_numbers": [
+        3,
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Simultaneous Closings; Closing Conditions; Closing Deliverables",
+      "summary": "This section outlines the conditions and deliverables required for the closing of the transactions. It specifies that all transactions must close simultaneously and lists the conditions that must be met for the closing to occur.",
+      "text": "Section 2.01 Simultaneous Closings. Each of the parties hereto agrees that the consummation of the transactions contemplated by each transaction Agreement (the 'Closing') shall (i) occur simultaneously and (ii) shall be held virtually...",
+      "page_numbers": [
+        8,
+        9
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Additional Agreements",
+      "summary": "This section details additional agreements between the parties, including the formation of the company, governance, confidentiality, public announcements, and further assurances. It also includes restrictive covenants and waivers related to prior agreements.",
+      "text": "Section 3.01 Formation of the Company; the Restructuring. On or prior to the date hereof, MSP Recovery (or one or more of its Subsidiaries) shall form and establish the Company as a Delaware limited liability company...",
+      "page_numbers": [
+        10,
+        11,
+        12
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Indemnification",
+      "summary": "This section outlines the indemnification obligations of MSP Recovery, including the survival of representations and warranties, and the rights of Hazel and HHI to set-off payments against indemnification claims.",
+      "text": "Section 4.01 Survival. Subject to the limitations and other provisions of this Agreement, the representations and warranties contained herein shall survive the Closing Date and shall remain in full force and effect...",
+      "page_numbers": [
+        13,
+        14
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Miscellaneous",
+      "summary": "The miscellaneous section includes provisions on expenses, notices, interpretation, severability, entire agreement, successors and assigns, third-party beneficiaries, amendments, governing law, and specific performance.",
+      "text": "Section 5.01 Expenses. Except as otherwise expressly provided herein, all costs and expenses, including, without limitation, fees and disbursements of counsel, financial advisors and accountants, incurred in connection with this Agreement...",
+      "page_numbers": [
+        14,
+        15,
+        16
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "06. Attestor-MSP - HHI Transaction Agreement(204850119.1).pdf",
+  "_file_type": "pdf",
+  "_char_count": 1527488,
+  "_page_count": 505,
+  "_has_page_images": true,
+  "_doc_id": 38
+}

@@ -1,0 +1,57 @@
+{
+  "doc_name": "04. Attestor-MSP - New Claims IP License Agreement(204850110.1).pdf",
+  "doc_description": "This document is an Intellectual Property License Agreement between MSP Recovery, LLC and Hazel Holdings I LLC, detailing the terms and conditions under which MSP grants a license to its proprietary technology. It includes representations and warranties, miscellaneous provisions, and schedules listing intellectual property and agreements.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction",
+      "summary": "This section introduces the Intellectual Property License Agreement (IPLA) made effective as of March 29, 2023, between MSP Recovery, LLC and Hazel Holdings I LLC. It references an Investment Agreement and outlines the purpose of the IPLA.",
+      "text": "This Intellectual Property License Agreement (this “IPLA”) is made effective as of March 29, 2023 (“Effective Date”) by and among MSP RECOVERY, LLC, a Florida limited liability company (“MSP”) and HAZEL HOLDINGS I LLC, a Delaware limited liability company (together with its permitted successors and assigns, the “Company” and “Licensee”).",
+      "page_numbers": [
+        1
+      ]
+    },
+    {
+      "node_id": "0002",
+      "title": "Grant of MSP Technology License and Representations and Warranties",
+      "summary": "MSP grants a non-exclusive, non-transferrable license to the Licensee for the MSP Technology. The section also includes representations and warranties by MSP regarding the technology and intellectual property rights.",
+      "text": "Subject to the terms and conditions of this IPLA, MSP conditionally grants to the Licensee and its Subsidiaries, during the term of this IPLA, a non-exclusive, non-transferrable, non-assignable, irrevocable, worldwide, fully paid-up license...",
+      "page_numbers": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "node_id": "0003",
+      "title": "Miscellaneous Provisions",
+      "summary": "This section outlines various legal and procedural provisions, including term and termination, notices, assignment, and governing law. It also includes clauses on severability, waiver, and no third-party beneficiaries.",
+      "text": "Except as otherwise set forth herein, this IPLA shall continue until the earlier of (i) termination by written notice sent by the Company to MSP, or (ii) the termination of the LSA...",
+      "page_numbers": [
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "node_id": "0004",
+      "title": "Schedules",
+      "summary": "Schedules 2(b) and 2(d) list MSP's intellectual property and IP agreements, respectively. These include tradenames, trade secrets, copyrights, and various software and cloud service agreements.",
+      "text": "Schedule 2(b) MSP’s Intellectual Property: Tradename: “MSP Recovery,” and any and all related variations of said name. Trade Secrets: All of MSP client lists, algorithms, formulas...",
+      "page_numbers": [
+        8,
+        9,
+        10,
+        11
+      ]
+    }
+  ],
+  "_source_file": "04. Attestor-MSP - New Claims IP License Agreement(204850110.1).pdf",
+  "_file_type": "pdf",
+  "_char_count": 21399,
+  "_page_count": 11,
+  "_has_page_images": true,
+  "_doc_id": 34
+}

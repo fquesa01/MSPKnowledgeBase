@@ -1,0 +1,87 @@
+{
+  "doc_name": "MSP_Attestor - Legal Service Agreement (HC Claims) (Replaced Exhibit B)(207756217.1).pdf",
+  "doc_description": "This document is a legal service agreement between Subrogation Holdings, LLC, Milberg Coleman Bryson Phillips Grossman, LLC, La Ley con John H. Ruiz, P.A. d/b/a MSP Recovery Law Firm, and MSP Recovery LLC. It outlines the terms and conditions for handling HC Claims, including roles, responsibilities, compensation, and termination clauses. The agreement also addresses the governance of legal strategies and the allocation of fees among the involved parties.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "HC Claims Servicing Agreement",
+      "summary": "This section introduces the agreement, specifying the parties involved and the effective date. It outlines the purpose of the agreement, which is to govern the legal servicing of HC Claims.",
+      "text": "This Servicing Agreement (this “Agreement”), dated as of March 6, 2023, is entered into among Subrogation Holdings, LLC, Milberg Coleman Bryson Phillips Grossman, LLC, La Ley con John H. Ruiz, P.A. d/b/a MSP Recovery Law Firm, and MSP Recovery LLC. The agreement governs the legal servicing of claims owned or controlled by the Client.",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Recitals",
+      "summary": "The recitals provide background information on the existing agreements and the intent of the parties to govern HC Claims under this new agreement. It also mentions the credit facility entered into by the Client.",
+      "text": "WHEREAS the Parties agree that the legal servicing of the claims owned or controlled by the Client (“HC Claims”) shall be governed in a manner consistent with this Agreement. WHEREAS, MSP Law has an existing Legal Services Agreement with Lionheart II Holdings, LLC.",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "P&C and Workers’ Comp Recoveries",
+      "summary": "This section designates Milberg as the lead counsel for P&C Litigation and outlines the roles of MSP Law and Milberg in handling HC and non-HC Claims. It also details the responsibilities and strategic decisions related to litigation.",
+      "text": "Milberg shall be deemed lead counsel (“Lead Counsel”) in any matters related to the Client and the New Claims SPV. Milberg shall also be co-counsel for any litigation in respect of any claims from non-HC assignors against property and casualty insurer defendants.",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Pharma, Asbestos and Mass Tort Recoveries and Non-HC cases",
+      "summary": "This section discusses the potential for pursuing recoveries related to pharma, asbestos, and mass tort claims. It outlines the conditions under which these claims may be pursued and the compensation structure for attorneys' fees.",
+      "text": "Currently, HC has not authorized MSP to pursue recoveries related to pharma, asbestos, and mass tort claims. MSP can only pursue the recoveries set forth in the CRSA.",
+      "page_numbers": [
+        5,
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Staffing and Fees",
+      "summary": "This section outlines the staffing requirements and fee structures for Milberg and MSP Law. It specifies the resources each firm must provide and the compensation they will receive for their services.",
+      "text": "Milberg shall maintain at least the resources and agreed budget as set out in Appendix C, solely committed to pursue Claims. MSP and MSP Law shall provide resources to Milberg in support of the P&C Litigation.",
+      "page_numbers": [
+        6,
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Termination",
+      "summary": "This section details the conditions under which the agreement can be terminated by the Client or the legal firms. It also outlines the rights to fees and costs upon termination.",
+      "text": "Client may terminate this Agreement with or without cause at any time. Milberg, MSP Law and MSP will have no right to terminate the representation of Client except with the prior written consent of Client.",
+      "page_numbers": [
+        8
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Miscellaneous",
+      "summary": "This section includes various legal provisions such as indemnification, interpretation, entire agreement, modification, and governing law. It also addresses the survival of rights and obligations after termination.",
+      "text": "Client acknowledges its obligations to pay the fees specified in this Agreement. This Agreement contains all the understandings and representations between the parties with respect to the subject matter contemplated hereby.",
+      "page_numbers": [
+        9,
+        10,
+        11
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "MSP_Attestor - Legal Service Agreement (HC Claims) (Replaced Exhibit B)(207756217.1).pdf",
+  "_file_type": "pdf",
+  "_char_count": 52317,
+  "_page_count": 23,
+  "_has_page_images": true,
+  "_doc_id": 14
+}

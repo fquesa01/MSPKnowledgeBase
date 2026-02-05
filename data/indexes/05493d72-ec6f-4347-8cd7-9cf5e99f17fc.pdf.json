@@ -1,0 +1,116 @@
+{
+  "doc_name": "5. Attestor - MSP - Personal Guaranty.pdf",
+  "doc_description": "This document is a Personal Guaranty Agreement dated November 10, 2023, involving John Ruiz and Frank Quesada as guarantors, and Hazel Partners Holdings LLC as the administrative agent. It outlines the terms and conditions under which the guarantors agree to guarantee the obligations of Subrogation Holdings, LLC under a credit agreement.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Personal Guaranty Agreement",
+      "summary": "This section introduces the Personal Guaranty Agreement, identifying the parties involved and the purpose of the agreement, which is to guarantee the obligations of the Borrower under a credit agreement.",
+      "text": "This PERSONAL GUARANTY (this 'Agreement'), dated as of November 10, 2023, is made by and among JOHN RUIZ and FRANK QUESADA as Guarantors and Hazel Partners Holdings LLC as Administrative Agent.",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Recitals",
+      "summary": "The recitals provide the background and context for the agreement, including the relationship between the Borrower and the Guarantors, and the condition precedent for the loans.",
+      "text": "WHEREAS, Subrogation Holdings, LLC, a Delaware limited liability company (the 'Borrower'), has entered into that Second Amended and Restated Credit Agreement dated as of November 10, 2023...",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Article I - Definitions",
+      "summary": "This section defines key terms used throughout the agreement, such as 'Agent Parties', 'Communications', 'Credit Documents', and 'Obligations'.",
+      "text": "For purposes of this Agreement, the following terms shall have the following meanings: 'Agent Parties' has the meaning specified in Section 6.05(d)(ii)...",
+      "page_numbers": [
+        1,
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Article II - Agreement to Guarantee Obligations",
+      "summary": "The Guarantors agree to guarantee the obligations of the Borrower, including payment of principal, interest, and other monetary obligations under the Credit Agreement.",
+      "text": "SECTION 2.01 GUARANTY. Subject to Section 2.02, each Guarantor, hereby absolutely, unconditionally and irrevocably guarantees to the Administrative Agent...",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Article III - Guaranty Absolute and Unconditional; Waivers",
+      "summary": "This section outlines the absolute and unconditional nature of the guaranty and lists various waivers by the Guarantors, including waivers of defenses and rights.",
+      "text": "SECTION 3.01 GUARANTY ABSOLUTE AND UNCONDITIONAL; NO WAIVER OF OBLIGATIONS. The Guarantors guarantee that the Obligations will be paid strictly in accordance with the terms...",
+      "page_numbers": [
+        3,
+        4
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Article IV - Guarantor Rights of Subrogation, Etc.",
+      "summary": "The Guarantors agree to subordinate their rights of subrogation and any claims against the Borrower until the Obligations are fully paid.",
+      "text": "SECTION 4.01 AGREEMENT TO PAY; SUBROGATION, SUBORDINATION, ETC. Without limiting any other right that the Administrative Agent or the Secured Party has at law or in equity...",
+      "page_numbers": [
+        5,
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Article V - Representations and Warranties; Covenants",
+      "summary": "The Guarantors make various representations and warranties regarding their competency, non-contravention, approvals, and financial condition, and agree to provide financial information.",
+      "text": "SECTION 5.01 REPRESENTATIONS AND WARRANTIES. The Guarantors represents and warrants that: (a) Competency. The Guarantors (i) are adult individual and are sui juris...",
+      "page_numbers": [
+        6,
+        7,
+        8
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Article VI - Miscellaneous",
+      "summary": "This section includes miscellaneous provisions such as tax obligations, rights of set-off, amendments, indemnification, notices, and governing law.",
+      "text": "SECTION 6.01 TAXES. Section 6.10 of the Credit Agreement is hereby incorporated, mutatis mutandis, by reference as if such section were set forth in full herein...",
+      "page_numbers": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0009",
+      "title": "Signature Page",
+      "summary": "The signature page includes the signatures of the Guarantors and the representative of Hazel Partners Holdings LLC, indicating their agreement to the terms.",
+      "text": "IN WITNESS WHEREOF, the parties hereto have caused this Agreement to be executed as of the date first written above. Guarantor: JOHN RUIZ, FRANK QUESADA...",
+      "page_numbers": [
+        15,
+        16
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "5. Attestor - MSP - Personal Guaranty.pdf",
+  "_file_type": "pdf",
+  "_char_count": 45746,
+  "_page_count": 16,
+  "_has_page_images": true,
+  "_doc_id": 30
+}

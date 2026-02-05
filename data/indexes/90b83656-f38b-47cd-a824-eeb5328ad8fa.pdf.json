@@ -1,0 +1,66 @@
+{
+  "doc_name": "12. Attestor-MSP Hazel Side Letter Agreement for Sept Funding Fully Executed.pdf",
+  "doc_description": "This document is a side letter agreement between Hazel Partners Holdings LLC and MSP Recovery, LLC, detailing the terms and conditions for a September funding tranche of $1,750,000 under an existing credit agreement. It outlines the obligations of the borrower and the lender, including conditions for borrowing, legal considerations, and execution details.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Reference to Existing Credit Agreement",
+      "summary": "This section introduces the parties involved in the agreement and references the existing credit agreement and its amendments. It sets the context for the September funding tranche.",
+      "text": "Reference is hereby made to that certain Second Amended and Restated Credit Agreement, dated as of November 10, 2023...",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Terms of September Funding",
+      "summary": "The lender agrees to provide a funding tranche of $1,750,000, subject to conditions in the credit agreement. The section also discusses the implications of the Third Amendment and the remaining available tranches.",
+      "text": "On the terms set forth herein, the Lender has agreed to make available to the Borrower funding of a tranche in the amount of $1,750,000...",
+      "page_numbers": [
+        1,
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Reservation of Rights and Legal Provisions",
+      "summary": "This section clarifies that the letter does not limit the lender's rights and reserves the right to pursue remedies. It also states the governing law and execution details.",
+      "text": "Nothing contained in this letter is intended to constitute an election of any remedy to which Administrative Agent or Lender may be entitled...",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Signatures",
+      "summary": "The section contains the signatures of the authorized representatives of the involved parties, confirming their agreement to the terms outlined.",
+      "text": "ADMINISTRATIVE AGENT AND LENDER: HAZEL PARTNERS HOLDINGS LLC By: Name: Title: [signatures continue on following page]...",
+      "page_numbers": [
+        3,
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Audit Trail",
+      "summary": "This section provides a detailed audit trail of the document's signing process, including timestamps and IP addresses.",
+      "text": "Audit trail Title File name Document ID Audit trail date format Status Powered by Sign...",
+      "page_numbers": [
+        6
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "12. Attestor-MSP Hazel Side Letter Agreement for Sept Funding Fully Executed.pdf",
+  "_file_type": "pdf",
+  "_char_count": 8384,
+  "_page_count": 6,
+  "_has_page_images": true,
+  "_doc_id": 22
+}

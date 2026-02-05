@@ -1,0 +1,131 @@
+{
+  "doc_name": "03. Attestor-MSP - Investment Agreement(204852213.1).pdf",
+  "doc_description": "This document is an investment agreement between MSP Recovery, LLC, Hazel Holdings I LLC, and other related entities. It outlines the terms and conditions under which Hazel Holdings I LLC will purchase equity interests from MSP Recovery, LLC, including definitions, representations, warranties, covenants, and indemnification clauses. The agreement also includes details about the purchase price, closing conditions, and other legal and financial obligations of the parties involved.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Investment Agreement Introduction",
+      "summary": "This section introduces the investment agreement, including the parties involved and the date of the agreement.",
+      "text": "INVESTMENT AGREEMENT among MSP Recovery, LLC, each Acquired Company, and Hazel Holdings I LLC dated as of March 29, 2023.",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Recitals",
+      "summary": "The recitals provide background information on the business of MSP Recovery, LLC, the ownership of the Acquired Companies, and the intention to sell equity interests to Hazel Holdings I LLC.",
+      "text": "WHEREAS, Seller, in coordination with its Affiliates, including the Acquired Companies, is in the business of identifying Responsible Parties and recovering costs or claims paid by or on behalf of Assignors...",
+      "page_numbers": [
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Definitions",
+      "summary": "This section defines key terms used throughout the agreement, such as 'Acquired Companies', 'Action', 'Affiliate', 'Assigned Claims', and others.",
+      "text": "The following terms have the meanings specified or referred to in this ARTICLE I: 'Acquired Companies' has the meaning set forth in the preamble...",
+      "page_numbers": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Purchase and Sale; Closing",
+      "summary": "This section outlines the terms of the purchase and sale of equity interests, including the purchase price, closing conditions, and payment terms.",
+      "text": "Section 2.01 Purchase of Equity Interests. In exchange for the MSP Consideration, on the terms and subject to the conditions set forth in this Agreement...",
+      "page_numbers": [
+        7,
+        8,
+        9
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Representations and Warranties of Seller and the Acquired Companies",
+      "summary": "The seller and the acquired companies make various representations and warranties regarding their organization, authorization, no conflicts, capitalization, and other matters.",
+      "text": "Seller, each Acquired Company, the Company and the Series Companies, jointly and severally, represent and warrant to HHI that the statements contained in this ARTICLE III are true and correct...",
+      "page_numbers": [
+        9,
+        10,
+        11
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Representations and Warranties of HHI",
+      "summary": "HHI makes representations and warranties regarding its organization, authorization, and no conflicts with respect to the agreement.",
+      "text": "HHI represents and warrants to Seller that the statements contained in this ARTICLE IV are true and correct as of the date hereof...",
+      "page_numbers": [
+        11,
+        12
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Covenants",
+      "summary": "This section outlines the covenants that the parties agree to, including the conduct of business, notice of certain events, confidentiality, and public announcements.",
+      "text": "Section 5.01 Conduct of Business. From the date hereof until the Closing Date, except as otherwise provided in this Agreement or consented to in writing by HHI...",
+      "page_numbers": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Conditions to Closing",
+      "summary": "The conditions that must be met for the closing of the transaction, including conditions applicable to all parties and specific conditions for HHI.",
+      "text": "Section 6.01 Conditions to Obligations of All Parties. The obligations of each party to consummate the purchase of the Equity Interests as contemplated by this Agreement...",
+      "page_numbers": [
+        15,
+        16
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0009",
+      "title": "Indemnification",
+      "summary": "This section details the indemnification obligations of the parties, including survival of representations and warranties, and limitations on indemnity obligations.",
+      "text": "Section 7.01 Survival. Subject to the limitations and other provisions of this Agreement, the representations and warranties contained herein shall survive the Closing Date...",
+      "page_numbers": [
+        17,
+        18,
+        19
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0010",
+      "title": "Miscellaneous",
+      "summary": "Miscellaneous provisions including expenses, notices, interpretation, severability, entire agreement, successors and assigns, and governing law.",
+      "text": "Section 8.01 Expenses. Except as otherwise expressly provided herein, all costs and expenses, including, without limitation, fees and disbursements of counsel...",
+      "page_numbers": [
+        19,
+        20,
+        21,
+        22
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "03. Attestor-MSP - Investment Agreement(204852213.1).pdf",
+  "_file_type": "pdf",
+  "_char_count": 139187,
+  "_page_count": 46,
+  "_has_page_images": true,
+  "_doc_id": 37
+}

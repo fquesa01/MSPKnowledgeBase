@@ -1,0 +1,101 @@
+{
+  "doc_name": "3.  Attestor-MSP - JRFQ Holdings Security Agreement.pdf",
+  "doc_description": "This document is a Pledge and Security Agreement executed by JRFQ Holdings, LLC, a Delaware limited liability company, for the benefit of Hazel Partners Holdings LLC, acting as the Administrative Agent for the Secured Party. The agreement outlines the terms and conditions under which JRFQ Holdings pledges its equity interests as collateral to secure obligations under a Credit Agreement.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Recitals",
+      "summary": "This section introduces the parties involved in the agreement, including JRFQ Holdings, LLC as the Debtor and Hazel Partners Holdings LLC as the Administrative Agent. It outlines the purpose of the agreement, which is to secure obligations under a Credit Agreement.",
+      "text": "THIS JRFQ HOLDINGS, LLC PLEDGE AND SECURITY AGREEMENT (as amended, restated or supplemented, this 'Agreement') is executed as of November 10, 2023, by JRFQ HOLDINGS, LLC, a Delaware limited liability company ('Debtor'), for the benefit of HAZEL PARTNERS HOLDINGS LLC, a Delaware limited liability company, acting in its capacity as agent for the Secured Party.",
+      "page_numbers": [
+        1,
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Definitions",
+      "summary": "This section provides definitions for key terms used throughout the agreement, such as 'Administrative Agent', 'Collateral', 'Pledged Equity', and 'Secured Obligations'. These definitions are crucial for understanding the rights and obligations of the parties involved.",
+      "text": "Each capitalized term used but not defined in this Agreement has the meaning given that term in the Credit Agreement. The following terms shall have the meanings assigned to them in the UCC: 'Accounts'; 'Bank'; 'Chattel Paper'; 'Deposit Account'; 'Documents' 'Entitlement Order'; 'Equipment'; 'Financial Asset'; 'General Intangibles'; 'Goods'; 'Inventory'; 'Investment Property'; 'Letter-of-Credit Rights'; 'Money'; 'Payment Intangibles'; 'Proceeds'; 'Records'; 'Securities Account'; 'Securities Intermediary'; 'Security Entitlement' and 'Supporting Obligations'.",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Lien and Collateral",
+      "summary": "This section describes the lien and security interest granted by the Debtor to the Administrative Agent over the Collateral, which includes the Pledged Equity and other related rights. It outlines the scope of the Collateral and the purpose of securing the Secured Obligations.",
+      "text": "To secure the prompt, unconditional and complete payment and performance of the Secured Obligations when due, the Debtor hereby pledges to the Administrative Agent (on behalf of and for the benefit of the Secured Party) and grants to the Administrative Agent (on behalf of and for the benefit of the Secured Party), a lien on and continuing security interest in, all of the following property of the Debtor, wherever located and whether now or hereafter existing, whether now owned or hereafter acquired, whether tangible or intangible, of every kind and description (the 'Collateral').",
+      "page_numbers": [
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Representations and Warranties",
+      "summary": "The Debtor makes several representations and warranties to the Administrative Agent, including the accuracy of its representations in the Credit Agreement, the authority to execute the agreement, and the absence of conflicts with other agreements or laws.",
+      "text": "The Debtor represents and warrants to the Administrative Agent (on behalf of and for the benefit of the Secured Party) that: Each of the representations and warranties made by the Debtor in the Credit Agreement are true and correct in all material respects.",
+      "page_numbers": [
+        6,
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Covenants",
+      "summary": "The Debtor agrees to certain covenants, including maintaining records of the Collateral, defending title to the Collateral, and not amending or disposing of the Collateral without consent. These covenants ensure the protection and maintenance of the security interest.",
+      "text": "The Debtor covenants and agrees with the Administrative Agent (on behalf of and for the benefit of the Secured Party) that so long as the Credit Agreement is in effect and thereafter until all Secured Obligations are indefeasibly paid in full in cash, the Debtor shall: Maintain at its place of business a current record of the location of all Collateral.",
+      "page_numbers": [
+        7,
+        8
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Event of Default and Remedies",
+      "summary": "This section outlines the rights and remedies available to the Administrative Agent upon the occurrence of an Event of Default, including taking possession of the Collateral, selling the Collateral, and applying proceeds to the Secured Obligations.",
+      "text": "Upon the occurrence and during the continuance of an Event of Default, upon sending a Courtesy Notice, the Administrative Agent may from time to time exercise in respect of the Collateral, in addition to the other rights and remedies provided for herein or otherwise available to it.",
+      "page_numbers": [
+        8,
+        9,
+        10
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Power of Attorney",
+      "summary": "The Debtor grants the Administrative Agent a power of attorney to take certain actions on behalf of the Debtor in relation to the Collateral, particularly in the event of default. This power is irrevocable and intended to protect the interests of the Secured Party.",
+      "text": "Without limiting any other power of attorney granted pursuant to the Credit Agreement or the other Credit Documents, upon the occurrence and during the continuance of an Event of Default, the Debtor irrevocably and unconditionally appoints the Administrative Agent (on behalf of and for the benefit of the Secured Party) as the attorney-in-fact of the Debtor.",
+      "page_numbers": [
+        13,
+        14
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Miscellaneous",
+      "summary": "This section includes various legal and administrative provisions, such as the governing law, jurisdiction, waiver of jury trial, severability, and the entire agreement clause. These provisions ensure the enforceability and interpretation of the agreement.",
+      "text": "THIS AGREEMENT AND THE RIGHTS AND OBLIGATIONS OF THE PARTIES HEREUNDER SHALL BE GOVERNED BY, AND SHALL BE CONSTRUED AND ENFORCED IN ACCORDANCE WITH, THE LAWS OF THE STATE OF NEW YORK.",
+      "page_numbers": [
+        16,
+        17
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "3.  Attestor-MSP - JRFQ Holdings Security Agreement.pdf",
+  "_file_type": "pdf",
+  "_char_count": 62781,
+  "_page_count": 21,
+  "_has_page_images": true,
+  "_doc_id": 32
+}

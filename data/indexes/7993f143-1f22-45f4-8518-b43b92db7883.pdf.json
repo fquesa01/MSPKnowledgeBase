@@ -1,0 +1,131 @@
+{
+  "doc_name": "23. Attestor-MSP - Subordinated Borrower Security Agreement(204823853.1).pdf",
+  "doc_description": "This document is a Subordinated Borrower Security Agreement executed by Subrogation Holdings, LLC for the benefit of Hazel Holdings I LLC, acting as the Administrative Agent for the Secured Party. It outlines the terms and conditions under which the Debtor grants a security interest in its assets to secure obligations under a Credit Agreement.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Recitals",
+      "summary": "This section introduces the parties involved in the agreement, including the Debtor, Owner Pledgor, Assignee, Lender, and Administrative Agent. It outlines the purpose of the agreement, which is to secure obligations under a Credit Agreement.",
+      "text": "THIS SUBORDINATED BORROWER SECURITY AGREEMENT (as amended, restated or supplemented, this \"Agreement\") is executed as of March __, 2023, by SUBROGATION HOLDINGS, LLC, a Delaware limited liability company (the \"Debtor\"), for the benefit of HAZEL HOLDINGS I LLC, a Delaware limited liability company, acting in its capacity as agent for the Secured Party (as defined herein) pursuant to the below-defined Credit Agreement.",
+      "page_numbers": [
+        1,
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Section 1: Certain Definitions",
+      "summary": "This section provides definitions for key terms used throughout the agreement, such as 'Administrative Agent', 'Agreement', 'Collateral', and 'UCC'. It clarifies the meanings of these terms as they apply to the agreement.",
+      "text": "Each capitalized term used but not defined in this Agreement has the meaning given that term in the Credit Agreement. The following terms shall have the meanings assigned to them in the UCC: \"Accounts\"; \"Bank\"; \"Chattel Paper\"; \"Deposit Account\"; \"Documents\" \"Entitlement Order\"; \"Equipment\"; \"Financial Asset\"; \"General Intangibles\"; \"Goods\"; \"Inventory\"; \"Investment Property\"; \"Letter-of-Credit Rights\"; \"Money\"; \"Payment Intangibles\"; \"Proceeds\"; \"Records\"; \"Securities Account\"; \"Securities Intermediary\"; \"Security Entitlement\" and \"Supporting Obligations\".",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Section 2: Lien",
+      "summary": "This section describes the lien granted by the Debtor to the Administrative Agent on behalf of the Secured Party. It details the types of property included as Collateral and the conditions under which the lien is granted.",
+      "text": "To secure the prompt, unconditional and complete payment and performance of the Obligations when due, the Debtor hereby grants to the Administrative Agent (on behalf of and for the benefit of the Secured Party), a lien on and continuing security interest in, all of the following property of the Debtor, wherever located and whether now or hereafter existing, whether now owned or hereafter acquired, whether tangible or intangible, of every kind and description (the \"Collateral\").",
+      "page_numbers": [
+        3,
+        4
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Section 3: Collateral Security; No Assumption or Modification",
+      "summary": "This section clarifies that neither the Administrative Agent nor the Secured Party assumes any liabilities or obligations related to the Collateral. It emphasizes that the agreement does not modify the Debtor's obligations regarding the Collateral.",
+      "text": "Neither the Administrative Agent nor the Secured Party assumes, nor shall the Administrative Agent or the Secured Party be liable for, the liabilities of the Debtor, duties or obligations under, or in connection with, the Collateral.",
+      "page_numbers": [
+        4
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Section 4: Supplements; Further Assurances",
+      "summary": "This section outlines the Debtor's obligations to take further actions and provide additional documentation as necessary to perfect and protect the security interest in the Collateral.",
+      "text": "The Debtor shall at its sole expense take such further actions, and execute and/or deliver to the Administrative Agent such financing statements, amendments, assignments, agreements, notices, supplements, powers and instruments, lists, schedules, descriptions and designations of Collateral, confirmatory assignments, additional security agreements, conveyances, transfer endorsements, certificates, reports and other assurances, documents or instruments as the Administrative Agent may in its commercially reasonable judgment deem necessary or desirable.",
+      "page_numbers": [
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Section 5: Representations and Warranties",
+      "summary": "The Debtor makes several representations and warranties to the Administrative Agent, including the accuracy of representations in the Credit Agreement and the lawful authority to execute the agreement.",
+      "text": "The Debtor represents and warrants to the Administrative Agent (on behalf of and for the benefit of the Secured Party) that: Each of the representations and warranties made by the Debtor in the Credit Agreement are true and correct in all material respects.",
+      "page_numbers": [
+        5,
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Section 6: Covenants",
+      "summary": "The Debtor agrees to maintain records of the Collateral, defend against claims, and not establish new accounts without consent. These covenants ensure the protection and maintenance of the Collateral.",
+      "text": "The Debtor covenants and agrees with the Administrative Agent (on behalf of and for the benefit of the Secured Party) that so long as the Credit Agreement is in effect and thereafter until all Obligations are indefeasibly paid in full in cash, the Debtor shall: Maintain at its place of business a current record of the location of all Collateral.",
+      "page_numbers": [
+        6,
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Section 7: Authorization to File Financing Statements",
+      "summary": "The Debtor authorizes the Administrative Agent to file financing statements and amendments to perfect the security interest in the Collateral. This section ensures the legal enforceability of the security interest.",
+      "text": "The Debtor hereby irrevocably authorizes the Administrative Agent (on behalf of and for the benefit of the Secured Party) at any time and from time to time to file in any relevant jurisdiction any financing statements and amendments thereto that contain the information required by Article 9 of the Uniform Commercial Code.",
+      "page_numbers": [
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0009",
+      "title": "Section 8: Event of Default; Remedies",
+      "summary": "This section outlines the remedies available to the Administrative Agent upon an Event of Default, including taking possession of the Collateral and selling it to satisfy the Obligations.",
+      "text": "Upon the occurrence and during the continuance of an Event of Default, upon sending a Courtesy Notice, the Administrative Agent may from time to time exercise in respect of the Collateral, in addition to the other rights and remedies provided for herein or otherwise available to it.",
+      "page_numbers": [
+        7,
+        10
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0010",
+      "title": "Section 9: Power of Attorney",
+      "summary": "The Debtor grants the Administrative Agent a power of attorney to take actions necessary to protect the security interest in the Collateral, especially during an Event of Default.",
+      "text": "Without limiting any other power of attorney granted pursuant to the Credit Agreement or the other Credit Documents, upon the occurrence and during the continuance of an Event of Default, the Debtor irrevocably and unconditionally appoints the Administrative Agent (on behalf of and for the benefit of the Secured Party) as the attorney-in-fact of the Debtor.",
+      "page_numbers": [
+        11,
+        12
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0011",
+      "title": "Section 10: Miscellaneous",
+      "summary": "This section includes various legal provisions, such as termination conditions, waiver of notice, and jurisdiction. It also addresses the subordination of the security interest to senior liens.",
+      "text": "This Agreement shall terminate upon full and final payment in cash of the Obligations and any Guaranteed Obligations owing to the Secured Party. Administrative Agent, on behalf of and for the benefit of the Secured Party, hereby acknowledges and agrees that the security interests in the Collateral granted by this Agreement are junior and subordinate to the liens created by the Senior Credit Documents.",
+      "page_numbers": [
+        12,
+        17
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "23. Attestor-MSP - Subordinated Borrower Security Agreement(204823853.1).pdf",
+  "_file_type": "pdf",
+  "_char_count": 55522,
+  "_page_count": 19,
+  "_has_page_images": true,
+  "_doc_id": 42
+}

@@ -1,0 +1,93 @@
+{
+  "doc_name": "01. Attestor-MSP - HHI Membership Interest Purchase Agreement(204850132.1).pdf",
+  "doc_description": "This document is a legal agreement for the purchase of membership interests in HHI by MSP Recovery, LLC from Hazel Holdings I LLC. It outlines the terms and conditions of the transaction, including the purchase price, closing conditions, and confidentiality obligations.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Recitals",
+      "summary": "This section provides the background and context for the agreement, including the parties involved and their respective roles. It also references previous related agreements.",
+      "text": "WHEREAS, Seller is the sole member of the Company, and owns of record and beneficially one hundred percent (100%) of the membership interests of the Company (collectively, the “Purchased Interest”); WHEREAS, the Company owns of record and beneficially one hundred percent (100%) of the membership interests of the series companies listed on Exhibit A hereto (each, a “Subsidiary” and collectively, the “Subsidiaries”);",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Article 1: Purchase of Membership Interest and Other Covenants",
+      "summary": "This section details the terms of the purchase, including the transfer of interests, the payment amount, and the termination of previous agreements. It also includes mutual releases and acknowledgments by the parties.",
+      "text": "agree that at the Closing (as defined below), Seller shall sell, transfer, assign, convey and deliver to Buyer, free and clear of all liens, encumbrances or claims, in each case, created by Seller, (solely in its capacity as equity holder of the Purchased Interests), and Buyer shall purchase and accept from Seller, the Purchased Interest in exchange for Three Hundred Ninety Million Dollars ($390,000,000.00) (the “Closing Payment”) to be paid on the Closing Date.",
+      "page_numbers": [
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Article 2: The Closing",
+      "summary": "This section specifies the conditions and timing for the closing of the transaction, including the exchange of documents and the effective time of the transaction.",
+      "text": "The Parties confirm that the completion of the purchase and sale of the Purchased Interest (the “Closing”) shall take place through the exchange of electronic copies of original signatures of the documents and agreements contained herein on the Effective Date (the “Closing Date”).",
+      "page_numbers": [
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Article 3: Taxes",
+      "summary": "This section clarifies that no party is responsible for the tax consequences of the transaction to the other parties, and each party should consult their own tax advisors.",
+      "text": "All Parties agree that no Party, nor any affiliate or representative of any Party, has made any warranty or representation regarding the tax consequences of the Transaction.",
+      "page_numbers": [
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Article 4: Confidentiality",
+      "summary": "This section outlines the confidentiality obligations of the parties regarding the terms of the agreement, with exceptions for legal requirements and professional advisors.",
+      "text": "The Parties understand and acknowledge that the terms of this Agreement are confidential and, except as required by law or any governmental authority, no Party shall provide such information to any third party without the prior written consent of the other Parties.",
+      "page_numbers": [
+        4
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Article 5: General Provisions",
+      "summary": "This section includes various legal provisions such as governing law, arbitration, further actions, assignment, amendments, and counterparts.",
+      "text": "6.1 Entire Agreement. This Agreement, including without limitation the recitals and exhibits hereto, which are hereby incorporated by reference, constitutes the entire agreement and understanding among the Parties with respect to the transfer of the Purchased Interest and is a final expression of their agreement.",
+      "page_numbers": [
+        5,
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Signature Page",
+      "summary": "This page contains the signatures of the authorized representatives of the parties involved in the agreement.",
+      "text": "IN WITNESS WHEREOF, the Parties hereto have signed this Agreement as of the Effective Date.",
+      "page_numbers": [
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Exhibit A: Subsidiaries",
+      "summary": "This exhibit lists the subsidiaries of the company involved in the transaction.",
+      "text": "1. Series 44-20-934, a designated series of MSP Recovery Claims Series 44, LLC",
+      "page_numbers": [
+        7
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "01. Attestor-MSP - HHI Membership Interest Purchase Agreement(204850132.1).pdf",
+  "_file_type": "pdf",
+  "_char_count": 13379,
+  "_page_count": 7,
+  "_has_page_images": true,
+  "_doc_id": 35
+}

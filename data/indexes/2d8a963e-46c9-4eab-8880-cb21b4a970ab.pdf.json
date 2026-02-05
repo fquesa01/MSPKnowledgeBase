@@ -1,0 +1,121 @@
+{
+  "doc_name": "15. Attestor-MSP - Emblem Security Agreement (Executed).pdf",
+  "doc_description": "This document is a security agreement executed between NY Claims Holdings, LLC and Hazel Partners Holdings LLC, acting as the Administrative Agent for the Secured Party. It outlines the terms and conditions under which the Debtor grants a security interest in its assets to secure obligations under a credit agreement.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Parties",
+      "summary": "This section introduces the parties involved in the agreement, including the Debtor, the Administrative Agent, and the Secured Party. It also references the existing credit agreement and amendments.",
+      "text": "THIS EMBLEM SECURITY AGREEMENT (this 'Agreement') is executed as of October 1, 2024, by NY CLAIMS HOLDINGS, LLC, a Delaware limited liability company (the 'Debtor'), for the benefit of HAZEL PARTNERS HOLDINGS LLC, a Delaware limited liability company, acting in its capacity as agent for the Secured Party.",
+      "page_numbers": [
+        1,
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Definitions",
+      "summary": "This section provides definitions for key terms used throughout the agreement, including 'Administrative Agent', 'Agreement', 'Collateral', and others.",
+      "text": "SECTION 1. CERTAIN DEFINITIONS. Each capitalized term used but not defined in this Agreement has the meaning given that term in the Credit Agreement.",
+      "page_numbers": [
+        2,
+        3
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Lien and Collateral",
+      "summary": "The Debtor grants a lien and security interest in its assets to the Administrative Agent to secure the payment and performance of obligations. The section lists the types of collateral included.",
+      "text": "SECTION 2. LIEN. To secure the prompt, unconditional and complete payment and performance when due of the Obligations, the Debtor hereby grants to the Administrative Agent a lien on and continuing security interest in, all of the following property of the Debtor.",
+      "page_numbers": [
+        3,
+        4
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Collateral Security and Further Assurances",
+      "summary": "This section outlines the Debtor's obligations to maintain the security interest and take further actions to protect the collateral. It also clarifies that the Administrative Agent does not assume liabilities related to the collateral.",
+      "text": "SECTION 3. COLLATERAL SECURITY; NO ASSUMPTION OR MODIFICATION. Neither the Administrative Agent nor the Secured Party assumes, nor shall they be liable for, the liabilities of the Debtor.",
+      "page_numbers": [
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Representations and Warranties",
+      "summary": "The Debtor makes several representations and warranties regarding its authority to execute the agreement, the accuracy of its representations in the credit agreement, and the perfection of the security interest.",
+      "text": "SECTION 5. REPRESENTATIONS AND WARRANTIES. The Debtor represents and warrants to the Administrative Agent that each of the representations and warranties made by the Debtor in the Credit Agreement are true and correct.",
+      "page_numbers": [
+        5,
+        6
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Covenants",
+      "summary": "The Debtor agrees to maintain records of the collateral, defend against claims, and not establish new accounts without consent. It also agrees to maintain the security interest as a first priority.",
+      "text": "SECTION 6. COVENANTS. The Debtor covenants and agrees with the Administrative Agent that so long as the Credit Agreement is in effect, the Debtor shall maintain at its place of business a current record of the location of all Collateral.",
+      "page_numbers": [
+        6,
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Authorization to File Financing Statements",
+      "summary": "The Debtor authorizes the Administrative Agent to file financing statements and amendments to perfect and maintain the security interest in the collateral.",
+      "text": "SECTION 7. AUTHORIZATION TO FILE FINANCING STATEMENTS. The Debtor hereby irrevocably authorizes the Administrative Agent to file in any relevant jurisdiction any financing statements and amendments thereto.",
+      "page_numbers": [
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Event of Default and Remedies",
+      "summary": "This section outlines the remedies available to the Administrative Agent upon an event of default, including taking possession of the collateral and selling it to satisfy obligations.",
+      "text": "SECTION 8. EVENT OF DEFAULT; REMEDIES. Upon the occurrence and during the continuance of an Event of Default, the Administrative Agent may exercise in respect of the Collateral, in addition to other rights and remedies, the following remedies.",
+      "page_numbers": [
+        7,
+        11
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0009",
+      "title": "Power of Attorney",
+      "summary": "The Debtor grants the Administrative Agent a power of attorney to take actions necessary to protect the collateral and enforce rights under the agreement.",
+      "text": "SECTION 9. POWER OF ATTORNEY. Upon the occurrence and during the continuance of an Event of Default, the Debtor irrevocably appoints the Administrative Agent as the attorney-in-fact of the Debtor.",
+      "page_numbers": [
+        11,
+        12
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0010",
+      "title": "Miscellaneous",
+      "summary": "This section includes various legal provisions, such as termination, waiver of notice, governing law, and jurisdiction. It also addresses the severability of provisions and the entire agreement clause.",
+      "text": "SECTION 10. MISCELLANEOUS. This Agreement shall terminate upon the full and final payment in cash of the Obligations owing to the Secured Party.",
+      "page_numbers": [
+        12,
+        17
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "15. Attestor-MSP - Emblem Security Agreement (Executed).pdf",
+  "_file_type": "pdf",
+  "_char_count": 55080,
+  "_page_count": 19,
+  "_has_page_images": true,
+  "_doc_id": 19
+}

@@ -1,0 +1,70 @@
+{
+  "doc_name": "10a. Attestor-MSP - 8_29_24 Letter Agreement for Emblem Funding(508140785.1) fully compiled.pdf",
+  "doc_description": "This document is a letter agreement between Hazel Partners Holdings LLC and MSP Recovery, LLC, detailing the terms and conditions for a funding arrangement related to Emblem Claims. It includes amendments to an existing credit agreement, outlines the funding structure, and specifies the rights and obligations of the involved parties.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction and Reference to Existing Credit Agreement",
+      "summary": "The letter begins by referencing the Second Amended and Restated Credit Agreement among various parties, including MSP Recovery, LLC and Hazel Partners Holdings LLC. It outlines the amendments made to the original agreement and sets the stage for the new funding arrangement.",
+      "text": "Reference is hereby made to that certain Second Amended and Restated Credit Agreement, dated as of November 10, 2023, among SUBROGATION HOLDINGS, LLC, a Delaware limited liability company (the “Borrower”), MSP RECOVERY, LLC, a Florida limited liability company (the “Owner Pledgor”), JRFQ HOLDINGS, LLC, a Delaware limited liability company (“Mortgagor Parent”), 4601 CORAL GABLES PROPERTY, LLC, a Florida limited liability company (“Mortgagor”), MSP RECOVERY CLAIMS, SERIES LLC – SERIES 15-09-321, a registered series of MSP Recovery Claims, Series LLC, a Delaware limited liability company, and a Subsidiary of the Borrower (the “Assignee”) and HAZEL PARTNERS HOLDINGS LLC, a Delaware limited liability company, as Lender (the “Lender”) and as Administrative Agent (in such capacity, the “Administrative Agent”) as amended by that certain Amendment No. 1 to Second Amended and Restated Credit Agreement, dated as of December 15, 2023 (“Amendment No. 1”), and as further amended by that certain Amendment No. 2 to Second Amended and Restated Credit Agreement, dated as of December 22, 2023 (“Amendment No. 2”), and as further amended by the August 2nd Letter Agreement (as defined below) (the Existing Credit Agreement, as amended by Amendment No. 1, Amendment No. 2 and the August 2nd Letter Agreement and as may be subsequently amended, modified or restated from time to time, the “Credit Agreement”).",
+      "page_numbers": [
+        1
+      ]
+    },
+    {
+      "node_id": "0002",
+      "title": "Terms of Emblem Funding",
+      "summary": "The Lender agrees to provide $2,000,000 in funding to the Borrower for the purchase of Emblem Claims. This funding is subject to the satisfaction of conditions outlined in the Credit Agreement and is part of the Operational Collection Floor.",
+      "text": "On the terms set forth herein, the Lender has agreed to make available to the Borrower a funding in the amount of $2,000,000 solely for the purpose of enabling Owner Pledgor to purchase the Emblem Claims (as defined in the August 2nd Letter Agreement), to be borrowed and funded on August 29, 2024 (the “Emblem Funding”), subject in all respects to the satisfaction or waiver of the draw down conditions set forth in the Existing Credit Agreement.",
+      "page_numbers": [
+        1,
+        2
+      ]
+    },
+    {
+      "node_id": "0003",
+      "title": "Conditions and Obligations",
+      "summary": "The Borrower and its affiliates must enter into a Third Amendment and provide evidence of the assignment of Emblem Claims to a new subsidiary. The letter also reserves the rights of the Administrative Agent and Lender.",
+      "text": "Withing 15 days following the Emblem Funding, Borrower and Owner Pledgor shall provide evidence satisfactory to Administrative Agent that the Emblem Claims have been assigned to the New Claims Subsidiary (as defined in the August 2nd Letter Agreement). Nothing contained in this letter is intended to constitute an election of any remedy to which Administrative Agent or Lender may be entitled, and Administrative Agent and Lender do not waive any right that it may possess in connection with the Credit Documents or any defaults arising thereunder.",
+      "page_numbers": [
+        2
+      ]
+    },
+    {
+      "node_id": "0004",
+      "title": "Governing Law and Execution",
+      "summary": "The agreement is governed by New York law and can be executed in counterparts. Electronic signatures are considered legally valid.",
+      "text": "This letter agreement shall be governed by and construed in accordance with the laws of the State of New York, without regard to the conflicts of law principles of such state to the extent that the application of the laws of another jurisdiction would be required thereby. This letter may be executed in counterparts (and by different parties hereto in different counterparts), each of which shall constitute an original, but all of which when taken together shall constitute a single agreement.",
+      "page_numbers": [
+        2,
+        3
+      ]
+    },
+    {
+      "node_id": "0005",
+      "title": "Signatures",
+      "summary": "The document includes signature lines for representatives of Hazel Partners Holdings LLC, Subrogation Holdings, LLC, MSP Recovery, LLC, and other involved parties.",
+      "text": "ADMINISTRATIVE AGENT AND LENDER: HAZEL PARTNERS HOLDINGS LLC By: Name: Christopher Guth Title: Authorized Attorney",
+      "page_numbers": [
+        3,
+        4
+      ]
+    },
+    {
+      "node_id": "0006",
+      "title": "Exhibit A - August 2nd Letter Agreement",
+      "summary": "The attached exhibit provides details of the August 2nd Letter Agreement, which outlines the terms for the Emblem Claims funding and amendments to the Credit Agreement.",
+      "text": "Reference is made to that certain Second Amended and Restated Credit Agreement (the “Credit Agreement”), dated November 10, 2023, by and among SUBROGATION HOLDINGS, LLC, a Delaware limited liability company (the “Borrower”), MSP RECOVERY, LLC, a Florida limited liability company (the “MSP or Owner Pledgor”), JRFQ HOLDINGS, LLC, a Delaware limited liability company (“Mortgagor Parent”), 4601 CORAL GABLES PROPERTY, LLC, a Florida limited liability company (“Mortgagor”), MSP RECOVERY CLAIMS, SERIES LLC – SERIES 15-09-321, a registered series of MSP Recovery Claims, Series LLC, a Delaware limited liability company, and a Subsidiary of the Borrower (the “Assignee”) and HAZEL PARTNERS HOLDINGS LLC, a Delaware limited liability company, as Lender (the “Lender”) and as Administrative Agent (in such capacity, the “Administrative Agent”).",
+      "page_numbers": [
+        5,
+        6
+      ]
+    }
+  ],
+  "_source_file": "10a. Attestor-MSP - 8_29_24 Letter Agreement for Emblem Funding(508140785.1) fully compiled.pdf",
+  "_file_type": "pdf",
+  "_char_count": 20172,
+  "_page_count": 12,
+  "_has_page_images": true,
+  "_doc_id": 25
+}

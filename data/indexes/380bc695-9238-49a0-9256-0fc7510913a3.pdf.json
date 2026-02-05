@@ -1,0 +1,119 @@
+{
+  "doc_name": "02. Attestor-MSP - New Claims Membership Interest Purchase Agreement(204850104.1).pdf",
+  "doc_description": "This document is a legal agreement for the purchase of membership interests in certain designated series of MSP Recovery Claims, Series, LLC by Hazel Holdings I LLC from MSP Recovery LLC. It outlines the terms, conditions, representations, warranties, and other provisions related to the transaction.",
+  "structure": [
+    {
+      "node_id": "0001",
+      "title": "Introduction",
+      "summary": "This section introduces the parties involved in the agreement, the effective date, and the purpose of the agreement, which is the sale and purchase of membership interests.",
+      "text": "This New Claims Interest Membership Interest Purchase Agreement (“Agreement”) is made and entered into as of March 29, 2023 (the “Effective Date”) by and among (i) MSP Recovery LLC, a Florida limited liability company (“Seller”), (ii) each of the designated series of MSP Recovery Claims, Series, LLC, a Delaware limited liability company, set forth on Exhibit A attached hereto (each an “Acquired Company”, and collectively the “Acquired Companies”), and (iii) Hazel Holdings I LLC, a Delaware limited liability company (“Buyer”).",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0002",
+      "title": "Recitals",
+      "summary": "The recitals provide background information on the ownership of the membership interests and the existing investment agreement between the parties.",
+      "text": "WHEREAS, Seller is the sole member of the each Acquired Company, and owns of record and beneficially one hundred percent (100%) of the membership interests of each of the Acquired Companies (collectively, the “Purchased Interest”); WHEREAS, Seller, the Acquired Companies and Buyer are parties to that certain Investment Agreement of even date herewith (the “Investment Agreement”).",
+      "page_numbers": [
+        1
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0003",
+      "title": "Article I - Purchase of Membership Interest",
+      "summary": "This section outlines the terms of the purchase, including the purchase price of $150,000,000 and the conditions for the transfer of the membership interests.",
+      "text": "In accordance with the terms and conditions of this Agreement, the Parties hereby agree that at the Closing (as defined below), Seller shall sell, transfer, assign, convey and deliver to Buyer, free and clear of all Liens (as defined below), and Buyer shall purchase and accept from Seller, the Purchased Interest in exchange for One Hundred Fifty Million Dollars ($150,000,000.00) (the “Closing Payment”) to be paid within one (1) day following the Closing Date.",
+      "page_numbers": [
+        1,
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0004",
+      "title": "Article II - The Closing",
+      "summary": "This section describes the process and timing of the closing, which involves the exchange of electronic copies of original signatures.",
+      "text": "The Parties confirm that the completion of the purchase and sale of the Purchased Interest (the “Closing”) shall take place through the exchange of electronic copies of original signatures of the documents and agreements contained herein on the Effective Date (the “Closing Date”).",
+      "page_numbers": [
+        2
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0005",
+      "title": "Article III - Representations and Warranties",
+      "summary": "This section contains the representations and warranties made by both the Seller and the Buyer regarding their authority and the validity of the agreement.",
+      "text": "Section 3.01 Seller’s Representations and Warranties. Seller and each Acquired Company, jointly and severally, represent and warrant to Buyer that the statements set forth in this Section 3.1 are true, complete and accurate as of the Effective Date.",
+      "page_numbers": [
+        2,
+        3,
+        4
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0006",
+      "title": "Article IV - Taxes",
+      "summary": "This section clarifies that no party is responsible for the tax consequences of the transaction to the other parties.",
+      "text": "All Parties agree that no Party, nor any Affiliate or Representative of any Party, has made any warranty or representation regarding the tax consequences of the Transactions.",
+      "page_numbers": [
+        4
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0007",
+      "title": "Article V - Confidentiality",
+      "summary": "The confidentiality clause restricts the disclosure of the agreement's terms, except as required by law or to certain advisors.",
+      "text": "The Parties understand and acknowledge that the terms of this Agreement are confidential and, except as required by law or any governmental authority, no Party shall provide such information to any third party without the prior written consent of the other Parties.",
+      "page_numbers": [
+        4,
+        5
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0008",
+      "title": "Article VI - General Provisions",
+      "summary": "This section includes various legal provisions such as governing law, arbitration, further actions, assignment, amendments, and counterparts.",
+      "text": "Section 6.01 Entire Agreement. This Agreement, including without limitation the recitals and exhibits hereto, which are hereby incorporated by reference, and the Investment Agreement, constitute the entire agreement and understanding among the Parties with respect to the transfer of the Purchased Interest.",
+      "page_numbers": [
+        5,
+        6,
+        7
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0009",
+      "title": "Signature Pages",
+      "summary": "The signature pages contain the signatures of the authorized representatives of the Seller and the Acquired Companies.",
+      "text": "SELLER: MSP Recovery, LLC By: Name: John H. Ruiz Title: Authorized Representative",
+      "page_numbers": [
+        8,
+        9
+      ],
+      "nodes": []
+    },
+    {
+      "node_id": "0010",
+      "title": "Exhibit A - Acquired Companies",
+      "summary": "Exhibit A lists the specific series of MSP Recovery Claims, Series, LLC that are part of the transaction.",
+      "text": "SERIES 21-12-1644, a designated series of MSP Recovery Claims, Series, LLC SERIES 23-03-1907, a designated series of MSP Recovery Claims, Series, LLC SERIES 21-06-1592, a designated series of MSP Recovery Claims, Series, LLC",
+      "page_numbers": [
+        9
+      ],
+      "nodes": []
+    }
+  ],
+  "_source_file": "02. Attestor-MSP - New Claims Membership Interest Purchase Agreement(204850104.1).pdf",
+  "_file_type": "pdf",
+  "_char_count": 15354,
+  "_page_count": 9,
+  "_has_page_images": true,
+  "_doc_id": 36
+}
