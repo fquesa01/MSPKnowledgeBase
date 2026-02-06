@@ -16,7 +16,7 @@ from sqlalchemy import select
 from pydantic import BaseModel
 
 from config import get_settings
-from models import Base, User, Document, ChatHistory
+from models import Base, User, Document, ChatHistory, TopicFolder
 from auth import verify_password, get_password_hash, create_access_token, get_current_user, oauth2_scheme
 from document_processor import process_document
 from search import search_and_answer
@@ -52,9 +52,16 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
+class FolderCreate(BaseModel):
+    name: str
+
+class FolderRename(BaseModel):
+    name: str
+
 class ChatRequest(BaseModel):
     query: str
     session_id: str = None
+    folder_id: int = None
 
 class ChatResponse(BaseModel):
     answer: str
@@ -767,6 +774,118 @@ async def analyze_pleading_upload(
         issues=analyzed_issues
     )
 
+# ============ TOPIC FOLDER ROUTES ============
+
+@app.get("/api/folders")
+async def list_folders(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    from sqlalchemy import func
+    username = await get_current_user(token)
+    result = await db.execute(select(User).where(User.username == username))
+    user = result.scalar_one_or_none()
+    if not user:
+        return []
+    result = await db.execute(
+        select(TopicFolder)
+        .where(TopicFolder.user_id == user.id)
+        .order_by(TopicFolder.updated_at.desc())
+    )
+    folders = result.scalars().all()
+    folder_list = []
+    for f in folders:
+        count_result = await db.execute(
+            select(func.count(func.distinct(ChatHistory.session_id)))
+            .where(ChatHistory.folder_id == f.id, ChatHistory.user_id == user.id)
+        )
+        conv_count = count_result.scalar() or 0
+        folder_list.append({
+            "id": f.id,
+            "name": f.name,
+            "conversation_count": conv_count,
+            "created_at": f.created_at.isoformat() if f.created_at else None,
+            "updated_at": f.updated_at.isoformat() if f.updated_at else None
+        })
+    return folder_list
+
+@app.post("/api/folders")
+async def create_folder(req: FolderCreate, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    username = await get_current_user(token)
+    result = await db.execute(select(User).where(User.username == username))
+    user = result.scalar_one_or_none()
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    folder = TopicFolder(user_id=user.id, name=req.name)
+    db.add(folder)
+    await db.commit()
+    await db.refresh(folder)
+    return {"id": folder.id, "name": folder.name, "conversation_count": 0,
+            "created_at": folder.created_at.isoformat() if folder.created_at else None,
+            "updated_at": folder.updated_at.isoformat() if folder.updated_at else None}
+
+@app.put("/api/folders/{folder_id}")
+async def rename_folder(folder_id: int, req: FolderRename, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    username = await get_current_user(token)
+    result = await db.execute(select(User).where(User.username == username))
+    user = result.scalar_one_or_none()
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    result = await db.execute(select(TopicFolder).where(TopicFolder.id == folder_id, TopicFolder.user_id == user.id))
+    folder = result.scalar_one_or_none()
+    if not folder:
+        raise HTTPException(status_code=404, detail="Folder not found")
+    folder.name = req.name
+    await db.commit()
+    return {"id": folder.id, "name": folder.name}
+
+@app.delete("/api/folders/{folder_id}")
+async def delete_folder(folder_id: int, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    from sqlalchemy import delete as sql_delete, update as sql_update
+    username = await get_current_user(token)
+    result = await db.execute(select(User).where(User.username == username))
+    user = result.scalar_one_or_none()
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    result = await db.execute(select(TopicFolder).where(TopicFolder.id == folder_id, TopicFolder.user_id == user.id))
+    folder = result.scalar_one_or_none()
+    if not folder:
+        raise HTTPException(status_code=404, detail="Folder not found")
+    await db.execute(sql_update(ChatHistory).where(ChatHistory.folder_id == folder_id).values(folder_id=None))
+    await db.delete(folder)
+    await db.commit()
+    return {"ok": True}
+
+@app.get("/api/folders/{folder_id}/conversations")
+async def list_folder_conversations(folder_id: int, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    from sqlalchemy import func
+    username = await get_current_user(token)
+    result = await db.execute(select(User).where(User.username == username))
+    user = result.scalar_one_or_none()
+    if not user:
+        return []
+    folder_check = await db.execute(
+        select(TopicFolder).where(TopicFolder.id == folder_id, TopicFolder.user_id == user.id)
+    )
+    if not folder_check.scalar_one_or_none():
+        raise HTTPException(status_code=404, detail="Folder not found")
+    result = await db.execute(
+        select(
+            ChatHistory.session_id,
+            func.min(ChatHistory.content).label("first_message"),
+            func.max(ChatHistory.created_at).label("last_active")
+        )
+        .where(ChatHistory.user_id == user.id, ChatHistory.folder_id == folder_id, ChatHistory.role == "user")
+        .group_by(ChatHistory.session_id)
+        .order_by(func.max(ChatHistory.created_at).desc())
+    )
+    sessions = result.all()
+    return [
+        {
+            "session_id": s.session_id,
+            "preview": s.first_message[:80] if s.first_message else "New conversation",
+            "last_active": s.last_active.isoformat() if s.last_active else None
+        }
+        for s in sessions
+    ]
+
 # ============ CHAT/SEARCH ROUTES ============
 
 @app.post("/api/chat", response_model=ChatResponse)
@@ -777,6 +896,14 @@ async def chat(request: ChatRequest, token: str = Depends(oauth2_scheme), db: As
     user = result.scalar_one_or_none()
     
     session_id = request.session_id or str(uuid.uuid4())
+    folder_id = request.folder_id
+    
+    if folder_id and user:
+        folder_check = await db.execute(
+            select(TopicFolder).where(TopicFolder.id == folder_id, TopicFolder.user_id == user.id)
+        )
+        if not folder_check.scalar_one_or_none():
+            folder_id = None
     
     # Load conversation history for this session
     conversation_history = []
@@ -811,12 +938,14 @@ async def chat(request: ChatRequest, token: str = Depends(oauth2_scheme), db: As
         user_msg = ChatHistory(
             user_id=user.id,
             session_id=session_id,
+            folder_id=folder_id,
             role="user",
             content=request.query
         )
         assistant_msg = ChatHistory(
             user_id=user.id,
             session_id=session_id,
+            folder_id=folder_id,
             role="assistant",
             content=result["answer"],
             sources_json=json.dumps(result["sources"])
@@ -824,6 +953,13 @@ async def chat(request: ChatRequest, token: str = Depends(oauth2_scheme), db: As
         db.add(user_msg)
         db.add(assistant_msg)
         await db.commit()
+        if folder_id:
+            from sqlalchemy import update as sql_update
+            from datetime import datetime as dt
+            await db.execute(
+                sql_update(TopicFolder).where(TopicFolder.id == folder_id).values(updated_at=dt.utcnow())
+            )
+            await db.commit()
     
     result["session_id"] = session_id
     return ChatResponse(**result)

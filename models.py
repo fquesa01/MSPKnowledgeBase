@@ -36,12 +36,22 @@ class Document(Base):
     
     uploaded_by = relationship("User", back_populates="documents")
 
+class TopicFolder(Base):
+    __tablename__ = "topic_folders"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    name = Column(String(255), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
 class ChatHistory(Base):
     __tablename__ = "chat_history"
     
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     session_id = Column(String(100), index=True, nullable=False)
+    folder_id = Column(Integer, ForeignKey("topic_folders.id"), nullable=True)
     role = Column(String(20), nullable=False, default="user")
     content = Column(Text, nullable=False)
     sources_json = Column(Text, nullable=True)
