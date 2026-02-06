@@ -41,7 +41,8 @@ class ChatHistory(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
-    query = Column(Text, nullable=False)
-    response = Column(Text, nullable=False)
-    retrieved_nodes = Column(Text, nullable=True)  # JSON of retrieved node IDs
+    session_id = Column(String(100), index=True, nullable=False)
+    role = Column(String(20), nullable=False, default="user")
+    content = Column(Text, nullable=False)
+    sources_json = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
