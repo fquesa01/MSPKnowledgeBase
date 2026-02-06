@@ -1030,7 +1030,11 @@ async def search(q: str, token: str = Depends(oauth2_scheme), db: AsyncSession =
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
-    return FileResponse("static/index.html")
+    response = FileResponse("static/index.html")
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
 
 # Mount static files
 if os.path.exists("static"):

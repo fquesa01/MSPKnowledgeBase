@@ -48,20 +48,20 @@
             .resizer { display: none; }
             .resizable-container { flex-direction: column; gap: 2rem; }
         }
-        .folder-sidebar {
-            width: 260px;
-            min-width: 260px;
-            transition: margin-left 0.25s ease;
-            border-right: 1px solid #e5e7eb;
+        .folder-panel {
+            max-height: 240px;
+            overflow-y: auto;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            border-bottom: 1px solid #e5e7eb;
         }
-        .dark .folder-sidebar { border-right-color: #374151; }
-        .folder-sidebar.collapsed { margin-left: -260px; }
-        .folder-item { cursor: pointer; transition: background 0.15s; }
+        .dark .folder-panel { border-bottom-color: #374151; }
+        .folder-panel.collapsed { max-height: 0; padding-top: 0; padding-bottom: 0; overflow: hidden; border-bottom: none; }
+        .folder-item { cursor: pointer; transition: background 0.15s; border-radius: 0.375rem; }
         .folder-item:hover { background: rgba(59,130,246,0.08); }
-        .folder-item.active { background: rgba(59,130,246,0.15); }
+        .folder-item.active { background: rgba(59,130,246,0.12); }
         .dark .folder-item:hover { background: rgba(59,130,246,0.15); }
-        .dark .folder-item.active { background: rgba(59,130,246,0.25); }
-        .conv-item { cursor: pointer; transition: background 0.15s; }
+        .dark .folder-item.active { background: rgba(59,130,246,0.2); }
+        .conv-item { cursor: pointer; transition: background 0.15s; border-radius: 0.375rem; }
         .conv-item:hover { background: rgba(59,130,246,0.06); }
         .conv-item.active { background: rgba(59,130,246,0.12); }
         .dark .conv-item:hover { background: rgba(59,130,246,0.1); }
@@ -161,59 +161,57 @@
                     </div>
                     
                     <!-- Ask Questions Tab Content -->
-                    <div id="askQuestionsContent" class="flex-1 flex overflow-hidden">
-                        <!-- Folder Sidebar -->
-                        <div id="folderSidebar" class="folder-sidebar flex flex-col bg-gray-50 dark:bg-gray-850 overflow-hidden">
-                            <div class="p-3 border-b dark:border-gray-700 flex items-center justify-between">
-                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Topics</span>
-                                <button onclick="showCreateFolderInput()" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-lg leading-none" title="New Topic">+</button>
+                    <div id="askQuestionsContent" class="flex-1 flex flex-col overflow-hidden">
+                        <!-- Conversation Controls Bar -->
+                        <div class="flex items-center justify-between px-4 py-2 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-800" style="min-height: 40px;">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <button onclick="toggleFolderPanel()" class="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-600 flex-shrink-0" title="Toggle Topics">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                                    <span class="text-sm font-medium">Topics</span>
+                                    <svg id="folderChevron" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                                <span id="activeFolderLabel" class="text-xs text-blue-600 dark:text-blue-400 font-medium truncate hidden"></span>
+                                <span id="conversationLabel" class="text-xs text-gray-500 dark:text-gray-400 truncate">New conversation</span>
                             </div>
-                            <div id="createFolderRow" class="hidden px-3 py-2 border-b dark:border-gray-700">
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <button onclick="showCreateFolderInput()" class="text-xs text-green-600 dark:text-green-400 hover:underline whitespace-nowrap" title="New Topic">+ Topic</button>
+                                <button onclick="startNewConversation()" class="text-xs text-blue-600 dark:text-blue-400 hover:underline whitespace-nowrap">+ Conversation</button>
+                            </div>
+                        </div>
+                        <!-- Folder Panel (collapsible, above chat) -->
+                        <div id="folderPanel" class="folder-panel bg-gray-50 dark:bg-gray-800 px-3 py-2">
+                            <div id="createFolderRow" class="hidden mb-2">
                                 <form onsubmit="createFolder(event)" class="flex gap-1">
                                     <input type="text" id="newFolderName" placeholder="Topic name..." class="flex-1 px-2 py-1 text-sm border dark:border-gray-600 rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500">
                                     <button type="submit" class="text-blue-600 text-sm font-medium">Add</button>
                                     <button type="button" onclick="hideCreateFolderInput()" class="text-gray-400 text-sm">X</button>
                                 </form>
                             </div>
-                            <div class="flex-1 overflow-y-auto">
-                                <div id="folderList" class="py-1"></div>
-                            </div>
-                            <div class="p-2 border-t dark:border-gray-700">
-                                <button onclick="selectFolder(null)" class="w-full text-left text-xs text-gray-500 dark:text-gray-400 hover:text-blue-600 px-2 py-1 rounded flex items-center gap-1">
-                                    <span>All Conversations</span>
+                            <div class="flex flex-wrap gap-1 mb-2">
+                                <button onclick="selectFolder(null)" class="folder-item px-2 py-1 text-xs rounded flex items-center gap-1 ${!activeFolderId ? 'active' : ''}" id="allConvBtn">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                    All
                                 </button>
                             </div>
+                            <div id="folderList"></div>
+                            <div id="conversationList" class="mt-1"></div>
                         </div>
-                        <!-- Chat Area -->
-                        <div class="flex-1 flex flex-col overflow-hidden min-w-0">
-                            <!-- Conversation Controls -->
-                            <div class="flex items-center justify-between px-4 py-2 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
-                                <div class="flex items-center gap-2 min-w-0">
-                                    <button onclick="toggleFolderSidebar()" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 flex-shrink-0" title="Toggle Topics">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                                    </button>
-                                    <span id="activeFolderLabel" class="text-xs text-blue-600 dark:text-blue-400 font-medium truncate hidden"></span>
-                                    <span id="conversationLabel" class="text-xs text-gray-500 dark:text-gray-400 truncate">New conversation</span>
-                                </div>
-                                <button onclick="startNewConversation()" class="text-xs text-blue-600 dark:text-blue-400 hover:underline whitespace-nowrap ml-2">New Conversation</button>
+                        <!-- Chat Messages -->
+                        <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-4">
+                            <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                                <p>Upload documents and ask questions about your knowledge base.</p>
                             </div>
-                            <!-- Chat Messages -->
-                            <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-4">
-                                <div class="text-center text-gray-500 dark:text-gray-400 py-8">
-                                    <p>Upload documents and ask questions about your knowledge base.</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Chat Input -->
-                            <div class="p-4 border-t dark:border-gray-700">
-                                <form id="chatForm" class="flex gap-2">
-                                    <input type="text" id="chatInput" placeholder="Ask a question..." 
-                                        class="flex-1 px-4 py-2 border dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
-                                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                                        Send
-                                    </button>
-                                </form>
-                            </div>
+                        </div>
+                        
+                        <!-- Chat Input -->
+                        <div class="p-4 border-t dark:border-gray-700">
+                            <form id="chatForm" class="flex gap-2">
+                                <input type="text" id="chatInput" placeholder="Ask a question..." 
+                                    class="flex-1 px-4 py-2 border dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                                    Send
+                                </button>
+                            </form>
                         </div>
                     </div>
                     
@@ -746,10 +744,17 @@
             label.textContent = preview;
         }
 
-        function toggleFolderSidebar() {
-            const sidebar = document.getElementById('folderSidebar');
-            sidebar.classList.toggle('collapsed');
-            localStorage.setItem('folderSidebarOpen', sidebar.classList.contains('collapsed') ? 'false' : 'true');
+        function toggleFolderPanel() {
+            const panel = document.getElementById('folderPanel');
+            const chevron = document.getElementById('folderChevron');
+            panel.classList.toggle('collapsed');
+            if (panel.classList.contains('collapsed')) {
+                chevron.style.transform = 'rotate(-90deg)';
+                localStorage.setItem('folderPanelOpen', 'false');
+            } else {
+                chevron.style.transform = '';
+                localStorage.setItem('folderPanelOpen', 'true');
+            }
         }
 
         function showCreateFolderInput() {
@@ -797,29 +802,7 @@
         }
 
         function renderFolders() {
-            const container = document.getElementById('folderList');
-            if (folders.length === 0) {
-                container.innerHTML = '<p class="text-xs text-gray-400 dark:text-gray-500 px-3 py-2">No topics yet. Click + to create one.</p>';
-                return;
-            }
-            container.innerHTML = folders.map(f => `
-                <div class="folder-item px-3 py-2 flex items-center justify-between group ${activeFolderId === f.id ? 'active' : ''}" 
-                     onclick="selectFolder(${f.id}, '${f.name.replace(/'/g, "\\'")}')">
-                    <div class="flex items-center gap-2 min-w-0">
-                        <svg class="w-4 h-4 text-yellow-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-                        <span class="text-sm text-gray-700 dark:text-gray-300 truncate">${f.name}</span>
-                        <span class="text-xs text-gray-400">(${f.conversation_count})</span>
-                    </div>
-                    <div class="hidden group-hover:flex items-center gap-1 flex-shrink-0">
-                        <button onclick="event.stopPropagation(); renameFolder(${f.id}, '${f.name.replace(/'/g, "\\'")}')" class="text-gray-400 hover:text-blue-500 text-xs" title="Rename">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                        </button>
-                        <button onclick="event.stopPropagation(); deleteFolder(${f.id}, '${f.name.replace(/'/g, "\\'")}')" class="text-gray-400 hover:text-red-500 text-xs" title="Delete">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+            renderFolderConversations();
         }
 
         async function selectFolder(folderId, folderName) {
@@ -858,26 +841,40 @@
 
         async function renderFolderConversations() {
             if (!token) return;
-            const container = document.getElementById('folderList');
-            let html = folders.map(f => `
-                <div class="folder-item px-3 py-2 flex items-center justify-between group ${activeFolderId === f.id ? 'active' : ''}" 
-                     onclick="selectFolder(${f.id}, '${f.name.replace(/'/g, "\\'")}')">
-                    <div class="flex items-center gap-2 min-w-0">
-                        <svg class="w-4 h-4 text-yellow-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-                        <span class="text-sm text-gray-700 dark:text-gray-300 truncate">${f.name}</span>
-                        <span class="text-xs text-gray-400">(${f.conversation_count})</span>
-                    </div>
-                    <div class="hidden group-hover:flex items-center gap-1 flex-shrink-0">
-                        <button onclick="event.stopPropagation(); renameFolder(${f.id}, '${f.name.replace(/'/g, "\\'")}')" class="text-gray-400 hover:text-blue-500 text-xs" title="Rename">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                        </button>
-                        <button onclick="event.stopPropagation(); deleteFolder(${f.id}, '${f.name.replace(/'/g, "\\'")}')" class="text-gray-400 hover:text-red-500 text-xs" title="Delete">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+            const folderContainer = document.getElementById('folderList');
+            const convContainer = document.getElementById('conversationList');
+            const allBtn = document.getElementById('allConvBtn');
 
+            if (allBtn) {
+                if (!activeFolderId) {
+                    allBtn.classList.add('active');
+                } else {
+                    allBtn.classList.remove('active');
+                }
+            }
+
+            let folderHtml = '';
+            if (folders.length === 0) {
+                folderHtml = '<p class="text-xs text-gray-400 dark:text-gray-500 py-1">No topics yet. Click "+ Topic" to create one.</p>';
+            } else {
+                folderHtml = '<div class="flex flex-wrap gap-1">' + folders.map(f => `
+                    <div class="folder-item px-2 py-1 text-xs rounded flex items-center gap-1 group ${activeFolderId === f.id ? 'active' : ''}" 
+                         onclick="selectFolder(${f.id}, '${f.name.replace(/'/g, "\\'")}')">
+                        <svg class="w-3.5 h-3.5 text-yellow-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                        <span class="text-gray-700 dark:text-gray-300 truncate" style="max-width: 120px;">${f.name}</span>
+                        <span class="text-gray-400">${f.conversation_count}</span>
+                        <button onclick="event.stopPropagation(); renameFolder(${f.id}, '${f.name.replace(/'/g, "\\'")}')" class="hidden group-hover:inline text-gray-400 hover:text-blue-500 ml-0.5" title="Rename">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                        </button>
+                        <button onclick="event.stopPropagation(); deleteFolder(${f.id}, '${f.name.replace(/'/g, "\\'")}')" class="hidden group-hover:inline text-gray-400 hover:text-red-500" title="Delete">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                `).join('') + '</div>';
+            }
+            folderContainer.innerHTML = folderHtml;
+
+            let convHtml = '';
             try {
                 let convs = [];
                 if (activeFolderId) {
@@ -892,19 +889,18 @@
                     if (res.ok) convs = await res.json();
                 }
                 if (convs.length > 0) {
-                    html += '<div class="px-3 pt-2 pb-1"><span class="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wide">Conversations</span></div>';
-                    html += convs.map(c => `
-                        <div class="conv-item px-3 py-1.5 pl-5 ${chatSessionId === c.session_id ? 'active' : ''}"
+                    convHtml = '<div class="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-1">Recent Conversations</div>';
+                    convHtml += convs.map(c => `
+                        <div class="conv-item px-2 py-1 ${chatSessionId === c.session_id ? 'active' : ''}"
                              onclick="loadConversation('${c.session_id}')">
                             <p class="text-xs text-gray-600 dark:text-gray-400 truncate">${c.preview}</p>
-                            <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">${c.last_active ? new Date(c.last_active).toLocaleDateString() : ''}</p>
                         </div>
                     `).join('');
                 }
             } catch (err) {
                 console.error('Error loading conversations:', err);
             }
-            container.innerHTML = html;
+            convContainer.innerHTML = convHtml;
         }
 
         async function loadConversation(sessionId) {
@@ -1241,9 +1237,10 @@
             documentsPanel.style.width = savedWidth + 'px';
         }
 
-        // Restore folder sidebar state (open by default)
-        if (localStorage.getItem('folderSidebarOpen') === 'false') {
-            document.getElementById('folderSidebar').classList.add('collapsed');
+        // Restore folder panel state (open by default)
+        if (localStorage.getItem('folderPanelOpen') === 'false') {
+            document.getElementById('folderPanel').classList.add('collapsed');
+            document.getElementById('folderChevron').style.transform = 'rotate(-90deg)';
         }
         updateActiveFolderLabel();
 
