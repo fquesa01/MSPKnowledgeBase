@@ -54,11 +54,13 @@ class Token(BaseModel):
 
 class ChatRequest(BaseModel):
     query: str
+    session_id: str = None
 
 class ChatResponse(BaseModel):
     answer: str
     sources: List[dict]
     thinking: str
+    session_id: str = ""
 
 class DocumentResponse(BaseModel):
     id: int
@@ -769,9 +771,24 @@ async def analyze_pleading_upload(
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    import uuid
     username = await get_current_user(token)
     result = await db.execute(select(User).where(User.username == username))
     user = result.scalar_one_or_none()
+    
+    session_id = request.session_id or str(uuid.uuid4())
+    
+    # Load conversation history for this session
+    conversation_history = []
+    if user and request.session_id:
+        history_result = await db.execute(
+            select(ChatHistory)
+            .where(ChatHistory.user_id == user.id, ChatHistory.session_id == session_id)
+            .order_by(ChatHistory.created_at.asc())
+        )
+        history_rows = history_result.scalars().all()
+        for row in history_rows:
+            conversation_history.append({"role": row.role, "content": row.content})
     
     # Load all document indexes
     result = await db.execute(select(Document).where(Document.status == "ready"))
@@ -786,21 +803,86 @@ async def chat(request: ChatRequest, token: str = Depends(oauth2_scheme), db: As
                 tree["_doc_name"] = doc.original_filename
                 indexes.append(tree)
     
-    # Search and answer
-    result = await search_and_answer(request.query, indexes)
+    # Search and answer with conversation context
+    result = await search_and_answer(request.query, indexes, conversation_history)
     
-    # Save chat history
+    # Save user message and assistant response to chat history
     if user:
-        chat = ChatHistory(
+        user_msg = ChatHistory(
             user_id=user.id,
-            query=request.query,
-            response=result["answer"],
-            retrieved_nodes=json.dumps(result["sources"])
+            session_id=session_id,
+            role="user",
+            content=request.query
         )
-        db.add(chat)
+        assistant_msg = ChatHistory(
+            user_id=user.id,
+            session_id=session_id,
+            role="assistant",
+            content=result["answer"],
+            sources_json=json.dumps(result["sources"])
+        )
+        db.add(user_msg)
+        db.add(assistant_msg)
         await db.commit()
     
+    result["session_id"] = session_id
     return ChatResponse(**result)
+
+@app.get("/api/chat/history")
+async def get_chat_history(session_id: str, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    """Get chat history for a session."""
+    username = await get_current_user(token)
+    result = await db.execute(select(User).where(User.username == username))
+    user = result.scalar_one_or_none()
+    if not user:
+        return []
+    
+    result = await db.execute(
+        select(ChatHistory)
+        .where(ChatHistory.user_id == user.id, ChatHistory.session_id == session_id)
+        .order_by(ChatHistory.created_at.asc())
+    )
+    messages = result.scalars().all()
+    return [
+        {
+            "role": m.role,
+            "content": m.content,
+            "sources": json.loads(m.sources_json) if m.sources_json else [],
+            "created_at": m.created_at.isoformat() if m.created_at else None
+        }
+        for m in messages
+    ]
+
+@app.get("/api/chat/sessions")
+async def get_chat_sessions(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    """Get list of recent chat sessions."""
+    from sqlalchemy import func, distinct
+    username = await get_current_user(token)
+    result = await db.execute(select(User).where(User.username == username))
+    user = result.scalar_one_or_none()
+    if not user:
+        return []
+    
+    result = await db.execute(
+        select(
+            ChatHistory.session_id,
+            func.min(ChatHistory.content).label("first_message"),
+            func.max(ChatHistory.created_at).label("last_active")
+        )
+        .where(ChatHistory.user_id == user.id, ChatHistory.role == "user")
+        .group_by(ChatHistory.session_id)
+        .order_by(func.max(ChatHistory.created_at).desc())
+        .limit(20)
+    )
+    sessions = result.all()
+    return [
+        {
+            "session_id": s.session_id,
+            "preview": s.first_message[:80] if s.first_message else "New conversation",
+            "last_active": s.last_active.isoformat() if s.last_active else None
+        }
+        for s in sessions
+    ]
 
 @app.get("/api/search")
 async def search(q: str, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):

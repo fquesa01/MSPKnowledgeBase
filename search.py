@@ -221,9 +221,10 @@ Return ONLY valid JSON."""
 async def generate_answer(
     query: str, 
     context: str, 
-    sources: List[Dict[str, Any]]
+    sources: List[Dict[str, Any]],
+    conversation_history: List[Dict[str, str]] = None
 ) -> str:
-    """Generate an answer based on retrieved context."""
+    """Generate an answer based on retrieved context and conversation history."""
     client = openai.AsyncOpenAI(api_key=settings.openai_api_key)
     
     source_info = "\n".join([
@@ -231,26 +232,32 @@ async def generate_answer(
         for s in sources[:10]
     ])
     
-    prompt = f"""Answer the user's question based on the following context from our knowledge base.
+    system_prompt = f"""You are a legal knowledge base assistant. Answer questions based on the provided context from the knowledge base.
 
-Question: {query}
+Instructions:
+- Provide a clear, comprehensive answer based on the context
+- Reference specific documents or sections when relevant (format: Document Name: Section Title)
+- If the context doesn't fully answer the question, acknowledge what's missing
+- Be direct and informative
+- When the user refers to previous questions or says things like "that case", "this matter", "the same document", etc., use the conversation history to understand what they're referring to
 
 Retrieved Context:
 {context[:20000]}
 
 Sources:
-{source_info}
+{source_info}"""
 
-Instructions:
-- Provide a clear, comprehensive answer based on the context
-- Reference specific documents or sections when relevant
-- If the context doesn't fully answer the question, acknowledge what's missing
-- Be direct and informative
-"""
+    messages = [{"role": "system", "content": system_prompt}]
+    
+    if conversation_history:
+        for msg in conversation_history[-10:]:
+            messages.append({"role": msg["role"], "content": msg["content"]})
+    
+    messages.append({"role": "user", "content": query})
 
     response = await client.chat.completions.create(
         model=settings.openai_model,
-        messages=[{"role": "user", "content": prompt}],
+        messages=messages,
         temperature=0.1
     )
     
@@ -259,7 +266,8 @@ Instructions:
 
 async def search_and_answer(
     query: str, 
-    document_indexes: List[Dict[str, Any]]
+    document_indexes: List[Dict[str, Any]],
+    conversation_history: List[Dict[str, str]] = None
 ) -> Dict[str, Any]:
     """
     Full RAG pipeline optimized for large document collections.
@@ -328,7 +336,7 @@ async def search_and_answer(
         context = "\n\n---\n\n".join(context_parts) if context_parts else "No specific content retrieved."
         
         # Generate answer
-        answer = await generate_answer(query, context, sources)
+        answer = await generate_answer(query, context, sources, conversation_history)
         
         # Compile thinking/reasoning
         thinking_parts = [r.get("reasoning", "") for r in search_results if r.get("reasoning")]

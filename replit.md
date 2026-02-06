@@ -4,6 +4,7 @@
 A FastAPI-based document management system that allows users to upload documents (PDF, Word, Excel, PowerPoint), processes them to create searchable indexes using OpenAI, and enables users to ask questions about the document content.
 
 ## Recent Changes
+- **Feb 6, 2026**: Added conversation memory - AI remembers previous questions/answers in the same conversation session, enabling follow-up questions like "in that case" or "tell me more about that"
 - **Feb 5, 2026**: Added Pleading Analysis feature - analyze court pleadings to extract legal issues and find supporting/contradicting evidence from knowledge base
 - **Feb 5, 2026**: Added background worker to automatically process pending documents on server restart
 - **Feb 5, 2026**: Added resizable panel divider between Documents and Ask Questions sections
