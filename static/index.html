@@ -163,7 +163,7 @@
                     <!-- Ask Questions Tab Content -->
                     <div id="askQuestionsContent" class="flex-1 flex overflow-hidden">
                         <!-- Folder Sidebar -->
-                        <div id="folderSidebar" class="folder-sidebar flex flex-col bg-gray-50 dark:bg-gray-850 overflow-hidden collapsed">
+                        <div id="folderSidebar" class="folder-sidebar flex flex-col bg-gray-50 dark:bg-gray-850 overflow-hidden">
                             <div class="p-3 border-b dark:border-gray-700 flex items-center justify-between">
                                 <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Topics</span>
                                 <button onclick="showCreateFolderInput()" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-lg leading-none" title="New Topic">+</button>
@@ -1241,9 +1241,9 @@
             documentsPanel.style.width = savedWidth + 'px';
         }
 
-        // Restore folder sidebar state
-        if (localStorage.getItem('folderSidebarOpen') === 'true') {
-            document.getElementById('folderSidebar').classList.remove('collapsed');
+        // Restore folder sidebar state (open by default)
+        if (localStorage.getItem('folderSidebarOpen') === 'false') {
+            document.getElementById('folderSidebar').classList.add('collapsed');
         }
         updateActiveFolderLabel();
 
@@ -1252,9 +1252,7 @@
             hideAuth();
             document.getElementById('userDisplay').textContent = localStorage.getItem('username') || 'User';
             loadDocuments();
-            loadFolders().then(() => {
-                if (activeFolderId) renderFolderConversations();
-            });
+            loadFolders().then(() => renderFolderConversations());
             loadChatHistory();
         } else {
             showAuth();
