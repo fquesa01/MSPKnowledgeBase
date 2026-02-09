@@ -66,6 +66,10 @@
         .conv-item.active { background: rgba(59,130,246,0.12); }
         .dark .conv-item:hover { background: rgba(59,130,246,0.1); }
         .dark .conv-item.active { background: rgba(59,130,246,0.2); }
+        .doc-filter-btn { cursor: pointer; transition: all 0.15s; }
+        .doc-filter-btn:hover { background: rgba(59,130,246,0.1); }
+        .doc-filter-btn.active { background: rgba(59,130,246,0.15); border-color: rgb(59,130,246); color: rgb(59,130,246); }
+        .dark .doc-filter-btn.active { background: rgba(59,130,246,0.25); border-color: rgb(96,165,250); color: rgb(96,165,250); }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-200">
@@ -128,19 +132,32 @@
                 <div id="documentsPanel" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 order-2 lg:order-1 flex-shrink-0" style="width: 350px; min-width: 250px; max-width: 600px;">
                     <h2 class="text-lg font-semibold mb-4 dark:text-white">Documents</h2>
                     
+                    <!-- Folder selector for upload -->
+                    <div class="mb-2 flex items-center gap-2">
+                        <select id="docFolderSelect" class="flex-1 px-2 py-1.5 text-sm border dark:border-gray-600 rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <option value="">General (No folder)</option>
+                        </select>
+                        <button onclick="promptNewDocFolder()" class="text-xs bg-green-600 text-white px-2 py-1.5 rounded hover:bg-green-700 whitespace-nowrap">+ Folder</button>
+                    </div>
+                    
                     <!-- Upload -->
-                    <div class="mb-6">
+                    <div class="mb-4">
                         <label class="block w-full cursor-pointer">
-                            <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center hover:border-blue-500 transition">
-                                <p class="text-gray-500 dark:text-gray-400">Click to upload (up to 100 files)</p>
-                                <p class="text-sm text-gray-400 dark:text-gray-500">PDF, Word, Excel, PowerPoint (max 1GB each)</p>
+                            <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-3 text-center hover:border-blue-500 transition">
+                                <p class="text-gray-500 dark:text-gray-400 text-sm">Click to upload (up to 100 files)</p>
+                                <p class="text-xs text-gray-400 dark:text-gray-500">PDF, Word, Excel, PowerPoint (max 1GB each)</p>
                             </div>
                             <input type="file" id="fileInput" accept=".pdf,.docx,.xlsx,.pptx" class="hidden" multiple>
                         </label>
                     </div>
+
+                    <!-- Document filter tabs -->
+                    <div class="mb-2 flex items-center gap-1 flex-wrap" id="docFilterTabs">
+                        <button onclick="filterDocsByFolder(null)" class="doc-filter-btn active text-xs px-2 py-1 rounded border dark:border-gray-600" data-folder="">All</button>
+                    </div>
                     
                     <!-- Document List -->
-                    <div id="documentList" class="space-y-2 max-h-96 overflow-y-auto">
+                    <div id="documentList" class="space-y-2 overflow-y-auto" style="max-height: calc(100% - 200px);">
                         <p class="text-gray-500 dark:text-gray-400 text-sm">No documents yet</p>
                     </div>
                 </div>
@@ -341,22 +358,72 @@
         }
 
         // Document functions
+        let allDocuments = [];
+        let docFilterFolderId = null;
+
         async function loadDocuments() {
             try {
                 const res = await fetch(`${API_BASE}/api/documents`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                const docs = await res.json();
-                renderDocuments(docs);
+                allDocuments = await res.json();
+                updateDocFolderSelect();
+                updateDocFilterTabs();
+                renderDocuments();
             } catch (err) {
                 console.error(err);
             }
         }
 
-        function renderDocuments(docs) {
+        function updateDocFolderSelect() {
+            const select = document.getElementById('docFolderSelect');
+            const currentVal = select.value;
+            let html = '<option value="">General (No folder)</option>';
+            if (folders && folders.length > 0) {
+                folders.forEach(f => {
+                    html += `<option value="${f.id}">${f.name}</option>`;
+                });
+            }
+            select.innerHTML = html;
+            if (currentVal) select.value = currentVal;
+        }
+
+        function updateDocFilterTabs() {
+            const container = document.getElementById('docFilterTabs');
+            const folderNames = {};
+            allDocuments.forEach(d => {
+                if (d.folder_id && d.folder_name) {
+                    folderNames[d.folder_id] = d.folder_name;
+                }
+            });
+            if (folders) {
+                folders.forEach(f => { folderNames[f.id] = f.name; });
+            }
+            let html = `<button onclick="filterDocsByFolder(null)" class="doc-filter-btn ${docFilterFolderId === null ? 'active' : ''} text-xs px-2 py-1 rounded border dark:border-gray-600">All</button>`;
+            html += `<button onclick="filterDocsByFolder('unfiled')" class="doc-filter-btn ${docFilterFolderId === 'unfiled' ? 'active' : ''} text-xs px-2 py-1 rounded border dark:border-gray-600">General</button>`;
+            Object.entries(folderNames).forEach(([id, name]) => {
+                html += `<button onclick="filterDocsByFolder(${id})" class="doc-filter-btn ${docFilterFolderId == id ? 'active' : ''} text-xs px-2 py-1 rounded border dark:border-gray-600">${name}</button>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function filterDocsByFolder(folderId) {
+            docFilterFolderId = folderId;
+            updateDocFilterTabs();
+            renderDocuments();
+        }
+
+        function renderDocuments() {
             const list = document.getElementById('documentList');
+            let docs = allDocuments;
+            if (docFilterFolderId === 'unfiled') {
+                docs = docs.filter(d => !d.folder_id);
+            } else if (docFilterFolderId !== null) {
+                docs = docs.filter(d => d.folder_id == docFilterFolderId);
+            }
+
             if (docs.length === 0) {
-                list.innerHTML = '<p class="text-gray-500 text-sm">No documents yet</p>';
+                list.innerHTML = '<p class="text-gray-500 text-sm">No documents' + (docFilterFolderId ? ' in this folder' : ' yet') + '</p>';
                 return;
             }
             
@@ -366,6 +433,9 @@
             }
             
             list.innerHTML = docs.map(doc => {
+                const folderBadge = doc.folder_name 
+                    ? `<span class="text-xs bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 px-1.5 py-0.5 rounded">${doc.folder_name}</span>` 
+                    : '';
                 const statusDisplay = doc.status === 'processing' 
                     ? `<div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 mt-1">
                          <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: ${doc.progress}%"></div>
@@ -387,12 +457,33 @@
                 return `
                 <div class="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded ${clickable}" ${clickHandler}>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium truncate dark:text-white">${doc.original_filename}</p>
-                        ${statusDisplay}
+                        <div class="flex items-center gap-1.5">
+                            <p class="text-sm font-medium truncate dark:text-white">${doc.original_filename}</p>
+                        </div>
+                        <div class="flex items-center gap-1 mt-0.5">${folderBadge}${statusDisplay}</div>
                     </div>
                     <button onclick="event.stopPropagation(); deleteDocument(${doc.id})" class="text-red-500 hover:text-red-700 ml-2 text-lg">×</button>
                 </div>`;
             }).join('');
+        }
+
+        async function promptNewDocFolder() {
+            const name = prompt('Enter folder name:');
+            if (!name || !name.trim()) return;
+            try {
+                const res = await fetch(`${API_BASE}/api/folders`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name.trim() })
+                });
+                if (!res.ok) throw new Error('Failed to create folder');
+                const folder = await res.json();
+                await loadFolders();
+                updateDocFolderSelect();
+                document.getElementById('docFolderSelect').value = folder.id;
+            } catch (err) {
+                alert('Error creating folder: ' + err.message);
+            }
         }
 
         async function uploadFiles(files) {
@@ -401,7 +492,6 @@
                 return;
             }
             
-            // Show immediate feedback - display files as "Uploading..."
             const list = document.getElementById('documentList');
             const uploadingHtml = Array.from(files).map(file => `
                 <div class="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded">
@@ -420,6 +510,10 @@
             for (const file of files) {
                 formData.append('files', file);
             }
+            const selectedFolderId = document.getElementById('docFolderSelect').value;
+            if (selectedFolderId) {
+                formData.append('folder_id', selectedFolderId);
+            }
 
             try {
                 const res = await fetch(`${API_BASE}/api/documents/upload`, {
@@ -428,9 +522,7 @@
                     body: formData
                 });
                 if (res.ok) {
-                    // Immediately load documents to show real status
                     await loadDocuments();
-                    // Continue polling for processing updates
                     setTimeout(loadDocuments, 2000);
                     setTimeout(loadDocuments, 5000);
                     setTimeout(loadDocuments, 10000);
@@ -589,9 +681,12 @@
                     return acc;
                 }, []);
                 
-                const sourceLinks = uniqueSources.map(s => 
-                    `<a href="#" onclick="previewDocumentById(${s.doc_id}, '${escape(s.doc_name || s.title)}')" class="text-blue-600 dark:text-blue-400 hover:underline">${escapeHtml(s.doc_name || s.title)}</a>`
-                ).join(', ');
+                const sourceLinks = uniqueSources.map(s => {
+                    const folderBadge = s.folder_name 
+                        ? `<span class="text-xs bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 px-1 py-0.5 rounded ml-1">${escapeHtml(s.folder_name)}</span>` 
+                        : '';
+                    return `<a href="#" onclick="previewDocumentById(${s.doc_id}, '${escape(s.doc_name || s.title)}')" class="text-blue-600 dark:text-blue-400 hover:underline">${escapeHtml(s.doc_name || s.title)}</a>${folderBadge}`;
+                }).join(', ');
                 
                 html += `
                     <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">

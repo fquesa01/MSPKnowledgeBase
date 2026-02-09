@@ -31,10 +31,12 @@ class Document(Base):
     progress = Column(Integer, default=0)  # 0-100 percentage
     error_message = Column(Text, nullable=True)
     uploaded_by_id = Column(Integer, ForeignKey("users.id"))
+    folder_id = Column(Integer, ForeignKey("topic_folders.id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     uploaded_by = relationship("User", back_populates="documents")
+    folder = relationship("TopicFolder", backref="documents")
 
 class TopicFolder(Base):
     __tablename__ = "topic_folders"

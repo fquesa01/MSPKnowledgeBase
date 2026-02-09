@@ -77,6 +77,8 @@ class DocumentResponse(BaseModel):
     status: str
     progress: int
     error_message: Optional[str] = None
+    folder_id: Optional[int] = None
+    folder_name: Optional[str] = None
     created_at: str
 
 # Database dependency
@@ -214,6 +216,7 @@ async def process_document_task(doc_id: int):
 async def upload_documents(
     background_tasks: BackgroundTasks,
     files: List[UploadFile] = File(...),
+    folder_id: Optional[int] = Form(None),
     token: str = Depends(oauth2_scheme),
     db: AsyncSession = Depends(get_db)
 ):
@@ -226,15 +229,24 @@ async def upload_documents(
     if len(files) > 100:
         raise HTTPException(status_code=400, detail="Maximum 100 files allowed per upload")
     
+    resolved_folder_id = None
+    folder_name = None
+    if folder_id:
+        folder_result = await db.execute(
+            select(TopicFolder).where(TopicFolder.id == folder_id, TopicFolder.user_id == user.id)
+        )
+        folder = folder_result.scalar_one_or_none()
+        if folder:
+            resolved_folder_id = folder.id
+            folder_name = folder.name
+    
     uploaded_docs = []
     
     for file in files:
-        # Validate file type
         ext = file.filename.split(".")[-1].lower()
         if ext not in ["pdf", "docx", "xlsx", "pptx"]:
             continue
         
-        # Save file with streaming for large files
         filename = f"{uuid.uuid4()}.{ext}"
         file_path = os.path.join(settings.upload_dir, filename)
         
@@ -242,19 +254,18 @@ async def upload_documents(
             while chunk := await file.read(1024 * 1024):
                 f.write(chunk)
         
-        # Create document record
         doc = Document(
             filename=filename,
             original_filename=file.filename,
             file_type=ext,
             file_path=file_path,
-            uploaded_by_id=user.id
+            uploaded_by_id=user.id,
+            folder_id=resolved_folder_id
         )
         db.add(doc)
         await db.commit()
         await db.refresh(doc)
         
-        # Process in background
         background_tasks.add_task(process_document_task, doc.id)
         
         uploaded_docs.append(DocumentResponse(
@@ -265,15 +276,42 @@ async def upload_documents(
             status=doc.status,
             progress=doc.progress or 0,
             error_message=doc.error_message,
+            folder_id=resolved_folder_id,
+            folder_name=folder_name,
             created_at=doc.created_at.isoformat()
         ))
     
     return uploaded_docs
 
+@app.put("/api/documents/{doc_id}/folder")
+async def move_document_to_folder(doc_id: int, folder_id: Optional[int] = None, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    username = await get_current_user(token)
+    result = await db.execute(select(User).where(User.username == username))
+    user = result.scalar_one_or_none()
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    
+    result = await db.execute(select(Document).where(Document.id == doc_id, Document.uploaded_by_id == user.id))
+    doc = result.scalar_one_or_none()
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+    
+    if folder_id:
+        folder_result = await db.execute(
+            select(TopicFolder).where(TopicFolder.id == folder_id, TopicFolder.user_id == user.id)
+        )
+        if not folder_result.scalar_one_or_none():
+            raise HTTPException(status_code=404, detail="Folder not found")
+    
+    doc.folder_id = folder_id
+    await db.commit()
+    return {"ok": True}
+
 @app.get("/api/documents", response_model=List[DocumentResponse])
 async def list_documents(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
     await get_current_user(token)
-    result = await db.execute(select(Document).order_by(Document.created_at.desc()))
+    from sqlalchemy.orm import selectinload
+    result = await db.execute(select(Document).options(selectinload(Document.folder)).order_by(Document.created_at.desc()))
     docs = result.scalars().all()
     return [
         DocumentResponse(
@@ -284,6 +322,8 @@ async def list_documents(token: str = Depends(oauth2_scheme), db: AsyncSession =
             status=d.status,
             progress=d.progress or 0,
             error_message=d.error_message,
+            folder_id=d.folder_id,
+            folder_name=d.folder.name if d.folder else None,
             created_at=d.created_at.isoformat()
         ) for d in docs
     ]
@@ -917,8 +957,9 @@ async def chat(request: ChatRequest, token: str = Depends(oauth2_scheme), db: As
         for row in history_rows:
             conversation_history.append({"role": row.role, "content": row.content})
     
-    # Load all document indexes
-    result = await db.execute(select(Document).where(Document.status == "ready"))
+    # Load all document indexes with folder info
+    from sqlalchemy.orm import selectinload
+    result = await db.execute(select(Document).options(selectinload(Document.folder)).where(Document.status == "ready"))
     docs = result.scalars().all()
     
     indexes = []
@@ -928,6 +969,7 @@ async def chat(request: ChatRequest, token: str = Depends(oauth2_scheme), db: As
                 tree = json.load(f)
                 tree["_doc_id"] = doc.id
                 tree["_doc_name"] = doc.original_filename
+                tree["_folder_name"] = doc.folder.name if doc.folder else None
                 indexes.append(tree)
     
     # Search and answer with conversation context

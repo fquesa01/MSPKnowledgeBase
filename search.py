@@ -228,10 +228,25 @@ async def generate_answer(
     client = openai.AsyncOpenAI(api_key=settings.openai_api_key)
     
     source_info = "\n".join([
-        f"- {s.get('doc_name', 'Unknown')}: {s.get('title', 'Section')}"
+        f"- {s.get('doc_name', 'Unknown')}: {s.get('title', 'Section')}" + (f" [Folder: {s['folder_name']}]" if s.get('folder_name') else "")
         for s in sources[:10]
     ])
     
+    folder_names = set(s.get('folder_name') for s in sources if s.get('folder_name'))
+    folder_instruction = ""
+    if folder_names:
+        folder_instruction = f"""
+IMPORTANT - Folder-Aware Attribution:
+Documents are organized into folders/categories. When citing information, you MUST attribute it based on the folder the document belongs to. The following folders have relevant documents: {', '.join(folder_names)}.
+
+Rules for folder attribution:
+- If a document comes from a folder named like "Opposing Counsel" or similar, introduce that information as: "Opposing counsel has previously argued that..." or "In opposing counsel's arguments, they stated..."
+- If a document comes from any other named folder, mention the folder context, e.g.: "According to documents in [Folder Name], ..."
+- Documents without a folder are from the general knowledge base
+- Always clearly distinguish which folder/category each piece of information comes from
+- After providing your main answer, if there are relevant opposing counsel arguments or arguments from other specific folders, add a separate section highlighting those
+"""
+
     system_prompt = f"""You are a legal knowledge base assistant. Answer questions based on the provided context from the knowledge base.
 
 Instructions:
@@ -240,7 +255,7 @@ Instructions:
 - If the context doesn't fully answer the question, acknowledge what's missing
 - Be direct and informative
 - When the user refers to previous questions or says things like "that case", "this matter", "the same document", etc., use the conversation history to understand what they're referring to
-
+{folder_instruction}
 Retrieved Context:
 {context[:20000]}
 
@@ -297,6 +312,14 @@ async def search_and_answer(
                 "thinking": "No relevant documents found"
             }
         
+        # Build folder mapping from document indexes
+        doc_folder_map = {}
+        for tree in document_indexes:
+            doc_id = tree.get("_doc_id")
+            folder_name = tree.get("_folder_name")
+            if doc_id and folder_name:
+                doc_folder_map[doc_id] = folder_name
+
         # Extract context from relevant nodes
         all_nodes = {}
         for tree in document_indexes:
@@ -304,7 +327,8 @@ async def search_and_answer(
             for node_id, node in nodes.items():
                 all_nodes[f"{tree.get('_doc_id')}:{node_id}"] = {
                     **node,
-                    "_doc_name": tree.get("doc_name", "Unknown")
+                    "_doc_name": tree.get("doc_name", "Unknown"),
+                    "_folder_name": tree.get("_folder_name")
                 }
         
         # Gather context from search results
@@ -314,6 +338,7 @@ async def search_and_answer(
         for result in search_results:
             doc_id = result.get("doc_id")
             doc_name = result.get("doc_name")
+            folder_name = doc_folder_map.get(doc_id)
             
             for node_id in result.get("node_ids", []):
                 key = f"{doc_id}:{node_id}"
@@ -321,8 +346,11 @@ async def search_and_answer(
                     node = all_nodes[key]
                     text = node.get("text", node.get("summary", ""))
                     if text:
-                        context_parts.append(f"[{doc_name} - {node.get('title', 'Section')}]\n{text}")
-                        # Include page numbers for source references
+                        label = f"[{doc_name} - {node.get('title', 'Section')}"
+                        if folder_name:
+                            label += f" | Folder: {folder_name}"
+                        label += "]"
+                        context_parts.append(f"{label}\n{text}")
                         page_numbers = node.get("page_numbers", [])
                         sources.append({
                             "doc_id": doc_id,
@@ -330,7 +358,8 @@ async def search_and_answer(
                             "node_id": node_id,
                             "title": node.get("title", "Section"),
                             "summary": node.get("summary", "")[:200],
-                            "page_numbers": page_numbers
+                            "page_numbers": page_numbers,
+                            "folder_name": folder_name
                         })
         
         context = "\n\n---\n\n".join(context_parts) if context_parts else "No specific content retrieved."
