@@ -4,6 +4,7 @@
 A FastAPI-based document management system that allows users to upload documents (PDF, Word, Excel, PowerPoint), processes them to create searchable indexes using OpenAI, and enables users to ask questions about the document content.
 
 ## Recent Changes
+- **Feb 9, 2026**: Added folder-based document organization - documents can be uploaded into specific folders, filtered by folder, and shown with folder badges. AI search is folder-aware: sources include folder context and the AI attributes information based on folder names (e.g., "Opposing counsel has argued..." for documents in an "Opposing Counsel Arguments" folder).
 - **Feb 6, 2026**: Added Topic/Project folders - users can organize conversations into named topic folders, create/rename/delete folders, view conversations per folder, and switch between them. Folder sidebar is collapsible and state persists across sessions.
 - **Feb 6, 2026**: Added conversation memory - AI remembers previous questions/answers in the same conversation session, enabling follow-up questions like "in that case" or "tell me more about that"
 - **Feb 5, 2026**: Added Pleading Analysis feature - analyze court pleadings to extract legal issues and find supporting/contradicting evidence from knowledge base
